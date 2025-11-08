@@ -160,7 +160,19 @@ func ListEvents(dbx *sql.DB) ([]Event, error) {
 		var driverFee, spectatorFee sql.NullFloat64
 		if err := rows.Scan(&ev.ID, &ev.Title, &ev.TrackID, &ev.TrackName, &eventDateStr, &driverFee, &spectatorFee, &ev.URL, &ev.Description); err != nil { return nil, err }
 		if eventDateStr.Valid {
-			if ts, err := time.Parse("2006-01-02 15:04:05", eventDateStr.String); err == nil { ev.EventDateTime = ts }
+			// Try multiple datetime formats that SQLite might return
+			formats := []string{
+				"2006-01-02 15:04:05",
+				"2006-01-02T15:04:05Z",
+				"2006-01-02T15:04:05",
+				"2006-01-02 15:04:05Z",
+			}
+			for _, format := range formats {
+				if ts, err := time.Parse(format, eventDateStr.String); err == nil {
+					ev.EventDateTime = ts
+					break
+				}
+			}
 		}
 		if driverFee.Valid { v := driverFee.Float64; ev.DriverFee = &v }
 		if spectatorFee.Valid { v := spectatorFee.Float64; ev.SpectatorFee = &v }

@@ -4,9 +4,18 @@ async function fetchJSON(path) {
   return res.json();
 }
 
-function formatDateTime(isoLike) {
-  const d = new Date(isoLike.replace(' ', 'T') + 'Z');
-  return d.toLocaleString();
+function formatDateTime(isoString) {
+  const d = new Date(isoString);
+  if (isNaN(d.getTime())) return 'Date TBA';
+  return d.toLocaleString('en-US', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
 }
 
 async function loadEventsList() {
