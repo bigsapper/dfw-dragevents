@@ -21,23 +21,26 @@ Static website for Dallas-Fort Worth drag racing events. Data is managed locally
 - `go run ./cmd db seed` — insert sample tracks and events
 - `go run ./cmd export` — write JSON to `../site/data/`
 
-## S3 Hosting
-- Bucket name: dfw-dragevents.com
-- Index document: index.html
-- Error document: 404.html
+## AWS Deployment
 
-Public policy example (adjust as needed):
+### Quick Deploy (PowerShell)
+```powershell
+cd tools\aws
+.\deploy.ps1
 ```
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::dfw-dragevents.com/*"
-    }
-  ]
-}
+
+### Documentation
+- **[AWS Deployment Guide](docs/AWS_DEPLOYMENT.md)** - Complete deployment guide (CLI + script)
+- **[AWS Console Guide](docs/AWS_CONSOLE_GUIDE.md)** - Step-by-step UI instructions
+
+### Manual Deploy
+```powershell
+# Export data
+cd tools
+go run ./cmd export
+
+# Upload to S3
+aws s3 sync ../site/ s3://dfw-dragevents.com/ --delete
 ```
+
+See documentation for CloudFront + HTTPS setup.
