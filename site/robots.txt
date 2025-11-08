@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dfw-dragevents.com/sitemap.xml

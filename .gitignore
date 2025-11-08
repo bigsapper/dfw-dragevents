@@ -1,0 +1,43 @@
+# SQLite database
+tools/db/db.sqlite
+tools/db/db.sqlite-journal
+tools/db/db.sqlite-wal
+*.db
+*.sqlite
+*.sqlite3
+
+# Go build artifacts
+tools/cmd/cmd
+tools/cmd/cmd.exe
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Go test and coverage
+*.test
+*.out
+coverage.txt
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.log
+
+# Node modules (if you add any tooling later)
+node_modules/
+package-lock.json
+
+# Exported data (optional - uncomment if you don't want to commit JSON exports)
+# site/data/*.json
