@@ -43,4 +43,28 @@ go run ./cmd export
 aws s3 sync ../site/ s3://dfw-dragevents.com/ --delete
 ```
 
+### Updating Site Content
+
+After making changes to data or site files:
+
+```powershell
+# 1. Export updated data
+cd tools
+go run ./cmd export
+
+# 2. Deploy to S3
+cd aws
+.\deploy.ps1 -SkipBucketCreation
+
+# 3. Invalidate CloudFront cache (required for HTTPS site)
+aws cloudfront create-invalidation --distribution-id EW03K014K18UC --paths "/*"
+```
+
+**Your Distribution ID:** `EW03K014K18UC`
+
+To find your distribution ID:
+```powershell
+aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@,'dfw-dragevents.com')]].Id" --output text
+```
+
 See documentation for CloudFront + HTTPS setup.

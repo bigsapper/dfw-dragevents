@@ -41,3 +41,8 @@ package-lock.json
 
 # Exported data (optional - uncomment if you don't want to commit JSON exports)
 # site/data/*.json
+
+# AWS temporary configuration files
+tools/aws/cloudfront-config.json
+tools/aws/update-dns-cloudfront.json
+tools/aws/validation-records.json
