@@ -1,0 +1,86 @@
+[
+  {
+    "id": 2,
+    "title": "Friday Night Drags",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "event_datetime": "0001-01-01T00:00:00Z",
+    "event_driver_fee": 30,
+    "event_spectator_fee": 10,
+    "url": "https://xrpracing.com/events",
+    "description": "Test and tune night",
+    "classes": [
+      {
+        "id": 3,
+        "event_id": 2,
+        "name": "Test \u0026 Tune",
+        "rules": [
+          {
+            "id": 6,
+            "event_class_id": 3,
+            "rule": "All vehicles welcome"
+          },
+          {
+            "id": 7,
+            "event_class_id": 3,
+            "rule": "Helmet required for sub-14 second runs"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Fall Nationals",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "event_datetime": "0001-01-01T00:00:00Z",
+    "event_driver_fee": 50,
+    "event_spectator_fee": 20,
+    "url": "https://texasmotorplex.com/events",
+    "description": "NHRA fall event",
+    "classes": [
+      {
+        "id": 1,
+        "event_id": 1,
+        "name": "Pro Street",
+        "buyin_fee": 100,
+        "rules": [
+          {
+            "id": 1,
+            "event_class_id": 1,
+            "rule": "DOT street tires only"
+          },
+          {
+            "id": 2,
+            "event_class_id": 1,
+            "rule": "Maximum 10.5\" tire width"
+          },
+          {
+            "id": 3,
+            "event_class_id": 1,
+            "rule": "Full interior required"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "event_id": 1,
+        "name": "Street",
+        "buyin_fee": 50,
+        "rules": [
+          {
+            "id": 4,
+            "event_class_id": 2,
+            "rule": "Street legal vehicle"
+          },
+          {
+            "id": 5,
+            "event_class_id": 2,
+            "rule": "Valid registration and insurance"
+          }
+        ]
+      }
+    ]
+  }
+]
