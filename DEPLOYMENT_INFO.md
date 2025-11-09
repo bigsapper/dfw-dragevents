@@ -30,11 +30,11 @@ This document contains important information about your deployed infrastructure.
 - **Nameservers:** Managed by Route 53
 
 ### ACM Certificate
-- **ARN:** arn:aws:acm:us-east-1:774929270850:certificate/d84961f0-24d7-46a3-b672-1fa83816eada
 - **Region:** us-east-1 (required for CloudFront)
 - **Domains:** dfw-dragevents.com, www.dfw-dragevents.com
 - **Validation:** DNS (Route 53)
 - **Status:** Issued
+- **Note:** Certificate ARN stored locally (not in public repo)
 
 ## Quick Commands
 
@@ -55,7 +55,8 @@ aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items
 
 ### Check Certificate Status
 ```powershell
-aws acm describe-certificate --certificate-arn arn:aws:acm:us-east-1:774929270850:certificate/d84961f0-24d7-46a3-b672-1fa83816eada --region us-east-1
+# List certificates for your domain
+aws acm list-certificates --region us-east-1 --query "CertificateSummaryList[?DomainName=='dfw-dragevents.com']"
 ```
 
 ### Sync to S3
