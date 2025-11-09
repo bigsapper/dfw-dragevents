@@ -82,11 +82,21 @@ Monitor your AWS costs:
 - Certificate auto-renews via ACM
 - No sensitive data should be stored in the public S3 bucket
 
-## Backup Information
+## Backup & Disaster Recovery
 
-- **Database:** Local SQLite file at `tools/db/db.sqlite` (not in S3)
-- **Source Code:** GitHub repository
-- **Static Site:** S3 bucket (versioning not enabled)
+### Backup Strategy
+- **Primary Source of Truth:** GitHub repository (all code and data)
+- **Database:** Local SQLite file at `tools/db/db.sqlite` (committed to Git)
+- **Static Site:** Can be rebuilt from Git at any time via deploy script
+- **S3 Replication:** Not enabled (unnecessary - Git serves as backup)
+
+### Disaster Recovery
+If S3 or CloudFront fails:
+1. Verify GitHub repository is current
+2. Run `.\deploy.ps1` to redeploy to S3
+3. If needed, deploy to new region or provider from Git
+
+**Recovery Time:** ~5 minutes (time to run deploy script)
 
 ## Support Resources
 
