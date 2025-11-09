@@ -33,15 +33,22 @@ dfw-dragevents/
 - **Backend (tools/)** - Go CLI for database management, SQLite with migrations, exports to JSON
 - **Database** - Tracks, events (with start/end dates), event classes, and rules
 
-## Quick start
-1. Open PowerShell and navigate to tools/
-2. Run:
-   - `make test` (or `go test ./...`)
-   - `make build` (or `go build ./cmd`)
-   - `make init` (or `go run ./cmd db init`)
-   - `make seed` (or `go run ./cmd db seed`)
-   - `make export` (or `go run ./cmd export`)
-3. Start local server to test changes
+## Quick Start
+
+```powershell
+cd tools
+make test          # Run all tests
+make init          # Initialize database
+make seed          # Insert sample data
+make export        # Export to JSON
+```
+
+Then start a local server to test:
+```powershell
+cd ../site
+python -m http.server 8000
+```
+Open http://localhost:8000
 
 ## Development Workflow
 
@@ -51,7 +58,7 @@ Edit HTML, CSS, JS, or update data in SQLite
 ### 2. Export Data (if database changed)
 ```powershell
 cd tools
-go run ./cmd export
+make export
 ```
 
 ### 3. Test Locally
@@ -82,28 +89,27 @@ git push origin main
 
 ## Build and Test
 
-### Using Make (Recommended)
+### Make Commands
 ```powershell
 cd tools
 make test          # Run all tests
 make build         # Build the CLI tool
 make check         # Run fmt, lint, and test
-make full-workflow # Clean DB, init, seed, export
+make init          # Initialize database with migrations
+make seed          # Insert sample tracks and events
+make export        # Export data to JSON
+make full-workflow # Complete workflow (clean, init, seed, export)
 make help          # Show all available commands
 ```
 
-### Manual Commands
-- `go test ./...` — run all tests
-- `go test ./... -v` — run tests with verbose output
-- `go test -coverprofile=coverage.out ./...` — run tests with coverage
-- `go build ./cmd` — build the CLI tool
-- `go fmt ./...` — format code
-- `go vet ./...` — run linter
-
-## Commands
-- `make init` (or `go run ./cmd db init`) — create `db/db.sqlite` and apply migrations
-- `make seed` (or `go run ./cmd db seed`) — insert sample tracks and events
-- `make export` (or `go run ./cmd export`) — write JSON to `../site/data/`
+### Manual Commands (without Make)
+```powershell
+go test ./...                              # Run tests
+go build ./cmd                             # Build CLI
+go run ./cmd db init                       # Initialize database
+go run ./cmd db seed                       # Seed data
+go run ./cmd export                        # Export to JSON
+```
 
 ## AWS Deployment
 

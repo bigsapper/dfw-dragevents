@@ -20,8 +20,8 @@ Successfully added start and end date functionality to the event entity, with co
 
 - **Seed Data** (`tools/internal/db/db.go`):
   - Updated sample events to include end dates
-  - Fall Nationals: 3-day event (start +7 days, end +9 days)
-  - Friday Night Drags: single evening (start 6pm, end 11pm)
+  - Fall Nationals: October 3-12, 2025 (10-day event)
+  - Friday Night Drags: October 24, 2025, 6:00 PM - 11:00 PM
 
 ### 3. Frontend Changes
 - **JSON Data** (`site/data/events.json`):

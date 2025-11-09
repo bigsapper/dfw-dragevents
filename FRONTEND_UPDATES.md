@@ -50,10 +50,10 @@ Date: Nov 15 - Nov 17, 2025
 ## Testing
 
 To test the changes:
-1. Export the data: `cd tools && .\build.ps1 export`
-2. Start a local server: `cd ..\site && python -m http.server 8000`
+1. Export the data: `cd tools && make export`
+2. Start a local server: `cd ../site && python -m http.server 8000`
 3. Open http://localhost:8000
-4. Check:
+4. Verify:
    - Events list page shows date ranges
    - Event detail page shows date ranges
    - Single-day events show single date
