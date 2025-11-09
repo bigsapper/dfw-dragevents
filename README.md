@@ -7,17 +7,40 @@ Static website for Dallas-Fort Worth drag racing events. Data is managed locally
 **Open Source:** This project is open source under the MIT License. Contributions are welcome!
 
 ## Structure
-- site/
-  - Static HTML with Bootstrap, reads JSON from `site/data/`
-- tools/
-  - Go CLI for DB init/seed/export using SQLite (pure Go driver)
+
+```
+dfw-dragevents/
+├── site/              # Static website (HTML/CSS/JS)
+│   ├── *.html        # Pages (index, events, event, about)
+│   ├── assets/       # CSS and JavaScript
+│   └── data/         # JSON files (generated from database)
+│
+├── tools/            # Go CLI for data management
+│   ├── cmd/          # CLI entry point
+│   ├── internal/     # Database and export logic
+│   ├── db/           # SQLite database and migrations
+│   └── Makefile      # Build automation
+│
+├── docs/             # AWS deployment guides
+├── CHANGES.md        # Recent changes log
+├── FRONTEND_UPDATES.md  # Frontend update notes
+└── README.md         # This file
+```
+
+### Key Components
+
+- **Frontend (site/)** - Static HTML/CSS/JS with Bootstrap 5, reads JSON from `site/data/`
+- **Backend (tools/)** - Go CLI for database management, SQLite with migrations, exports to JSON
+- **Database** - Tracks, events (with start/end dates), event classes, and rules
 
 ## Quick start
 1. Open PowerShell and navigate to tools/
 2. Run:
-   - `go run ./cmd db init`
-   - `go run ./cmd db seed`
-   - `go run ./cmd export`
+   - `make test` (or `go test ./...`)
+   - `make build` (or `go build ./cmd`)
+   - `make init` (or `go run ./cmd db init`)
+   - `make seed` (or `go run ./cmd db seed`)
+   - `make export` (or `go run ./cmd export`)
 3. Start local server to test changes
 
 ## Development Workflow
@@ -57,10 +80,30 @@ git commit -m "Description of changes"
 git push origin main
 ```
 
+## Build and Test
+
+### Using Make (Recommended)
+```powershell
+cd tools
+make test          # Run all tests
+make build         # Build the CLI tool
+make check         # Run fmt, lint, and test
+make full-workflow # Clean DB, init, seed, export
+make help          # Show all available commands
+```
+
+### Manual Commands
+- `go test ./...` — run all tests
+- `go test ./... -v` — run tests with verbose output
+- `go test -coverprofile=coverage.out ./...` — run tests with coverage
+- `go build ./cmd` — build the CLI tool
+- `go fmt ./...` — format code
+- `go vet ./...` — run linter
+
 ## Commands
-- `go run ./cmd db init` — create `db/db.sqlite` and apply migrations
-- `go run ./cmd db seed` — insert sample tracks and events
-- `go run ./cmd export` — write JSON to `../site/data/`
+- `make init` (or `go run ./cmd db init`) — create `db/db.sqlite` and apply migrations
+- `make seed` (or `go run ./cmd db seed`) — insert sample tracks and events
+- `make export` (or `go run ./cmd export`) — write JSON to `../site/data/`
 
 ## AWS Deployment
 

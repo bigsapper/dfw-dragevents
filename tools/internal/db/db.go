@@ -31,7 +31,8 @@ type Event struct {
 	Title           string    `json:"title"`
 	TrackID         int64     `json:"track_id"`
 	TrackName       string    `json:"track_name"`
-	EventDateTime   time.Time `json:"event_datetime"`
+	StartDate       time.Time `json:"start_date"` // DB column: event_datetime
+	EndDate         *time.Time `json:"end_date,omitempty"`
 	DriverFee       *float64  `json:"event_driver_fee,omitempty"`
 	SpectatorFee    *float64  `json:"event_spectator_fee,omitempty"`
 	URL             string    `json:"url"`
@@ -85,20 +86,20 @@ func Seed(db *sql.DB) error {
 	// Insert sample tracks
 	tracks := []Track{
 		{Name: "Texas Motorplex", City: "Ennis", Address: "7500 US-287, Ennis, TX", URL: "https://texasmotorplex.com"},
-		{Name: "Xtreme Raceway Park", City: "Ferris", Address: "1800 S Interstate 45, Ferris, TX", URL: "https://xrpracing.com"},
+		{Name: "Xtreme Raceway Park", City: "Ferris", Address: "1800 S Interstate 45, Ferris, TX", URL: "https://www.xtremeracewaypark.com"},
 	}
 	for _, t := range tracks {
 		_, err := db.Exec(`INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)`, t.Name, t.City, t.Address, t.URL)
 		if err != nil { return err }
 	}
 	// Insert sample events
-	res1, err := db.Exec(`INSERT INTO events(title, track_id, event_datetime, event_driver_fee, event_spectator_fee, url, description)
-		VALUES('Fall Nationals', 1, datetime('now','+7 days'), 50.0, 20.0, 'https://texasmotorplex.com/events', 'NHRA fall event')`)
+	res1, err := db.Exec(`INSERT INTO events(title, track_id, event_datetime, end_date, event_driver_fee, event_spectator_fee, url, description)
+		VALUES('Fall Nationals', 1, '2025-10-03 08:00:00', '2025-10-12 18:00:00', 50.0, 20.0, 'https://texasmotorplex.com/events', 'NHRA fall event')`)
 	if err != nil { return err }
 	event1ID, _ := res1.LastInsertId()
 
-	res2, err := db.Exec(`INSERT INTO events(title, track_id, event_datetime, event_driver_fee, event_spectator_fee, url, description)
-		VALUES('Friday Night Drags', 2, datetime('now','+3 days','20:00'), 30.0, 10.0, 'https://xrpracing.com/events', 'Test and tune night')`)
+	res2, err := db.Exec(`INSERT INTO events(title, track_id, event_datetime, end_date, event_driver_fee, event_spectator_fee, url, description)
+		VALUES('Friday Night Drags', 2, '2025-10-24 18:00:00', '2025-10-24 23:00:00', 30.0, 10.0, 'https://www.xtremeracewaypark.com', 'Test and tune night')`)
 	if err != nil { return err }
 	event2ID, _ := res2.LastInsertId()
 
@@ -147,7 +148,7 @@ func ListTracks(db *sql.DB) ([]Track, error) {
 }
 
 func ListEvents(dbx *sql.DB) ([]Event, error) {
-	q := `SELECT e.id, e.title, e.track_id, t.name as track_name, e.event_datetime, e.event_driver_fee, e.event_spectator_fee, e.url, e.description
+	q := `SELECT e.id, e.title, e.track_id, t.name as track_name, e.event_datetime, e.end_date, e.event_driver_fee, e.event_spectator_fee, e.url, e.description
 		FROM events e JOIN tracks t ON e.track_id = t.id
 		ORDER BY e.event_datetime`
 	rows, err := dbx.Query(q)
@@ -156,20 +157,46 @@ func ListEvents(dbx *sql.DB) ([]Event, error) {
 	var out []Event
 	for rows.Next() {
 		var ev Event
-		var eventDateStr sql.NullString
+		var eventDateStr, endDateStr sql.NullString
 		var driverFee, spectatorFee sql.NullFloat64
-		if err := rows.Scan(&ev.ID, &ev.Title, &ev.TrackID, &ev.TrackName, &eventDateStr, &driverFee, &spectatorFee, &ev.URL, &ev.Description); err != nil { return nil, err }
+		if err := rows.Scan(&ev.ID, &ev.Title, &ev.TrackID, &ev.TrackName, &eventDateStr, &endDateStr, &driverFee, &spectatorFee, &ev.URL, &ev.Description); err != nil { return nil, err }
 		if eventDateStr.Valid {
 			// Try multiple datetime formats that SQLite might return
 			formats := []string{
+				"2006-01-02 15:04:05.999999999-07:00",
+				"2006-01-02 15:04:05.999999999",
 				"2006-01-02 15:04:05",
+				"2006-01-02T15:04:05.999999999Z07:00",
+				"2006-01-02T15:04:05.999999999Z",
 				"2006-01-02T15:04:05Z",
 				"2006-01-02T15:04:05",
 				"2006-01-02 15:04:05Z",
+				time.RFC3339,
+				time.RFC3339Nano,
 			}
 			for _, format := range formats {
 				if ts, err := time.Parse(format, eventDateStr.String); err == nil {
-					ev.EventDateTime = ts
+					ev.StartDate = ts
+					break
+				}
+			}
+		}
+		if endDateStr.Valid {
+			formats := []string{
+				"2006-01-02 15:04:05.999999999-07:00",
+				"2006-01-02 15:04:05.999999999",
+				"2006-01-02 15:04:05",
+				"2006-01-02T15:04:05.999999999Z07:00",
+				"2006-01-02T15:04:05.999999999Z",
+				"2006-01-02T15:04:05Z",
+				"2006-01-02T15:04:05",
+				"2006-01-02 15:04:05Z",
+				time.RFC3339,
+				time.RFC3339Nano,
+			}
+			for _, format := range formats {
+				if ts, err := time.Parse(format, endDateStr.String); err == nil {
+					ev.EndDate = &ts
 					break
 				}
 			}

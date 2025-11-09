@@ -1,40 +1,11 @@
 [
   {
-    "id": 2,
-    "title": "Friday Night Drags",
-    "track_id": 2,
-    "track_name": "Xtreme Raceway Park",
-    "event_datetime": "2025-11-12T18:12:19Z",
-    "event_driver_fee": 30,
-    "event_spectator_fee": 10,
-    "url": "https://xrpracing.com/events",
-    "description": "Test and tune night",
-    "classes": [
-      {
-        "id": 3,
-        "event_id": 2,
-        "name": "Test \u0026 Tune",
-        "rules": [
-          {
-            "id": 6,
-            "event_class_id": 3,
-            "rule": "All vehicles welcome"
-          },
-          {
-            "id": 7,
-            "event_class_id": 3,
-            "rule": "Helmet required for sub-14 second runs"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": 1,
     "title": "Fall Nationals",
     "track_id": 1,
     "track_name": "Texas Motorplex",
-    "event_datetime": "2025-11-15T22:12:19Z",
+    "start_date": "2025-10-03T08:00:00Z",
+    "end_date": "2025-10-12T18:00:00Z",
     "event_driver_fee": 50,
     "event_spectator_fee": 20,
     "url": "https://texasmotorplex.com/events",
@@ -78,6 +49,37 @@
             "id": 5,
             "event_class_id": 2,
             "rule": "Valid registration and insurance"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Friday Night Drags",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2025-10-24T18:00:00Z",
+    "end_date": "2025-10-24T23:00:00Z",
+    "event_driver_fee": 30,
+    "event_spectator_fee": 10,
+    "url": "https://www.xtremeracewaypark.com",
+    "description": "Test and tune night",
+    "classes": [
+      {
+        "id": 3,
+        "event_id": 2,
+        "name": "Test \u0026 Tune",
+        "rules": [
+          {
+            "id": 6,
+            "event_class_id": 3,
+            "rule": "All vehicles welcome"
+          },
+          {
+            "id": 7,
+            "event_class_id": 3,
+            "rule": "Helmet required for sub-14 second runs"
           }
         ]
       }

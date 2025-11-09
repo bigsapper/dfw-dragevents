@@ -15,6 +15,41 @@ function formatDateTime(isoString) {
   });
 }
 
+function formatDateRange(startDate, endDate) {
+  if (!startDate) return 'Date TBA';
+  
+  const start = new Date(startDate);
+  if (isNaN(start.getTime())) return 'Date TBA';
+  
+  // If no end date or same day, show single date
+  if (!endDate) {
+    return formatDateTime(startDate);
+  }
+  
+  const end = new Date(endDate);
+  if (isNaN(end.getTime())) {
+    return formatDateTime(startDate);
+  }
+  
+  // Check if same day
+  if (start.toDateString() === end.toDateString()) {
+    return formatDateTime(startDate);
+  }
+  
+  // Multi-day event
+  const startStr = start.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric'
+  });
+  const endStr = end.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+  
+  return `${startStr} - ${endStr}`;
+}
+
 async function loadEventsList() {
   try {
     const [events, tracks] = await Promise.all([
@@ -33,7 +68,7 @@ async function loadEventsList() {
           <h5 class="card-title">${ev.title}</h5>
           <h6 class="card-subtitle mb-2 text-body-secondary">${mapTrack.get(ev.track_id) || ev.track_name}</h6>
           <p class="card-text">${ev.description || ''}</p>
-          <p class="card-text"><small class="text-body-secondary">${formatDateTime(ev.event_datetime)}</small></p>
+          <p class="card-text"><small class="text-body-secondary">${formatDateRange(ev.start_date, ev.end_date)}</small></p>
           <a href="event.html?id=${ev.id}" class="card-link">Details</a>
         </div>`;
       container.appendChild(card);
@@ -56,7 +91,7 @@ async function loadEventDetail() {
   const mapTrack = new Map(tracks.map(t => [t.id, t.name]));
   document.getElementById('ev-title').textContent = ev.title;
   document.getElementById('ev-track').textContent = mapTrack.get(ev.track_id) || ev.track_name;
-  document.getElementById('ev-time').textContent = formatDateTime(ev.event_datetime);
+  document.getElementById('ev-time').textContent = formatDateRange(ev.start_date, ev.end_date);
   document.getElementById('ev-desc').textContent = ev.description || '';
   
   // Display fees
