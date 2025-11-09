@@ -6,6 +6,14 @@ This document outlines the high availability strategy for dfw-dragevents.com to 
 
 ## Infrastructure Architecture
 
+### Visual Diagram (Official AWS Icons)
+
+![AWS Architecture Diagram](images/aws-architecture.svg)
+
+*Architecture diagram using official AWS Architecture Icons showing multi-region failover setup*
+
+### Architecture Details
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         User Request                            │

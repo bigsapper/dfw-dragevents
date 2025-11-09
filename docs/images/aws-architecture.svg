@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 800">
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#ffffff"/>
+  
+  <!-- Title -->
+  <text x="500" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#232F3E">
+    DFW Drag Events - AWS Infrastructure
+  </text>
+  
+  <!-- User Icon -->
+  <g id="user">
+    <circle cx="500" cy="100" r="30" fill="#232F3E"/>
+    <circle cx="500" cy="95" r="12" fill="#ffffff"/>
+    <path d="M 485 115 Q 485 105 500 105 Q 515 105 515 115 L 515 120 Q 515 125 500 125 Q 485 125 485 120 Z" fill="#ffffff"/>
+    <text x="500" y="165" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#232F3E" font-weight="600">User Request (HTTPS)</text>
+  </g>
+  
+  <!-- Arrow -->
+  <line x1="500" y1="175" x2="500" y2="220" stroke="#879196" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Route 53 -->
+  <g id="route53-box">
+    <rect x="400" y="225" width="200" height="100" rx="8" fill="#ffffff" stroke="#8C4FFF" stroke-width="2"/>
+    <image x="430" y="240" width="64" height="64" xlink:href="route53.svg"/>
+    <text x="500" y="260" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#232F3E">Route 53</text>
+    <text x="500" y="280" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#545B64">DNS Service</text>
+    <text x="500" y="298" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#879196">Global</text>
+    <text x="500" y="315" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#879196">dfw-dragevents.com</text>
+  </g>
+  
+  <!-- Arrow -->
+  <line x1="500" y1="325" x2="500" y2="370" stroke="#879196" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- CloudFront -->
+  <g id="cloudfront-box">
+    <rect x="380" y="375" width="240" height="110" rx="8" fill="#ffffff" stroke="#FF9900" stroke-width="2"/>
+    <image x="420" y="390" width="64" height="64" xlink:href="cloudfront.svg"/>
+    <text x="500" y="410" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#232F3E">CloudFront</text>
+    <text x="500" y="430" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#545B64">Content Delivery Network</text>
+    <text x="500" y="448" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#879196">Global Edge Locations</text>
+    <text x="500" y="465" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#FF9900" font-weight="600">SSL/TLS + Auto Failover</text>
+    <text x="500" y="478" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#879196">Distribution: EW03K014K18UC</text>
+  </g>
+  
+  <!-- Arrow -->
+  <line x1="500" y1="485" x2="500" y2="530" stroke="#879196" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Origin Group Container -->
+  <rect x="250" y="535" width="500" height="220" rx="8" fill="#E7F6EC" stroke="#1D8102" stroke-width="3" stroke-dasharray="10,5"/>
+  <text x="500" y="560" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1D8102">Origin Group - Automatic Failover</text>
+  
+  <!-- Primary S3 -->
+  <g id="primary-s3">
+    <rect x="270" y="580" width="200" height="155" rx="8" fill="#ffffff" stroke="#3F8624" stroke-width="2"/>
+    <image x="305" y="595" width="64" height="64" xlink:href="s3.svg"/>
+    <text x="370" y="615" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#232F3E">Primary Origin</text>
+    <text x="370" y="635" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#232F3E">S3 Bucket</text>
+    <text x="370" y="655" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#545B64">dfw-dragevents.com</text>
+    <text x="370" y="673" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#879196">us-east-1 (N. Virginia)</text>
+    <text x="370" y="690" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#545B64">Website Hosting</text>
+    <circle cx="370" cy="715" r="10" fill="#1D8102"/>
+    <text x="370" y="721" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">✓</text>
+    <text x="370" y="730" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#1D8102" font-weight="600">Active</text>
+  </g>
+  
+  <!-- Failover Arrow -->
+  <line x1="470" y1="657" x2="530" y2="657" stroke="#D13212" stroke-width="4" marker-end="url(#arrowhead-red)"/>
+  <text x="500" y="648" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#D13212">Failover</text>
+  <text x="500" y="678" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#879196">on 5xx errors</text>
+  
+  <!-- Secondary S3 -->
+  <g id="secondary-s3">
+    <rect x="530" y="580" width="200" height="155" rx="8" fill="#ffffff" stroke="#3F8624" stroke-width="2"/>
+    <image x="565" y="595" width="64" height="64" xlink:href="s3.svg"/>
+    <text x="630" y="615" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#232F3E">Secondary Origin</text>
+    <text x="630" y="635" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#232F3E">S3 Bucket</text>
+    <text x="630" y="655" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#545B64">dfw-dragevents-backup</text>
+    <text x="630" y="673" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#879196">us-west-2 (Oregon)</text>
+    <text x="630" y="690" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#545B64">Website Hosting</text>
+    <circle cx="630" cy="715" r="10" fill="#FF9900"/>
+    <rect x="625" y="710" width="10" height="10" fill="#ffffff"/>
+    <text x="630" y="730" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#FF9900" font-weight="600">Standby</text>
+  </g>
+  
+  <!-- GitHub -->
+  <g id="github">
+    <rect x="780" y="375" width="180" height="110" rx="8" fill="#ffffff" stroke="#24292e" stroke-width="2"/>
+    <circle cx="830" cy="415" r="20" fill="#24292e"/>
+    <path d="M 830 408 C 826 408 823 411 823 415 C 823 418.3 825.1 421 828 421.9 C 828.4 422 828.5 421.7 828.5 421.5 C 828.5 421.3 828.5 420.7 828.5 420 C 826.5 420.4 826 419.2 826 419.2 C 825.6 418.3 825.1 418.1 825.1 418.1 C 824.4 417.7 825.1 417.7 825.1 417.7 C 825.8 417.7 826.2 418.4 826.2 418.4 C 826.9 419.5 828 419.2 828.5 419 C 828.6 418.5 828.8 418.2 829 418 C 827.4 417.8 825.7 417.2 825.7 414.5 C 825.7 413.7 826 413 826.5 412.5 C 826.4 412.3 826.2 411.6 826.6 410.6 C 826.6 410.6 827.2 410.4 828.5 411.2 C 829.1 411 829.8 411 830.5 411 C 831.2 411 831.9 411 832.5 411.2 C 833.8 410.4 834.4 410.6 834.4 410.6 C 834.8 411.6 834.6 412.3 834.5 412.5 C 835 413 835.3 413.7 835.3 414.5 C 835.3 417.2 833.6 417.8 832 418 C 832.3 418.2 832.5 418.7 832.5 419.4 C 832.5 420.4 832.5 421.2 832.5 421.5 C 832.5 421.7 832.6 422 833 421.9 C 835.9 421 838 418.3 838 415 C 838 411 835 408 830 408 Z" fill="#ffffff"/>
+    <text x="870" y="415" font-family="Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#232F3E">GitHub</text>
+    <text x="870" y="435" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#545B64">Repository</text>
+    <text x="870" y="452" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#879196">Source Control</text>
+    <text x="870" y="468" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#24292e" font-weight="600">Source of Truth</text>
+  </g>
+  
+  <!-- Deploy arrows -->
+  <line x1="780" y1="445" x2="470" y2="620" stroke="#879196" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowhead)"/>
+  <line x1="780" y1="445" x2="530" y2="620" stroke="#879196" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowhead)"/>
+  <text x="640" y="520" font-family="Arial, sans-serif" font-size="11" fill="#545B64" font-style="italic">deploy.ps1</text>
+  
+  <!-- Legend -->
+  <g id="legend">
+    <rect x="50" y="680" width="180" height="80" rx="4" fill="#F7F8F9" stroke="#AAB7B8" stroke-width="1"/>
+    <text x="60" y="700" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#232F3E">Status Legend:</text>
+    <circle cx="70" cy="720" r="7" fill="#1D8102"/>
+    <text x="85" y="725" font-family="Arial, sans-serif" font-size="11" fill="#545B64">Active Origin</text>
+    <circle cx="70" cy="745" r="7" fill="#FF9900"/>
+    <text x="85" y="750" font-family="Arial, sans-serif" font-size="11" fill="#545B64">Standby Origin</text>
+  </g>
+  
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#879196"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#D13212"/>
+    </marker>
+  </defs>
+</svg>
