@@ -24,6 +24,7 @@ dfw-dragevents/
 ├── docs/             # AWS deployment guides
 ├── CHANGES.md        # Recent changes log
 ├── FRONTEND_UPDATES.md  # Frontend update notes
+├── SEO_IMPROVEMENTS.md  # SEO optimization details
 └── README.md         # This file
 ```
 
