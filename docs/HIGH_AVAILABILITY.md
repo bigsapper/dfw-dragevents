@@ -14,9 +14,9 @@ flowchart TD
     Route53 --> CloudFront["CloudFront CDN<br/>Global Edge Locations<br/>SSL/TLS"]
     CloudFront --> OriginGroup["Origin Group<br/>Automatic Failover"]
     OriginGroup --> S3Primary["S3 Bucket<br/>dfw-dragevents.com<br/>us-east-1<br/>Primary Active"]
-    OriginGroup -.Failover.-> S3Secondary["S3 Bucket<br/>dfw-dragevents-backup<br/>us-west-2<br/>Standby"]
-    GitHub["GitHub Repository<br/>Source Control"] -.deploy.ps1.-> S3Primary
-    GitHub -.deploy.ps1.-> S3Secondary
+    OriginGroup -.-> S3Secondary["S3 Bucket<br/>dfw-dragevents-backup<br/>us-west-2<br/>Standby"]
+    GitHub["GitHub Repository<br/>Source Control"] -.-> S3Primary
+    GitHub -.-> S3Secondary
     
     style User fill:#232F3E,stroke:#232F3E,color:#fff
     style Route53 fill:#8C4FFF,stroke:#8C4FFF,color:#fff
