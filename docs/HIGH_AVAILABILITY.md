@@ -4,35 +4,97 @@
 
 This document outlines the high availability strategy for dfw-dragevents.com to handle AWS regional outages.
 
-## Current Architecture
+## Infrastructure Architecture
+
+### Visual Diagram
+
+```mermaid
+flowchart TD
+    User["User Request<br/>HTTPS"] --> Route53["Route 53<br/>DNS Service<br/>Global"]
+    Route53 --> CloudFront["CloudFront CDN<br/>Global Edge Locations<br/>SSL/TLS"]
+    CloudFront --> OriginGroup["Origin Group<br/>Automatic Failover"]
+    OriginGroup --> S3Primary["S3 Bucket<br/>dfw-dragevents.com<br/>us-east-1<br/>Primary Active"]
+    OriginGroup -.Failover.-> S3Secondary["S3 Bucket<br/>dfw-dragevents-backup<br/>us-west-2<br/>Standby"]
+    GitHub["GitHub Repository<br/>Source Control"] -.deploy.ps1.-> S3Primary
+    GitHub -.deploy.ps1.-> S3Secondary
+    
+    style User fill:#232F3E,stroke:#232F3E,color:#fff
+    style Route53 fill:#8C4FFF,stroke:#8C4FFF,color:#fff
+    style CloudFront fill:#FF9900,stroke:#FF9900,color:#fff
+    style S3Primary fill:#3F8624,stroke:#3F8624,color:#fff
+    style S3Secondary fill:#569A31,stroke:#569A31,color:#fff
+    style OriginGroup fill:#E7F6EC,stroke:#1D8102,color:#000
+    style GitHub fill:#24292e,stroke:#24292e,color:#fff
+```
+
+**AWS Services Used:**
+- 🟣 **Route 53** - DNS (Purple - Networking)
+- 🟠 **CloudFront** - CDN (Orange - Content Delivery)
+- 🟢 **S3** - Object Storage (Green - Storage)
+- ⚫ **GitHub** - Source Control (External)
+
+### High Availability Setup (Text View)
 
 ```
-User Request
-    ↓
-Route 53 (Global DNS)
-    ↓
-CloudFront (Global CDN)
-    ↓
-S3 us-east-1 (Origin)
+┌─────────────────────────────────────────────────────────────────┐
+│                         User Request                            │
+│                         (HTTPS/HTTP)                            │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Amazon Route 53                              │
+│                    DNS Service (Global)                         │
+│                    dfw-dragevents.com                           │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Amazon CloudFront                            │
+│                    CDN (Global Edge Locations)                  │
+│                    Distribution: EW03K014K18UC                  │
+│                    SSL/TLS: ACM Certificate                     │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│              CloudFront Origin Group (Failover)                 │
+│  ┌──────────────────────────┐    ┌──────────────────────────┐  │
+│  │   PRIMARY ORIGIN         │    │   SECONDARY ORIGIN       │  │
+│  │   Amazon S3              │───▶│   Amazon S3              │  │
+│  │   dfw-dragevents.com     │    │   dfw-dragevents-backup  │  │
+│  │   us-east-1 (N.Virginia) │    │   us-west-2 (Oregon)     │  │
+│  │   Status: ✓ Active       │    │   Status: ⏸ Standby      │  │
+│  │   Website Hosting        │    │   Website Hosting        │  │
+│  └──────────────────────────┘    └──────────────────────────┘  │
+│                                                                  │
+│  Failover Criteria: 5xx errors, timeouts (30-60 seconds)       │
+└─────────────────────────────────────────────────────────────────┘
+                             ▲
+                             │
+                    ┌────────┴────────┐
+                    │   GitHub Repo   │
+                    │   (deploy.ps1)  │
+                    │  Source Control │
+                    └─────────────────┘
+
+Features:
+  ✓ 99.9% Uptime SLA
+  ✓ Global CDN with Edge Caching
+  ✓ Auto-Renewing SSL/TLS Certificates
+  ✓ Multi-Region Redundancy (us-east-1 + us-west-2)
+  ✓ Automatic Origin Failover
+  ✓ Open Source (GitHub)
 ```
 
-**Single Point of Failure:** S3 bucket in us-east-1
+### How It Works
 
-## Recommended: CloudFront Origin Failover
-
-### Architecture
-
-```
-User Request
-    ↓
-Route 53 (Global DNS)
-    ↓
-CloudFront (Global CDN)
-    ↓
-Origin Group (Automatic Failover)
-    ├─ Primary: S3 us-east-1
-    └─ Secondary: S3 us-west-2 (failover)
-```
+1. **User Request** → DNS resolution via Route 53
+2. **Route 53** → Resolves to CloudFront distribution
+3. **CloudFront** → Serves cached content from nearest edge location
+4. **Origin Group** → Fetches from primary S3 (us-east-1)
+5. **Automatic Failover** → If primary fails, switches to secondary S3 (us-west-2)
+6. **Recovery** → Automatically returns to primary when available
 
 ### How It Works
 

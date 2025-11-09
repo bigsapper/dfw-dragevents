@@ -2,6 +2,24 @@
 
 This document contains important information about your deployed infrastructure.
 
+## Infrastructure Overview
+
+```
+User → Route 53 → CloudFront CDN → Origin Group (Failover)
+                                    ├─ S3 us-east-1 (Primary) ✓
+                                    └─ S3 us-west-2 (Secondary) ⏸
+                                    
+Deployment: GitHub → deploy.ps1 → Both S3 Buckets
+```
+
+**High Availability Features:**
+- Multi-region redundancy (us-east-1 + us-west-2)
+- Automatic failover on 5xx errors
+- Global CDN with edge caching
+- Auto-renewing SSL/TLS certificates
+
+For detailed architecture and DR procedures, see [HIGH_AVAILABILITY.md](docs/HIGH_AVAILABILITY.md).
+
 ## Production URLs
 
 - **Primary:** https://dfw-dragevents.com
