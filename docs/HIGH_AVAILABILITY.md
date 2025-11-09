@@ -6,35 +6,6 @@ This document outlines the high availability strategy for dfw-dragevents.com to 
 
 ## Infrastructure Architecture
 
-### Visual Diagram
-
-```mermaid
-flowchart TD
-    User["User Request<br/>HTTPS"] --> Route53["Route 53<br/>DNS Service<br/>Global"]
-    Route53 --> CloudFront["CloudFront CDN<br/>Global Edge Locations<br/>SSL/TLS"]
-    CloudFront --> OriginGroup["Origin Group<br/>Automatic Failover"]
-    OriginGroup --> S3Primary["S3 Bucket<br/>dfw-dragevents.com<br/>us-east-1<br/>Primary Active"]
-    OriginGroup -.-> S3Secondary["S3 Bucket<br/>dfw-dragevents-backup<br/>us-west-2<br/>Standby"]
-    GitHub["GitHub Repository<br/>Source Control"] -.-> S3Primary
-    GitHub -.-> S3Secondary
-    
-    style User fill:#232F3E,stroke:#232F3E,color:#fff
-    style Route53 fill:#8C4FFF,stroke:#8C4FFF,color:#fff
-    style CloudFront fill:#FF9900,stroke:#FF9900,color:#fff
-    style S3Primary fill:#3F8624,stroke:#3F8624,color:#fff
-    style S3Secondary fill:#569A31,stroke:#569A31,color:#fff
-    style OriginGroup fill:#E7F6EC,stroke:#1D8102,color:#000
-    style GitHub fill:#24292e,stroke:#24292e,color:#fff
-```
-
-**AWS Services Used:**
-- 🟣 **Route 53** - DNS (Purple - Networking)
-- 🟠 **CloudFront** - CDN (Orange - Content Delivery)
-- 🟢 **S3** - Object Storage (Green - Storage)
-- ⚫ **GitHub** - Source Control (External)
-
-### High Availability Setup (Text View)
-
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         User Request                            │
