@@ -14,7 +14,44 @@ Static website for Dallas-Fort Worth drag racing events. Data is managed locally
    - `go run ./cmd db init`
    - `go run ./cmd db seed`
    - `go run ./cmd export`
-3. Open `site/index.html` in a browser (or serve with a simple static server) to see events.
+3. Start local server to test changes
+
+## Development Workflow
+
+### 1. Make Changes
+Edit HTML, CSS, JS, or update data in SQLite
+
+### 2. Export Data (if database changed)
+```powershell
+cd tools
+go run ./cmd export
+```
+
+### 3. Test Locally
+```powershell
+cd site
+python -m http.server 8000
+# Or use VS Code Live Server extension
+```
+Open http://localhost:8000 and verify your changes
+
+### 4. Deploy to Production
+```powershell
+cd tools\aws
+.\deploy.ps1 -SkipBucketCreation
+```
+This will:
+- Export latest data
+- Upload to S3
+- Invalidate CloudFront cache
+- Changes live in 1-2 minutes
+
+### 5. Commit to Git
+```powershell
+git add .
+git commit -m "Description of changes"
+git push origin main
+```
 
 ## Commands
 - `go run ./cmd db init` — create `db/db.sqlite` and apply migrations
@@ -45,26 +82,11 @@ aws s3 sync ../site/ s3://dfw-dragevents.com/ --delete
 
 ### Updating Site Content
 
-After making changes to data or site files:
+**Always follow the Development Workflow above:**
+1. Make changes
+2. Export data (if needed)
+3. **Test locally first** ← Important!
+4. Deploy to production (auto-invalidates CloudFront cache)
+5. Commit to Git
 
-```powershell
-# 1. Export updated data
-cd tools
-go run ./cmd export
-
-# 2. Deploy to S3
-cd aws
-.\deploy.ps1 -SkipBucketCreation
-
-# 3. Invalidate CloudFront cache (required for HTTPS site)
-aws cloudfront create-invalidation --distribution-id EW03K014K18UC --paths "/*"
-```
-
-**Your Distribution ID:** `EW03K014K18UC`
-
-To find your distribution ID:
-```powershell
-aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@,'dfw-dragevents.com')]].Id" --output text
-```
-
-See documentation for CloudFront + HTTPS setup.
+The deploy script automatically handles CloudFront cache invalidation, so changes go live in 1-2 minutes.
