@@ -1,6 +1,10 @@
 # dfw-dragevents.com
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Static website for Dallas-Fort Worth drag racing events. Data is managed locally in SQLite via a Go CLI, exported to JSON, and manually uploaded to S3 static website hosting.
+
+**Open Source:** This project is open source under the MIT License. Contributions are welcome!
 
 ## Structure
 - site/
@@ -90,3 +94,25 @@ aws s3 sync ../site/ s3://dfw-dragevents.com/ --delete
 5. Commit to Git
 
 The deploy script automatically handles CloudFront cache invalidation, so changes go live in 1-2 minutes.
+
+## Contributing
+
+Contributions are welcome! Whether you want to:
+- Add new tracks or events
+- Fix bugs or improve code
+- Enhance documentation
+- Suggest new features
+
+Please feel free to:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+For questions or suggestions, open an issue on GitHub.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 Chris Gallucci
