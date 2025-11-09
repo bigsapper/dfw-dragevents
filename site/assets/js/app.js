@@ -126,6 +126,64 @@ async function loadEventDetail() {
   
   const link = document.getElementById('ev-link');
   if (ev.url) { link.href = ev.url; link.classList.remove('disabled'); }
+  
+  // Update page title and meta description dynamically
+  document.title = `${ev.title} | DFW Drag Racing Events`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) {
+    metaDesc.content = `${ev.title} at ${ev.track_name} - ${formatDateRange(ev.start_date, ev.end_date)}. ${ev.description || 'Drag racing event in Dallas-Fort Worth.'}`;
+  }
+  
+  // Inject Schema.org structured data for SEO
+  const track = tracks.find(t => t.id === ev.track_id);
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": ev.title,
+    "description": ev.description || `Drag racing event at ${ev.track_name}`,
+    "startDate": ev.start_date,
+    "endDate": ev.end_date || ev.start_date,
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": ev.track_name,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": track ? track.city : "Dallas-Fort Worth",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      }
+    },
+    "offers": []
+  };
+  
+  if (ev.event_driver_fee) {
+    schemaData.offers.push({
+      "@type": "Offer",
+      "name": "Driver Entry",
+      "price": ev.event_driver_fee,
+      "priceCurrency": "USD"
+    });
+  }
+  
+  if (ev.event_spectator_fee) {
+    schemaData.offers.push({
+      "@type": "Offer",
+      "name": "Spectator Entry",
+      "price": ev.event_spectator_fee,
+      "priceCurrency": "USD"
+    });
+  }
+  
+  if (ev.url) {
+    schemaData.url = ev.url;
+  }
+  
+  const schemaScript = document.getElementById('event-schema');
+  if (schemaScript) {
+    schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+  }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
