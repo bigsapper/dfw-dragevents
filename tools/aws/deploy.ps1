@@ -109,13 +109,30 @@ if ($DryRun) {
     Write-Host "[OK] Site files uploaded" -ForegroundColor Green
 }
 
-# Step 6: Display website URL
+# Step 6: Invalidate CloudFront cache (if distribution exists)
+Write-Host "`n--- Step 6: Invalidating CloudFront cache ---" -ForegroundColor Cyan
+if ($DryRun) {
+    Write-Host "[DRY RUN] Would invalidate CloudFront cache" -ForegroundColor Yellow
+} else {
+    try {
+        $distId = aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@,'$BucketName')]].Id" --output text 2>$null
+        if ($distId) {
+            Write-Host "Found CloudFront distribution: $distId" -ForegroundColor Gray
+            aws cloudfront create-invalidation --distribution-id $distId --paths "/*" --output json | Out-Null
+            Write-Host "[OK] CloudFront cache invalidated" -ForegroundColor Green
+        } else {
+            Write-Host "[INFO] No CloudFront distribution found - skipping cache invalidation" -ForegroundColor Yellow
+        }
+    } catch {
+        Write-Host "[WARN] Could not invalidate CloudFront cache: $_" -ForegroundColor Yellow
+    }
+}
+
+# Step 7: Display website URL
 Write-Host "`n=== Deployment Complete ===" -ForegroundColor Green
 $WebsiteUrl = "http://$BucketName.s3-website-$Region.amazonaws.com"
 Write-Host "Website URL: $WebsiteUrl" -ForegroundColor Cyan
+Write-Host "HTTPS URL: https://$BucketName" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "  1. Configure DNS to point dfw-dragevents.com to the S3 website endpoint" -ForegroundColor Gray
-Write-Host "  2. Optional: Set up CloudFront + ACM for HTTPS support" -ForegroundColor Gray
-Write-Host "  3. See docs/AWS_DEPLOYMENT.md for detailed instructions" -ForegroundColor Gray
+Write-Host "Changes will be live in 1-2 minutes after CloudFront cache invalidation." -ForegroundColor Yellow
 Write-Host ""
