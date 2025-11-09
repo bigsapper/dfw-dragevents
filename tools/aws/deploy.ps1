@@ -109,8 +109,27 @@ if ($DryRun) {
     Write-Host "[OK] Site files uploaded" -ForegroundColor Green
 }
 
-# Step 6: Invalidate CloudFront cache (if distribution exists)
-Write-Host "`n--- Step 6: Invalidating CloudFront cache ---" -ForegroundColor Cyan
+# Step 6: Sync to secondary bucket (failover)
+Write-Host "`n--- Step 6: Syncing to secondary bucket (us-west-2) ---" -ForegroundColor Cyan
+$SecondaryBucket = "dfw-dragevents-backup"
+$SecondaryRegion = "us-west-2"
+if ($DryRun) {
+    Write-Host "[DRY RUN] Would sync: $SiteDir -> s3://$SecondaryBucket/" -ForegroundColor Yellow
+} else {
+    try {
+        aws s3 sync $SiteDir "s3://$SecondaryBucket/" --delete --region $SecondaryRegion 2>$null
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "[OK] Secondary bucket synced (failover ready)" -ForegroundColor Green
+        } else {
+            Write-Host "[WARN] Secondary bucket sync failed (failover may be out of date)" -ForegroundColor Yellow
+        }
+    } catch {
+        Write-Host "[WARN] Could not sync to secondary bucket: $_" -ForegroundColor Yellow
+    }
+}
+
+# Step 7: Invalidate CloudFront cache (if distribution exists)
+Write-Host "`n--- Step 7: Invalidating CloudFront cache ---" -ForegroundColor Cyan
 if ($DryRun) {
     Write-Host "[DRY RUN] Would invalidate CloudFront cache" -ForegroundColor Yellow
 } else {
@@ -128,7 +147,7 @@ if ($DryRun) {
     }
 }
 
-# Step 7: Display website URL
+# Step 8: Display website URL
 Write-Host "`n=== Deployment Complete ===" -ForegroundColor Green
 $WebsiteUrl = "http://$BucketName.s3-website-$Region.amazonaws.com"
 Write-Host "Website URL: $WebsiteUrl" -ForegroundColor Cyan

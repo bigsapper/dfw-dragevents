@@ -84,19 +84,35 @@ Monitor your AWS costs:
 
 ## Backup & Disaster Recovery
 
-### Backup Strategy
-- **Primary Source of Truth:** GitHub repository (all code and data)
-- **Database:** Local SQLite file at `tools/db/db.sqlite` (committed to Git)
-- **Static Site:** Can be rebuilt from Git at any time via deploy script
-- **S3 Replication:** Not enabled (unnecessary - Git serves as backup)
+### High Availability Setup
+- **Primary Origin:** S3 us-east-1 (dfw-dragevents.com)
+- **Secondary Origin:** S3 us-west-2 (dfw-dragevents-backup)
+- **CloudFront Failover:** Automatic failover configured
+- **Backup Strategy:** GitHub repository (all code and data)
 
-### Disaster Recovery
-If S3 or CloudFront fails:
+### How Failover Works
+1. **Normal Operation:** CloudFront serves from us-east-1
+2. **Primary Failure:** CloudFront detects 5xx errors or timeouts
+3. **Automatic Failover:** CloudFront switches to us-west-2 (seconds)
+4. **Recovery:** CloudFront switches back when us-east-1 recovers
+
+### Disaster Recovery Scenarios
+
+**If us-east-1 Goes Down:**
+- ✅ **Automatic:** CloudFront failover to us-west-2 (no action needed)
+- **Recovery Time:** Seconds
+- **User Impact:** None (transparent failover)
+
+**If Both Regions Fail:**
 1. Verify GitHub repository is current
 2. Run `.\deploy.ps1` to redeploy to S3
 3. If needed, deploy to new region or provider from Git
+- **Recovery Time:** ~5 minutes
 
-**Recovery Time:** ~5 minutes (time to run deploy script)
+**If CloudFront Fails:**
+- Extremely rare (global service)
+- Update DNS to point directly to S3 website endpoint
+- **Recovery Time:** DNS propagation (5-60 minutes)
 
 ## Support Resources
 
