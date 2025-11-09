@@ -12,69 +12,6 @@ This document outlines the high availability strategy for dfw-dragevents.com to 
 
 *Architecture diagram using official AWS Architecture Icons showing multi-region failover setup*
 
-### Architecture Details
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         User Request                            │
-│                         (HTTPS/HTTP)                            │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    Amazon Route 53                              │
-│                    DNS Service (Global)                         │
-│                    dfw-dragevents.com                           │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    Amazon CloudFront                            │
-│                    CDN (Global Edge Locations)                  │
-│                    Distribution: EW03K014K18UC                  │
-│                    SSL/TLS: ACM Certificate                     │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│              CloudFront Origin Group (Failover)                 │
-│  ┌──────────────────────────┐    ┌──────────────────────────┐  │
-│  │   PRIMARY ORIGIN         │    │   SECONDARY ORIGIN       │  │
-│  │   Amazon S3              │───▶│   Amazon S3              │  │
-│  │   dfw-dragevents.com     │    │   dfw-dragevents-backup  │  │
-│  │   us-east-1 (N.Virginia) │    │   us-west-2 (Oregon)     │  │
-│  │   Status: ✓ Active       │    │   Status: ⏸ Standby      │  │
-│  │   Website Hosting        │    │   Website Hosting        │  │
-│  └──────────────────────────┘    └──────────────────────────┘  │
-│                                                                  │
-│  Failover Criteria: 5xx errors, timeouts (30-60 seconds)       │
-└─────────────────────────────────────────────────────────────────┘
-                             ▲
-                             │
-                    ┌────────┴────────┐
-                    │   GitHub Repo   │
-                    │   (deploy.ps1)  │
-                    │  Source Control │
-                    └─────────────────┘
-
-Features:
-  ✓ 99.9% Uptime SLA
-  ✓ Global CDN with Edge Caching
-  ✓ Auto-Renewing SSL/TLS Certificates
-  ✓ Multi-Region Redundancy (us-east-1 + us-west-2)
-  ✓ Automatic Origin Failover
-  ✓ Open Source (GitHub)
-```
-
-### How It Works
-
-1. **User Request** → DNS resolution via Route 53
-2. **Route 53** → Resolves to CloudFront distribution
-3. **CloudFront** → Serves cached content from nearest edge location
-4. **Origin Group** → Fetches from primary S3 (us-east-1)
-5. **Automatic Failover** → If primary fails, switches to secondary S3 (us-west-2)
-6. **Recovery** → Automatically returns to primary when available
-
 ### How It Works
 
 1. **Normal Operation:** CloudFront serves from us-east-1
