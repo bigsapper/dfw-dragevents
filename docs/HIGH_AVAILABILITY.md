@@ -10,8 +10,6 @@ This document outlines the high availability strategy for dfw-dragevents.com to 
 
 ![AWS Architecture Diagram](images/aws-architecture.svg)
 
-*Architecture diagram using official AWS Architecture Icons showing multi-region failover setup*
-
 ### How It Works
 
 1. **Normal Operation:** CloudFront serves from us-east-1
