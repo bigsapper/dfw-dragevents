@@ -18,7 +18,7 @@ Deployment: GitHub → deploy.ps1 → Both S3 Buckets
 - Global CDN with edge caching
 - Auto-renewing SSL/TLS certificates
 
-For detailed architecture and DR procedures, see [HIGH_AVAILABILITY.md](docs/HIGH_AVAILABILITY.md).
+For detailed architecture and DR procedures, see [HIGH_AVAILABILITY.md](HIGH_AVAILABILITY.md).
 
 ## Production URLs
 
@@ -84,7 +84,7 @@ aws s3 sync site/ s3://dfw-dragevents.com/ --delete
 
 ## Deployment Workflow
 
-See [README.md](README.md#updating-site-content) for the complete update workflow.
+See [README.md](../README.md#updating-site-content) for the complete update workflow.
 
 ## Cost Monitoring
 
@@ -134,6 +134,6 @@ Monitor your AWS costs:
 
 ## Support Resources
 
-- [AWS Deployment Guide](docs/AWS_DEPLOYMENT.md)
-- [AWS Console Guide](docs/AWS_CONSOLE_GUIDE.md)
-- [AWS Scripts README](tools/aws/README.md)
+- [AWS Deployment Guide](AWS_DEPLOYMENT.md)
+- [AWS Console Guide](AWS_CONSOLE_GUIDE.md)
+- [AWS Scripts README](../tools/aws/README.md)

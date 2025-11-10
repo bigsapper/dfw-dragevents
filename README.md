@@ -21,10 +21,12 @@ dfw-dragevents/
 │   ├── db/           # SQLite database and migrations
 │   └── Makefile      # Build automation
 │
-├── docs/             # AWS deployment guides
-├── CHANGES.md        # Recent changes log
-├── FRONTEND_UPDATES.md  # Frontend update notes
-├── SEO_IMPROVEMENTS.md  # SEO optimization details
+├── docs/             # Documentation and guides
+│   ├── AWS_DEPLOYMENT.md
+│   ├── AWS_CONSOLE_GUIDE.md
+│   ├── HIGH_AVAILABILITY.md
+│   └── DEPLOYMENT_INFO.md
+├── CHANGELOG.md      # Project changelog
 └── README.md         # This file
 ```
 
