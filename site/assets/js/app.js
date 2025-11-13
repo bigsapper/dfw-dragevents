@@ -1,10 +1,20 @@
-async function fetchJSON(path) {
+import {
+  filterEventsByDate,
+  getUpcomingEvents,
+  getThisMonthEvents,
+  getNext30DaysEvents,
+  getPastEvents,
+  sortEventsByDate
+} from './filters.js';
+
+export async function fetchJSON(path) {
   const res = await fetch(path, { cache: 'no-store' });
   if (!res.ok) throw new Error(`Failed to fetch ${path}`);
   return res.json();
 }
 
-function formatDateTime(isoString) {
+export function formatDateTime(isoString) {
+  if (!isoString) return 'Date TBA';
   const d = new Date(isoString);
   if (isNaN(d.getTime())) return 'Date TBA';
   return d.toLocaleDateString('en-US', {
@@ -15,7 +25,7 @@ function formatDateTime(isoString) {
   });
 }
 
-function formatDateRange(startDate, endDate) {
+export function formatDateRange(startDate, endDate) {
   if (!startDate) return 'Date TBA';
   
   const start = new Date(startDate);
@@ -50,17 +60,62 @@ function formatDateRange(startDate, endDate) {
   return `${startStr} - ${endStr}`;
 }
 
-async function loadEventsList() {
+// Store events data globally for filtering
+let allEvents = [];
+let allTracks = [];
+
+// Reset function for testing
+export function resetCache() {
+  allEvents = [];
+  allTracks = [];
+}
+
+export async function loadEventsList(filter = 'upcoming') {
   try {
-    const [events, tracks] = await Promise.all([
-      fetchJSON('data/events.json'),
-      fetchJSON('data/tracks.json')
-    ]);
-    const mapTrack = new Map(tracks.map(t => [t.id, t.name]));
+    // Load data only once
+    if (allEvents.length === 0) {
+      [allEvents, allTracks] = await Promise.all([
+        fetchJSON('data/events.json'),
+        fetchJSON('data/tracks.json')
+      ]);
+    }
+    
+    // Apply filter
+    let filteredEvents = allEvents;
+    switch(filter) {
+      case 'upcoming':
+        filteredEvents = getUpcomingEvents(allEvents);
+        break;
+      case 'this-month':
+        filteredEvents = getThisMonthEvents(allEvents);
+        break;
+      case 'next-30':
+        filteredEvents = getNext30DaysEvents(allEvents);
+        break;
+      case 'past':
+        filteredEvents = getPastEvents(allEvents);
+        break;
+      case 'all':
+      default:
+        filteredEvents = allEvents;
+        break;
+    }
+    
+    // Sort by date
+    const ascending = filter !== 'past';
+    filteredEvents = sortEventsByDate(filteredEvents, ascending);
+    
+    const mapTrack = new Map(allTracks.map(t => [t.id, t.name]));
     const container = document.getElementById('events-list');
     if (!container) return;
     container.innerHTML = '';
-    events.forEach(ev => {
+    
+    if (filteredEvents.length === 0) {
+      container.innerHTML = '<p class="text-muted">No events found for this filter.</p>';
+      return;
+    }
+    
+    filteredEvents.forEach(ev => {
       const card = document.createElement('div');
       card.className = 'card mb-3';
       card.innerHTML = `
@@ -78,7 +133,7 @@ async function loadEventsList() {
   }
 }
 
-async function loadEventDetail() {
+export async function loadEventDetail() {
   const params = new URLSearchParams(location.search);
   const id = Number(params.get('id'));
   if (!id) return;
@@ -186,7 +241,31 @@ async function loadEventDetail() {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (document.getElementById('events-list')) loadEventsList();
+export function initializeEventsList() {
+  if (document.getElementById('events-list')) {
+    loadEventsList('upcoming'); // Default to upcoming events
+    
+    // Add click handlers to filter buttons
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // Update active button state
+        filterButtons.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        // Apply filter
+        const filter = e.target.getAttribute('data-filter');
+        loadEventsList(filter);
+      });
+    });
+  }
+}
+
+export function initializeEventDetail() {
   if (document.getElementById('ev-title')) loadEventDetail();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initializeEventsList();
+  initializeEventDetail();
 });

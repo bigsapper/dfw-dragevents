@@ -1,0 +1,17 @@
+{
+  "name": "dfw-dragevents-site",
+  "version": "1.0.0",
+  "description": "DFW Drag Racing Events - Static Website",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.8",
+    "@vitest/ui": "^4.0.8",
+    "happy-dom": "^20.0.10",
+    "vitest": "^4.0.8"
+  }
+}

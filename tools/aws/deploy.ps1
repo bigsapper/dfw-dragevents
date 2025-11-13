@@ -103,9 +103,23 @@ if (-not (Test-Path $SiteDir)) {
 }
 if ($DryRun) {
     Write-Host "[DRY RUN] Would sync: $SiteDir -> s3://$BucketName/"
-    aws s3 sync $SiteDir "s3://$BucketName/" --dryrun --delete
+    aws s3 sync $SiteDir "s3://$BucketName/" --dryrun --delete `
+        --exclude "node_modules/*" `
+        --exclude "*.test.js" `
+        --exclude "coverage/*" `
+        --exclude "package*.json" `
+        --exclude "vitest.config.js" `
+        --exclude ".gitignore" `
+        --exclude "README.md"
 } else {
-    aws s3 sync $SiteDir "s3://$BucketName/" --delete
+    aws s3 sync $SiteDir "s3://$BucketName/" --delete `
+        --exclude "node_modules/*" `
+        --exclude "*.test.js" `
+        --exclude "coverage/*" `
+        --exclude "package*.json" `
+        --exclude "vitest.config.js" `
+        --exclude ".gitignore" `
+        --exclude "README.md"
     Write-Host "[OK] Site files uploaded" -ForegroundColor Green
 }
 
@@ -117,7 +131,14 @@ if ($DryRun) {
     Write-Host "[DRY RUN] Would sync: $SiteDir -> s3://$SecondaryBucket/" -ForegroundColor Yellow
 } else {
     try {
-        aws s3 sync $SiteDir "s3://$SecondaryBucket/" --delete --region $SecondaryRegion 2>$null
+        aws s3 sync $SiteDir "s3://$SecondaryBucket/" --delete --region $SecondaryRegion `
+            --exclude "node_modules/*" `
+            --exclude "*.test.js" `
+            --exclude "coverage/*" `
+            --exclude "package*.json" `
+            --exclude "vitest.config.js" `
+            --exclude ".gitignore" `
+            --exclude "README.md" 2>$null
         if ($LASTEXITCODE -eq 0) {
             Write-Host "[OK] Secondary bucket synced (failover ready)" -ForegroundColor Green
         } else {

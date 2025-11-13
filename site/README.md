@@ -1,0 +1,90 @@
+# DFW Drag Events - Frontend
+
+Static website for displaying drag racing events in the Dallas-Fort Worth area.
+
+## Testing
+
+### Setup
+
+Install dependencies:
+```powershell
+npm install
+```
+
+### Running Tests
+
+```powershell
+# Run all tests once
+npm test
+
+# Run tests in watch mode (re-runs on file changes)
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+### Test Coverage
+
+The test suite covers:
+
+**Date Filtering (`filters.test.js` - 18 tests)**
+- Core filtering function with start/end date ranges
+- Filter presets: Upcoming, This Month, Next 30 Days, Past Events
+- Ascending and descending date sorting
+- Edge cases: Invalid dates, empty arrays, single events
+
+**Application Logic (`app.test.js` - 51 tests)**
+- Date formatting (single dates, date ranges, invalid dates)
+- Date range formatting (multi-day events, cross-month, cross-year)
+- JSON fetching with error handling
+- Null/undefined handling
+- DOM manipulation (`loadEventsList` with all filters)
+- Event detail rendering (fees, classes, schema.org data)
+- Initialization functions (events list and event detail setup)
+- Button click handlers and active state management
+
+**Current Coverage:** 98.7% overall ✅
+- `filters.js`: 100% coverage
+- `app.js`: 98.5% coverage
+- Only uncovered: DOMContentLoaded event listener registration (lines 269-270)
+
+### Test Files
+
+- `assets/js/filters.test.js` - Unit tests for date filtering (18 tests)
+- `assets/js/app.test.js` - Integration tests for app logic (51 tests)
+- `assets/js/filters.js` - Filtering logic (100% coverage)
+- `assets/js/app.js` - Main application (98.5% coverage)
+
+## Development
+
+### Local Server
+
+```powershell
+python -m http.server 8000
+```
+
+Open http://localhost:8000
+
+### File Structure
+
+```
+site/
+├── assets/
+│   ├── js/
+│   │   ├── app.js           # Main application
+│   │   ├── filters.js       # Date filtering logic
+│   │   └── filters.test.js  # Unit tests
+│   └── css/
+├── data/                     # JSON data files
+├── *.html                    # Pages
+├── package.json              # Node dependencies
+└── vitest.config.js          # Test configuration
+```
+
+## Technologies
+
+- **Vanilla JavaScript** (ES6 modules)
+- **Bootstrap 5** - UI framework
+- **Vitest** - Testing framework
+- **Happy DOM** - DOM environment for tests
