@@ -6,6 +6,94 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-11-13] - Date Filtering & Comprehensive Testing
+
+### Added
+- **Date Filtering Feature**
+  - Client-side event filtering with 5 preset options:
+    - Upcoming Events (default)
+    - This Month
+    - Next 30 Days
+    - Past Events
+    - All Events
+  - Filter buttons with active state management
+  - Automatic sorting (chronological for future, reverse for past)
+  - Empty state handling when no events match filter
+  - Modular filtering logic in `site/assets/js/filters.js`
+
+- **Comprehensive Test Suite**
+  - 69 unit tests (18 filters + 51 app)
+  - 98.7% overall test coverage
+  - Vitest testing framework with Happy DOM
+  - Test files:
+    - `site/assets/js/filters.test.js` - Date filtering logic (100% coverage)
+    - `site/assets/js/app.test.js` - Integration tests (98.5% coverage)
+  - Test infrastructure:
+    - `site/package.json` - Test dependencies
+    - `site/vitest.config.js` - Test configuration
+    - `site/README.md` - Testing documentation
+
+- **Deployment Improvements**
+  - Fixed deployment script to exclude development files
+  - Added `tools/aws/cleanup-s3.ps1` - S3 cleanup utility
+  - File exclusions: node_modules, test files, coverage, config files
+  - Reduced deployment size from ~41 MB to ~500 KB
+
+- **Documentation**
+  - `SECURITY_EVALUATION.md` - Comprehensive security audit
+  - Updated `docs/AWS_DEPLOYMENT.md` - Deployment best practices
+  - `site/README.md` - Frontend testing guide
+
+### Changed
+- **JavaScript** (`site/assets/js/app.js`)
+  - Extracted filtering logic to separate module
+  - Added `resetCache()` function for testing
+  - Exported `initializeEventsList()` and `initializeEventDetail()` for testability
+  - Integrated filter button event handlers
+  - Updated to use ES6 module imports
+
+- **HTML Files**
+  - `site/events.html` - Added filter button UI
+  - `site/*.html` - Updated script tags to `type="module"` for ES6 support
+
+- **Deployment** (`tools/aws/deploy.ps1`)
+  - Added exclusion patterns for development files
+  - Applied exclusions to both primary and secondary buckets
+  - Prevents uploading node_modules and test files
+
+### Test Coverage
+- **Overall:** 98.7%
+- **filters.js:** 100%
+- **app.js:** 98.5%
+- Only uncovered: DOMContentLoaded event listener registration (2 lines)
+
+### Browser Compatibility
+- Chrome/Edge: ✓
+- Firefox: ✓
+- Safari: ✓
+- Mobile browsers: ✓
+
+### Files Added
+- `site/assets/js/filters.js` - Date filtering logic
+- `site/assets/js/filters.test.js` - Unit tests
+- `site/assets/js/app.test.js` - Integration tests
+- `site/package.json` - Test dependencies
+- `site/vitest.config.js` - Test configuration
+- `site/.gitignore` - Exclude node_modules and coverage
+- `site/README.md` - Testing documentation
+- `tools/aws/cleanup-s3.ps1` - S3 cleanup utility
+- `SECURITY_EVALUATION.md` - Security audit report
+
+### Files Modified
+- `site/assets/js/app.js` - Filtering integration
+- `site/events.html` - Filter buttons
+- `site/event.html` - ES6 module support
+- `site/index.html` - ES6 module support
+- `tools/aws/deploy.ps1` - File exclusions
+- `docs/AWS_DEPLOYMENT.md` - Best practices
+
+---
+
 ## [2025-11-09] - SEO Improvements
 
 ### Added
