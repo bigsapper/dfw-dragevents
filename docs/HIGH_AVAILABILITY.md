@@ -67,7 +67,7 @@ This will:
 
 ```powershell
 # Get current config
-aws cloudfront get-distribution-config --id EW03K014K18UC > dist-config.json
+aws cloudfront get-distribution-config --id YOUR_DISTRIBUTION_ID > dist-config.json
 
 # Edit dist-config.json to add:
 # 1. Secondary origin
@@ -75,7 +75,7 @@ aws cloudfront get-distribution-config --id EW03K014K18UC > dist-config.json
 # 3. Update default behavior to use origin group
 
 # Update distribution (replace <ETag> with value from get-distribution-config)
-aws cloudfront update-distribution --id EW03K014K18UC --distribution-config file://dist-config.json --if-match <ETag>
+aws cloudfront update-distribution --id YOUR_DISTRIBUTION_ID --distribution-config file://dist-config.json --if-match <ETag>
 ```
 
 ### 3. Update Deploy Script
@@ -140,7 +140,7 @@ aws cloudwatch put-metric-alarm `
 aws cloudwatch get-metric-statistics `
   --namespace AWS/CloudFront `
   --metric-name Requests `
-  --dimensions Name=DistributionId,Value=EW03K014K18UC `
+  --dimensions Name=DistributionId,Value=YOUR_DISTRIBUTION_ID `
   --start-time 2024-01-01T00:00:00Z `
   --end-time 2024-01-02T00:00:00Z `
   --period 3600 `
@@ -231,7 +231,7 @@ aws cloudwatch get-metric-statistics `
 1. Update CloudFront origin to point to us-west-2:
    ```powershell
    # Update CloudFront distribution origin
-   aws cloudfront update-distribution --id EW03K014K18UC ...
+   aws cloudfront update-distribution --id YOUR_DISTRIBUTION_ID ...
    ```
 2. Wait for CloudFront to propagate (5-10 minutes)
 3. Site restored
