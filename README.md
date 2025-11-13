@@ -10,31 +10,48 @@ Static website for Dallas-Fort Worth drag racing events. Data is managed locally
 
 ```
 dfw-dragevents/
-├── site/              # Static website (HTML/CSS/JS)
-│   ├── *.html        # Pages (index, events, event, about)
-│   ├── assets/       # CSS and JavaScript
-│   └── data/         # JSON files (generated from database)
+├── site/                      # Static website (HTML/CSS/JS)
+│   ├── *.html                # Pages (index, events, event, about)
+│   ├── assets/
+│   │   ├── css/              # Stylesheets
+│   │   └── js/
+│   │       ├── app.js        # Main application logic
+│   │       ├── filters.js    # Date filtering logic
+│   │       ├── app.test.js   # Integration tests (51 tests)
+│   │       └── filters.test.js # Unit tests (18 tests)
+│   ├── data/                 # JSON files (generated from database)
+│   ├── package.json          # Test dependencies (Vitest, Happy DOM)
+│   ├── vitest.config.js      # Test configuration
+│   └── README.md             # Frontend testing guide
 │
-├── tools/            # Go CLI for data management
-│   ├── cmd/          # CLI entry point
-│   ├── internal/     # Database and export logic
-│   ├── db/           # SQLite database and migrations
-│   └── Makefile      # Build automation
+├── tools/                    # Go CLI for data management
+│   ├── cmd/                  # CLI entry point
+│   ├── internal/
+│   │   ├── db/               # Database operations (with tests)
+│   │   └── export/           # JSON export logic
+│   ├── db/                   # SQLite database and migrations
+│   ├── aws/                  # Deployment scripts
+│   │   ├── deploy.ps1        # Main deployment script
+│   │   └── cleanup-s3.ps1    # S3 cleanup utility
+│   └── Makefile              # Build automation
 │
-├── docs/             # Documentation and guides
+├── docs/                     # Documentation and guides
 │   ├── AWS_DEPLOYMENT.md
 │   ├── AWS_CONSOLE_GUIDE.md
 │   ├── HIGH_AVAILABILITY.md
+│   ├── CLOUDFRONT_SECURITY.md
 │   └── DEPLOYMENT_INFO.md
-├── CHANGELOG.md      # Project changelog
-└── README.md         # This file
+├── CHANGELOG.md              # Project changelog
+└── README.md                 # This file
 ```
 
 ### Key Components
 
-- **Frontend (site/)** - Static HTML/CSS/JS with Bootstrap 5, reads JSON from `site/data/`
+- **Frontend (site/)** - Static HTML/CSS/JS with Bootstrap 5, ES6 modules, date filtering, comprehensive test suite
 - **Backend (tools/)** - Go CLI for database management, SQLite with migrations, exports to JSON
 - **Database** - Tracks, events (with start/end dates), event classes, and rules
+- **Testing** - 81 unit tests (98.3% coverage), Vitest framework, Happy DOM environment
+- **Security** - XSS prevention, URL validation, SRI hashes, Content Security Policy
 
 ## Quick Start
 
@@ -92,7 +109,9 @@ git push origin main
 
 ## Build and Test
 
-### Make Commands
+### Backend (Go) Testing
+
+**Make Commands:**
 ```powershell
 cd tools
 make test          # Run all tests
@@ -105,7 +124,7 @@ make full-workflow # Complete workflow (clean, init, seed, export)
 make help          # Show all available commands
 ```
 
-### Manual Commands (without Make)
+**Manual Commands (without Make):**
 ```powershell
 go test ./...                              # Run tests
 go build ./cmd                             # Build CLI
@@ -113,6 +132,85 @@ go run ./cmd db init                       # Initialize database
 go run ./cmd db seed                       # Seed data
 go run ./cmd export                        # Export to JSON
 ```
+
+**Test Coverage:**
+- 6 tests covering database operations
+- Event CRUD operations
+- Date field handling
+- Migration system
+
+---
+
+### Frontend (JavaScript) Testing
+
+**Quick Start:**
+```powershell
+cd site
+npm install        # Install test dependencies (first time only)
+npm test           # Run all tests
+npm run test:coverage  # Run tests with coverage report
+```
+
+**Test Suite:**
+- **81 total tests** (18 filters + 63 app)
+- **98.3% overall coverage**
+- **Vitest** testing framework
+- **Happy DOM** for browser environment simulation
+
+**Coverage Standards:**
+- **Target:** ≥80% coverage for all files
+- **Current:**
+  - `filters.js`: 100% coverage ✅
+  - `app.js`: 98.5% coverage ✅
+  - Overall: 98.3% coverage ✅
+
+**Test Files:**
+- `site/assets/js/filters.test.js` - Date filtering logic (18 tests)
+- `site/assets/js/app.test.js` - Integration tests (63 tests)
+
+**What's Tested:**
+- Date formatting and validation
+- Event filtering (5 presets: Upcoming, This Month, Next 30 Days, Past, All)
+- Event sorting (chronological/reverse)
+- DOM manipulation and rendering
+- URL validation and security
+- Error handling
+- Edge cases and null handling
+
+**Coverage Report:**
+```powershell
+cd site
+npm run test:coverage
+# Opens detailed HTML coverage report in coverage/index.html
+```
+
+---
+
+### Security Audits
+
+**Check for Vulnerabilities:**
+```powershell
+cd site
+npm audit              # Check for known vulnerabilities
+npm audit fix          # Automatically fix vulnerabilities (if available)
+```
+
+**Current Status:**
+- ✅ **0 vulnerabilities** in npm packages
+- ✅ **0 vulnerabilities** in Go dependencies
+- ✅ All security best practices implemented
+
+**Security Features:**
+- XSS prevention (safe DOM manipulation)
+- URL validation (`isSafeUrl()` function)
+- SRI hashes on CDN resources
+- Content Security Policy headers
+- Parameterized SQL queries
+
+**Run Security Audit Before:**
+- Deploying to production
+- Merging pull requests
+- Major dependency updates
 
 ## AWS Deployment
 
