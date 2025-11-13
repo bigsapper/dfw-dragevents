@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { formatDateTime, formatDateRange, fetchJSON, loadEventsList, loadEventDetail, resetCache, initializeEventsList, initializeEventDetail } from './app.js';
+import { formatDateTime, formatDateRange, fetchJSON, loadEventsList, loadEventDetail, resetCache, initializeEventsList, initializeEventDetail, isSafeUrl } from './app.js';
 
 describe('formatDateTime', () => {
   it('should format valid ISO date string', () => {
@@ -128,6 +128,56 @@ describe('fetchJSON', () => {
     global.fetch.mockRejectedValue(new Error('Network error'));
 
     await expect(fetchJSON('data/events.json')).rejects.toThrow('Network error');
+  });
+});
+
+describe('isSafeUrl', () => {
+  it('should allow http URLs', () => {
+    expect(isSafeUrl('http://example.com')).toBe(true);
+  });
+
+  it('should allow https URLs', () => {
+    expect(isSafeUrl('https://example.com')).toBe(true);
+  });
+
+  it('should reject javascript: URLs', () => {
+    expect(isSafeUrl('javascript:alert(1)')).toBe(false);
+  });
+
+  it('should reject data: URLs', () => {
+    expect(isSafeUrl('data:text/html,<script>alert(1)</script>')).toBe(false);
+  });
+
+  it('should reject file: URLs', () => {
+    expect(isSafeUrl('file:///etc/passwd')).toBe(false);
+  });
+
+  it('should reject vbscript: URLs', () => {
+    expect(isSafeUrl('vbscript:msgbox(1)')).toBe(false);
+  });
+
+  it('should reject null', () => {
+    expect(isSafeUrl(null)).toBe(false);
+  });
+
+  it('should reject undefined', () => {
+    expect(isSafeUrl(undefined)).toBe(false);
+  });
+
+  it('should reject empty string', () => {
+    expect(isSafeUrl('')).toBe(false);
+  });
+
+  it('should handle malformed URLs with invalid schemes', () => {
+    expect(isSafeUrl('ftp://example.com')).toBe(false);
+  });
+
+  it('should allow URLs with paths and query strings', () => {
+    expect(isSafeUrl('https://example.com/path?query=value')).toBe(true);
+  });
+
+  it('should allow relative URLs converted to http/https', () => {
+    expect(isSafeUrl('/path/to/page')).toBe(true);
   });
 });
 

@@ -70,6 +70,17 @@ export function resetCache() {
   allTracks = [];
 }
 
+// URL validation to prevent javascript: and other malicious schemes
+export function isSafeUrl(url) {
+  if (!url) return false;
+  try {
+    const parsed = new URL(url, window.location.origin);
+    return ['http:', 'https:'].includes(parsed.protocol);
+  } catch {
+    return false;
+  }
+}
+
 export async function loadEventsList(filter = 'upcoming') {
   try {
     // Load data only once
@@ -118,14 +129,40 @@ export async function loadEventsList(filter = 'upcoming') {
     filteredEvents.forEach(ev => {
       const card = document.createElement('div');
       card.className = 'card mb-3';
-      card.innerHTML = `
-        <div class="card-body">
-          <h5 class="card-title">${ev.title}</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">${mapTrack.get(ev.track_id) || ev.track_name}</h6>
-          <p class="card-text">${ev.description || ''}</p>
-          <p class="card-text"><small class="text-body-secondary">${formatDateRange(ev.start_date, ev.end_date)}</small></p>
-          <a href="event.html?id=${ev.id}" class="card-link">Details</a>
-        </div>`;
+      
+      const cardBody = document.createElement('div');
+      cardBody.className = 'card-body';
+      
+      const title = document.createElement('h5');
+      title.className = 'card-title';
+      title.textContent = ev.title;
+      
+      const subtitle = document.createElement('h6');
+      subtitle.className = 'card-subtitle mb-2 text-body-secondary';
+      subtitle.textContent = mapTrack.get(ev.track_id) || ev.track_name;
+      
+      const description = document.createElement('p');
+      description.className = 'card-text';
+      description.textContent = ev.description || '';
+      
+      const dateText = document.createElement('p');
+      dateText.className = 'card-text';
+      const dateSmall = document.createElement('small');
+      dateSmall.className = 'text-body-secondary';
+      dateSmall.textContent = formatDateRange(ev.start_date, ev.end_date);
+      dateText.appendChild(dateSmall);
+      
+      const link = document.createElement('a');
+      link.href = `event.html?id=${ev.id}`;
+      link.className = 'card-link';
+      link.textContent = 'Details';
+      
+      cardBody.appendChild(title);
+      cardBody.appendChild(subtitle);
+      cardBody.appendChild(description);
+      cardBody.appendChild(dateText);
+      cardBody.appendChild(link);
+      card.appendChild(cardBody);
       container.appendChild(card);
     });
   } catch (e) {
@@ -163,24 +200,45 @@ export async function loadEventDetail() {
     ev.classes.forEach(cls => {
       const classDiv = document.createElement('div');
       classDiv.className = 'mb-3';
-      let html = `<h5>${cls.name}</h5>`;
-      if (cls.buyin_fee) html += `<p class="text-muted">Buy-in: $${cls.buyin_fee}</p>`;
-      if (cls.rules && cls.rules.length) {
-        html += '<ul class="list-group list-group-flush">';
-        cls.rules.forEach(r => {
-          html += `<li class="list-group-item">${r.rule}</li>`;
-        });
-        html += '</ul>';
+      
+      const className = document.createElement('h5');
+      className.textContent = cls.name;
+      classDiv.appendChild(className);
+      
+      if (cls.buyin_fee) {
+        const buyinText = document.createElement('p');
+        buyinText.className = 'text-muted';
+        buyinText.textContent = `Buy-in: $${cls.buyin_fee}`;
+        classDiv.appendChild(buyinText);
       }
-      classDiv.innerHTML = html;
+      
+      if (cls.rules && cls.rules.length) {
+        const rulesList = document.createElement('ul');
+        rulesList.className = 'list-group list-group-flush';
+        cls.rules.forEach(r => {
+          const ruleItem = document.createElement('li');
+          ruleItem.className = 'list-group-item';
+          ruleItem.textContent = r.rule;
+          rulesList.appendChild(ruleItem);
+        });
+        classDiv.appendChild(rulesList);
+      }
+      
       classesEl.appendChild(classDiv);
     });
   } else {
-    classesEl.innerHTML = '<p class="text-muted">No classes listed.</p>';
+    const noClasses = document.createElement('p');
+    noClasses.className = 'text-muted';
+    noClasses.textContent = 'No classes listed.';
+    classesEl.innerHTML = '';
+    classesEl.appendChild(noClasses);
   }
   
   const link = document.getElementById('ev-link');
-  if (ev.url) { link.href = ev.url; link.classList.remove('disabled'); }
+  if (ev.url && isSafeUrl(ev.url)) {
+    link.href = ev.url;
+    link.classList.remove('disabled');
+  }
   
   // Update page title and meta description dynamically
   document.title = `${ev.title} | DFW Drag Racing Events`;

@@ -36,14 +36,14 @@ For detailed architecture and DR procedures, see [HIGH_AVAILABILITY.md](HIGH_AVA
 - **Public Access:** Enabled (via bucket policy)
 
 ### CloudFront
-- **Distribution ID:** EW03K014K18UC
+- **Distribution ID:** (stored securely - not in public repo)
 - **Status:** Deployed
 - **SSL Certificate:** ACM (SNI)
 - **HTTP Version:** HTTP/2 and HTTP/3
 - **Price Class:** PriceClass_100 (US, Canada, Europe)
 
 ### Route 53
-- **Hosted Zone ID:** Z026994531JGPEILPZ1BJ
+- **Hosted Zone ID:** (stored securely - not in public repo)
 - **Domain:** dfw-dragevents.com
 - **Nameservers:** Managed by Route 53
 
@@ -58,13 +58,15 @@ For detailed architecture and DR procedures, see [HIGH_AVAILABILITY.md](HIGH_AVA
 
 ### Check CloudFront Status
 ```powershell
-aws cloudfront get-distribution --id EW03K014K18UC --query "Distribution.Status"
+aws cloudfront get-distribution --id YOUR_DISTRIBUTION_ID --query "Distribution.Status"
 ```
 
 ### Invalidate CloudFront Cache
 ```powershell
-aws cloudfront create-invalidation --distribution-id EW03K014K18UC --paths "/*"
+aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
 ```
+
+Replace `YOUR_DISTRIBUTION_ID` with your actual CloudFront distribution ID.
 
 ### List CloudFront Distributions
 ```powershell
@@ -90,7 +92,7 @@ See [README.md](../README.md#updating-site-content) for the complete update work
 
 Monitor your AWS costs:
 - **AWS Cost Explorer:** https://console.aws.amazon.com/cost-management/home
-- **CloudFront Metrics:** https://console.aws.amazon.com/cloudfront/v3/home#/distributions/EW03K014K18UC
+- **CloudFront Console:** https://console.aws.amazon.com/cloudfront/v3/home#/distributions
 - **S3 Metrics:** https://s3.console.aws.amazon.com/s3/buckets/dfw-dragevents.com?tab=metrics
 
 ## Security Notes

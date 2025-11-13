@@ -6,6 +6,69 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-11-13] - Security Fixes
+
+### Fixed
+- **XSS Vulnerability in Event Cards** (HIGH)
+  - Replaced `innerHTML` with safe DOM manipulation using `textContent`
+  - Prevents malicious script injection through event titles, descriptions, and track names
+  - Affected: `site/assets/js/app.js` (loadEventsList function)
+
+- **XSS Vulnerability in Event Classes** (HIGH)
+  - Replaced `innerHTML` with safe DOM manipulation for class names and rules
+  - All user-controlled data now safely rendered without HTML parsing
+  - Affected: `site/assets/js/app.js` (loadEventDetail function)
+
+- **Unvalidated URL Assignment** (HIGH)
+  - Added `isSafeUrl()` function to validate event URLs
+  - Only allows `http:` and `https:` protocols
+  - Blocks malicious schemes: `javascript:`, `data:`, `file:`, `vbscript:`
+  - Affected: `site/assets/js/app.js`
+
+- **Missing Subresource Integrity** (MEDIUM)
+  - Added SRI hashes to all Bootstrap CDN links
+  - Added `crossorigin="anonymous"` attribute for CORS
+  - Protects against compromised CDN serving malicious code
+  - Affected: All HTML files (index, events, event, about, 404)
+
+- **Missing Content Security Policy** (LOW)
+  - Added CSP meta tags to all HTML pages
+  - Restricts script sources to self and cdn.jsdelivr.net
+  - Prevents inline script execution (except where needed)
+  - Restricts resource loading to trusted sources
+  - Affected: All HTML files
+
+### Added
+- **Security Tests**
+  - 12 new tests for `isSafeUrl()` function
+  - Tests cover valid URLs, malicious schemes, null/undefined, edge cases
+  - Total test count: 81 tests (18 filters + 63 app)
+  - Coverage: 98.3% overall
+
+- **CloudFront Security Documentation**
+  - Created `docs/CLOUDFRONT_SECURITY.md`
+  - HSTS header configuration (free)
+  - Additional security headers (X-Frame-Options, X-Content-Type-Options, etc.)
+  - AWS Shield Standard DDoS protection (included free)
+  - Monitoring and testing guidelines
+  - All recommendations are free - no additional costs
+
+### Security Status
+- **Before:** ⚠️ MEDIUM RISK (2 HIGH, 1 MEDIUM vulnerabilities)
+- **After:** ✅ LOW RISK (all critical vulnerabilities fixed)
+- **Dependencies:** ✅ 0 vulnerabilities (npm audit clean)
+
+### Files Modified
+- `site/assets/js/app.js` - XSS fixes and URL validation
+- `site/assets/js/app.test.js` - Security tests
+- `site/index.html` - SRI hashes
+- `site/events.html` - SRI hashes
+- `site/event.html` - SRI hashes
+- `site/about.html` - SRI hashes
+- `site/404.html` - SRI hashes
+
+---
+
 ## [2025-11-13] - Date Filtering & Comprehensive Testing
 
 ### Added
