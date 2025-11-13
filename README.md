@@ -6,6 +6,118 @@ Static website for Dallas-Fort Worth drag racing events. Data is managed locally
 
 **Open Source:** This project is open source under the MIT License. Contributions are welcome!
 
+## Prerequisites
+
+### Required Tools
+
+#### **1. Go (Backend Development)**
+- **Version:** Go 1.20 or later
+- **Download:** https://go.dev/dl/
+- **Verify:** `go version`
+- **Used for:** Database CLI, data management, backend tests
+
+#### **2. Node.js & npm (Frontend Testing)**
+- **Version:** Node.js 18+ (includes npm)
+- **Download:** https://nodejs.org/
+- **Verify:** `node --version` and `npm --version`
+- **Used for:** Frontend unit tests, test coverage reports
+
+#### **3. Python (Local Development Server)**
+- **Version:** Python 3.7 or later
+- **Download:** https://www.python.org/downloads/
+- **Verify:** `python --version`
+- **Used for:** Local HTTP server for testing (`python -m http.server`)
+- **Alternative:** VS Code Live Server extension
+
+#### **4. Make (Build Automation)**
+- **Windows:** Included with Git for Windows, or install via Chocolatey: `choco install make`
+- **macOS/Linux:** Usually pre-installed
+- **Verify:** `make --version`
+- **Used for:** Running build commands (`make test`, `make build`, etc.)
+
+#### **5. AWS CLI (Deployment - Optional)**
+- **Version:** AWS CLI v2
+- **Download:** https://aws.amazon.com/cli/
+- **Verify:** `aws --version`
+- **Configure:** `aws configure`
+- **Used for:** Deploying to AWS S3 and CloudFront
+- **Required only if:** You're deploying to production
+
+#### **6. Git**
+- **Version:** Git 2.0 or later
+- **Download:** https://git-scm.com/downloads
+- **Verify:** `git --version`
+- **Used for:** Version control
+
+---
+
+## Local Environment Setup
+
+### **1. Clone Repository**
+```powershell
+git clone https://github.com/bigsapper/dfw-dragevents.git
+cd dfw-dragevents
+```
+
+### **2. Backend Setup (Go)**
+```powershell
+cd tools
+
+# Install Go dependencies (automatic on first build)
+go mod download
+
+# Verify Go setup
+make test
+
+# Initialize database
+make init
+
+# Seed sample data
+make seed
+
+# Export data to JSON
+make export
+```
+
+### **3. Frontend Setup (Node.js)**
+```powershell
+cd ../site
+
+# Install test dependencies
+npm install
+
+# Run tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+### **4. Start Local Development Server**
+```powershell
+# Option 1: Python HTTP server
+cd site
+python -m http.server 8000
+
+# Option 2: VS Code Live Server
+# Right-click index.html → "Open with Live Server"
+```
+
+Open http://localhost:8000 in your browser.
+
+### **5. AWS Setup (Optional - For Deployment)**
+```powershell
+# Configure AWS credentials
+aws configure
+# Enter: Access Key ID, Secret Access Key, Region (us-east-1), Output format (json)
+
+# Verify AWS access
+aws s3 ls
+aws cloudfront list-distributions
+```
+
+---
+
 ## Structure
 
 ```
