@@ -275,6 +275,45 @@ Replace `YOUR_DISTRIBUTION_ID` with your CloudFront distribution ID (found in Cl
 
 ---
 
+## Deployment Best Practices
+
+### Files to Exclude from S3
+
+The deployment script automatically excludes development files:
+- `node_modules/` - Test dependencies (~40 MB)
+- `*.test.js` - Unit test files
+- `coverage/` - Test coverage reports
+- `package*.json` - NPM configuration
+- `vitest.config.js` - Test configuration
+- `.gitignore` - Git configuration
+- `README.md` - Development documentation
+
+**Production deployment size:** ~500 KB (vs ~41 MB with dev files)
+
+### Cleanup Utility
+
+If unwanted files were uploaded, use the cleanup script:
+
+```powershell
+cd tools\aws
+
+# Preview what will be deleted
+.\cleanup-s3.ps1 -DryRun
+
+# Remove unwanted files
+.\cleanup-s3.ps1
+```
+
+This removes:
+- Development dependencies
+- Test files
+- Coverage reports
+- Configuration files
+
+**Note:** The cleanup script automatically invalidates CloudFront cache.
+
+---
+
 ## Cost Estimate
 
 ### S3 Only (HTTP)
