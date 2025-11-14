@@ -6,6 +6,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-11-14] - Multi-Day Event Date Filtering
+
+### Fixed
+- **Date Filter Logic for Multi-Day Events**
+  - `filterEventsByDate()` now correctly handles events with `end_date`
+  - Uses event overlap logic: event included if `event_start <= range_end AND event_end >= range_start`
+  - Multi-day events that started before but end during filter range are now included
+  - Multi-day events that start during but end after filter range are now included
+  - Affected filters: "This Month", "Next 30 Days", and custom date ranges
+
+- **Past Events Filter**
+  - `getPastEvents()` now only includes events that have actually ended
+  - Changed from checking `start_date < now` to `end_date < now`
+  - Ongoing multi-day events (started in past but still running) are no longer incorrectly shown as "past"
+  - Events are only considered "past" when their `end_date` has passed
+
+### Changed
+- **Consistent "Current Event" Logic**
+  - All date filters now respect the same multi-day event logic as `getUpcomingEvents()`
+  - Events without `end_date` use `start_date` as both start and end (single-day events)
+  - Ensures consistent behavior across all filter presets
+
+### Added
+- **Comprehensive Multi-Day Event Tests**
+  - Added 5 new test cases for multi-day event scenarios
+  - `filterEventsByDate`: Tests events that overlap, span, or fall outside date ranges
+  - `getThisMonthEvents`: Tests events that started last month but end this month
+  - `getNext30DaysEvents`: Tests events that started yesterday but run beyond 30 days
+  - `getPastEvents`: Tests that ongoing events are excluded from past events
+  - Total tests: 83 → 88 tests (23 filters + 63 app + 2 year)
+  - Coverage: 97.67% statements, 92.59% branches, 96.66% functions, 98.44% lines
+
+### Files Modified
+- `site/assets/js/filters.js` - Updated date filtering logic
+- `site/assets/js/filters.test.js` - Added multi-day event tests
+
+---
+
 ## [2025-11-13] - Comprehensive Backend Test Coverage
 
 ### Added
@@ -41,8 +79,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Testing Metrics
 - **Backend (Go)**: 37 tests, 81% avg coverage
-- **Frontend (JavaScript)**: 83 tests, 98.52% coverage
-- **Total**: 120 tests across full stack
+- **Frontend (JavaScript)**: 88 tests, 97.67% coverage
+- **Total**: 125 tests across full stack
 
 ---
 

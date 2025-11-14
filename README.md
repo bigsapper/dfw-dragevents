@@ -126,7 +126,7 @@ dfw-dragevents/
 │   ├── *.html                # Pages (index, events, event, about)
 │   ├── assets/
 │   │   ├── css/              # Stylesheets
-│   │   └── js/               # Application logic and test files (83 tests)
+│   │   └── js/               # Application logic and test files (88 tests)
 │   ├── data/                 # JSON files (generated from database)
 │   ├── package.json          # Test dependencies (Vitest, Happy DOM)
 │   ├── vitest.config.js      # Test configuration
@@ -160,7 +160,7 @@ dfw-dragevents/
 - **Frontend (site/)** - Static HTML/CSS/JS with Bootstrap 5, ES6 modules, date filtering, comprehensive test suite
 - **Backend (tools/)** - Go CLI for database management, SQLite with migrations, exports to JSON
 - **Database** - Tracks, events (with start/end dates), event classes, and rules
-- **Testing** - 120 total tests: 83 frontend (98.52% coverage), 37 backend (81% coverage), Vitest + Go testing frameworks
+- **Testing** - 125 total tests: 88 frontend (97.67% coverage), 37 backend (81% coverage), Vitest + Go testing frameworks
 - **Security** - Grade A/A+, XSS prevention, URL validation, SRI hashes, CloudFront security headers, HTTPS enforced
 - **Infrastructure** - AWS S3, CloudFront CDN with response headers policy, Route 53 DNS, ACM SSL certificates
 
@@ -320,30 +320,31 @@ npm run test:coverage  # Run tests with coverage report
 ```
 
 **Test Suite:**
-- **83 total tests** (18 filters + 63 app + 2 year)
-- **98.52% overall coverage**
+- **88 total tests** (23 filters + 63 app + 2 year)
+- **97.67% overall coverage**
 - **Vitest** testing framework
 - **Happy DOM** for browser environment simulation
 
 **Coverage Standards:**
 - **Target:** ≥80% coverage for all files
 - **Current:**
-  - **Statements**: 98.52% ✅
-  - **Branches**: 93.87% ✅
-  - **Functions**: 96.42% ✅
-  - **Lines**: 98.36% ✅
-  - `filters.js`: 100% coverage ✅
+  - **Statements**: 97.67% ✅
+  - **Branches**: 92.59% ✅
+  - **Functions**: 96.66% ✅
+  - **Lines**: 98.44% ✅
+  - `filters.js`: 94.28% coverage ✅
   - `app.js`: 98.32% coverage ✅
   - `year.js`: 100% coverage ✅
 
 **Test Files:**
-- `site/assets/js/filters.test.js` - Date filtering logic (18 tests)
+- `site/assets/js/filters.test.js` - Date filtering logic (23 tests)
 - `site/assets/js/app.test.js` - Integration tests (63 tests)
 - `site/assets/js/year.test.js` - Year display logic (2 tests)
 
 **What's Tested:**
 - Date formatting and validation
 - Event filtering (5 presets: Upcoming, This Month, Next 30 Days, Past, All)
+- Multi-day event handling with end_date overlap logic
 - Event sorting (chronological/reverse)
 - DOM manipulation and rendering
 - URL validation and security

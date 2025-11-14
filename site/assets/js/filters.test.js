@@ -50,6 +50,31 @@ describe('filterEventsByDate', () => {
     const result = filterEventsByDate(mockEvents, startFilter, null);
     expect(result.map(e => e.id)).toContain(4);
   });
+
+  it('should include multi-day events that overlap with filter range', () => {
+    const mockEvents = [
+      // Event that started before range but ends during range
+      { id: 1, title: 'Overlaps Start', start_date: '2025-01-15T10:00:00Z', end_date: '2025-02-05T10:00:00Z' },
+      // Event that starts during range but ends after range
+      { id: 2, title: 'Overlaps End', start_date: '2025-02-25T10:00:00Z', end_date: '2025-03-05T10:00:00Z' },
+      // Event completely within range
+      { id: 3, title: 'Within Range', start_date: '2025-02-10T10:00:00Z', end_date: '2025-02-15T10:00:00Z' },
+      // Event that spans entire range
+      { id: 4, title: 'Spans Range', start_date: '2025-01-01T10:00:00Z', end_date: '2025-03-31T10:00:00Z' },
+      // Event completely before range
+      { id: 5, title: 'Before Range', start_date: '2025-01-01T10:00:00Z', end_date: '2025-01-31T10:00:00Z' },
+      // Event completely after range
+      { id: 6, title: 'After Range', start_date: '2025-03-01T10:00:00Z', end_date: '2025-03-31T10:00:00Z' }
+    ];
+    
+    const startFilter = new Date('2025-02-01T00:00:00Z');
+    const endFilter = new Date('2025-02-28T23:59:59Z');
+    const result = filterEventsByDate(mockEvents, startFilter, endFilter);
+    
+    // Should include events 1, 2, 3, 4 (all that overlap February)
+    expect(result).toHaveLength(4);
+    expect(result.map(e => e.id).sort()).toEqual([1, 2, 3, 4]);
+  });
 });
 
 describe('getUpcomingEvents', () => {
@@ -120,6 +145,28 @@ describe('getThisMonthEvents', () => {
     const result = getThisMonthEvents(mockEvents);
     expect(result).toHaveLength(2);
   });
+
+  it('should include multi-day events that overlap with current month', () => {
+    const now = new Date();
+    const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 15);
+    const thisMonth = new Date(now.getFullYear(), now.getMonth(), 15);
+    const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 15);
+    
+    const mockEvents = [
+      // Started last month, ends this month
+      { id: 1, title: 'Overlaps Start', start_date: lastMonth.toISOString(), end_date: thisMonth.toISOString() },
+      // Starts this month, ends next month
+      { id: 2, title: 'Overlaps End', start_date: thisMonth.toISOString(), end_date: nextMonth.toISOString() },
+      // Completely within this month
+      { id: 3, title: 'Within Month', start_date: thisMonth.toISOString() },
+      // Completely before this month
+      { id: 4, title: 'Last Month', start_date: lastMonth.toISOString(), end_date: lastMonth.toISOString() }
+    ];
+    
+    const result = getThisMonthEvents(mockEvents);
+    expect(result).toHaveLength(3);
+    expect(result.map(e => e.id).sort()).toEqual([1, 2, 3]);
+  });
 });
 
 describe('getNext30DaysEvents', () => {
@@ -138,6 +185,27 @@ describe('getNext30DaysEvents', () => {
     const result = getNext30DaysEvents(mockEvents);
     expect(result).toHaveLength(1);
     expect(result[0].id).toBe(2);
+  });
+
+  it('should include multi-day events that overlap with next 30 days', () => {
+    const now = new Date();
+    const yesterday = new Date(now.getTime() - 86400000);
+    const in5Days = new Date(now.getTime() + 5 * 86400000);
+    const in35Days = new Date(now.getTime() + 35 * 86400000);
+    const in40Days = new Date(now.getTime() + 40 * 86400000);
+    
+    const mockEvents = [
+      // Started yesterday, ends in 5 days (overlaps start of range)
+      { id: 1, title: 'Ongoing', start_date: yesterday.toISOString(), end_date: in5Days.toISOString() },
+      // Starts in 5 days, ends in 35 days (overlaps end of range)
+      { id: 2, title: 'Overlaps End', start_date: in5Days.toISOString(), end_date: in35Days.toISOString() },
+      // Completely after 30 days
+      { id: 3, title: 'Too Far', start_date: in40Days.toISOString() }
+    ];
+    
+    const result = getNext30DaysEvents(mockEvents);
+    expect(result).toHaveLength(2);
+    expect(result.map(e => e.id).sort()).toEqual([1, 2]);
   });
 });
 
@@ -162,6 +230,22 @@ describe('getPastEvents', () => {
     
     const result = getPastEvents(mockEvents);
     expect(result).toHaveLength(0);
+  });
+
+  it('should not include ongoing multi-day events', () => {
+    const now = new Date();
+    const mockEvents = [
+      // Ended yesterday (truly past)
+      { id: 1, title: 'Ended', start_date: new Date(now.getTime() - 86400000 * 2).toISOString(), end_date: new Date(now.getTime() - 86400000).toISOString() },
+      // Started yesterday but still ongoing (not past)
+      { id: 2, title: 'Ongoing', start_date: new Date(now.getTime() - 86400000).toISOString(), end_date: new Date(now.getTime() + 86400000).toISOString() },
+      // Future event
+      { id: 3, title: 'Future', start_date: new Date(now.getTime() + 86400000).toISOString() }
+    ];
+    
+    const result = getPastEvents(mockEvents);
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe(1);
   });
 });
 

@@ -3,7 +3,12 @@ export function filterEventsByDate(events, startFilter, endFilter) {
   return events.filter(ev => {
     const eventStart = new Date(ev.start_date);
     if (isNaN(eventStart.getTime())) return true; // Include events with invalid dates
-    if (startFilter && eventStart < startFilter) return false;
+    
+    // Use end_date if available, otherwise use start_date
+    const eventEnd = ev.end_date ? new Date(ev.end_date) : eventStart;
+    
+    // Event overlaps with filter range if: event_start <= filter_end AND event_end >= filter_start
+    if (startFilter && eventEnd < startFilter) return false;
     if (endFilter && eventStart > endFilter) return false;
     return true;
   });
@@ -39,7 +44,16 @@ export function getNext30DaysEvents(events) {
 
 export function getPastEvents(events) {
   const now = new Date();
-  return filterEventsByDate(events, null, now);
+  return events.filter(ev => {
+    const eventStart = new Date(ev.start_date);
+    const eventEnd = ev.end_date ? new Date(ev.end_date) : eventStart;
+    
+    // Include events with invalid dates
+    if (isNaN(eventStart.getTime())) return true;
+    
+    // Only include if event has ended (end_date < now)
+    return eventEnd < now;
+  });
 }
 
 // Sort events by date
