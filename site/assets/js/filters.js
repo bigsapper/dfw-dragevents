@@ -12,7 +12,16 @@ export function filterEventsByDate(events, startFilter, endFilter) {
 // Filter preset functions
 export function getUpcomingEvents(events) {
   const now = new Date();
-  return filterEventsByDate(events, now, null);
+  return events.filter(ev => {
+    const eventStart = new Date(ev.start_date);
+    const eventEnd = ev.end_date ? new Date(ev.end_date) : eventStart;
+    
+    // Include events with invalid dates
+    if (isNaN(eventStart.getTime())) return true;
+    
+    // Include if event hasn't ended yet (current or future events)
+    return eventEnd >= now;
+  });
 }
 
 export function getThisMonthEvents(events) {

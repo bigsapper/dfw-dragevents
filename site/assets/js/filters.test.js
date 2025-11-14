@@ -53,23 +53,35 @@ describe('filterEventsByDate', () => {
 });
 
 describe('getUpcomingEvents', () => {
-  it('should return only future events', () => {
+  it('should return future and current events', () => {
     const now = new Date();
     const mockEvents = [
-      { id: 1, title: 'Past', start_date: new Date(now.getTime() - 86400000).toISOString() },
-      { id: 2, title: 'Future', start_date: new Date(now.getTime() + 86400000).toISOString() },
-      { id: 3, title: 'Far Future', start_date: new Date(now.getTime() + 86400000 * 30).toISOString() }
+      { id: 1, title: 'Past', start_date: new Date(now.getTime() - 86400000 * 2).toISOString(), end_date: new Date(now.getTime() - 86400000).toISOString() },
+      { id: 2, title: 'Current', start_date: new Date(now.getTime() - 86400000).toISOString(), end_date: new Date(now.getTime() + 86400000).toISOString() },
+      { id: 3, title: 'Future', start_date: new Date(now.getTime() + 86400000).toISOString() },
+      { id: 4, title: 'Far Future', start_date: new Date(now.getTime() + 86400000 * 30).toISOString() }
     ];
     
     const result = getUpcomingEvents(mockEvents);
-    expect(result).toHaveLength(2);
-    expect(result.map(e => e.id)).toEqual([2, 3]);
+    expect(result).toHaveLength(3);
+    expect(result.map(e => e.id)).toEqual([2, 3, 4]);
+  });
+
+  it('should include events without end_date if start_date is in future', () => {
+    const now = new Date();
+    const mockEvents = [
+      { id: 1, title: 'Future', start_date: new Date(now.getTime() + 86400000).toISOString() }
+    ];
+    
+    const result = getUpcomingEvents(mockEvents);
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe(1);
   });
 
   it('should return empty array when no upcoming events', () => {
     const now = new Date();
     const mockEvents = [
-      { id: 1, title: 'Past', start_date: new Date(now.getTime() - 86400000).toISOString() }
+      { id: 1, title: 'Past', start_date: new Date(now.getTime() - 86400000 * 2).toISOString(), end_date: new Date(now.getTime() - 86400000).toISOString() }
     ];
     
     const result = getUpcomingEvents(mockEvents);
