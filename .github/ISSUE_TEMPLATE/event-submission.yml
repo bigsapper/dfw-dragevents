@@ -43,9 +43,8 @@ body:
       description: Which track is hosting this event?
       options:
         - Texas Motorplex (Ennis, TX)
-        - Redline Raceway (Denton, TX)
-        - North Star Dragway (Denton, TX)
-        - Eagle Mountain Speedway (Rhome, TX)
+        - Xtreme Raceway Park (Ferris, TX)
+        - Thunder Valley Dragway (Ardmore, OK)
         - Other (please specify in description)
     validations:
       required: true
@@ -112,14 +111,3 @@ body:
       placeholder: "e.g., (555) 123-4567, info@track.com, @trackname"
     validations:
       required: false
-      
-  - type: checkboxes
-    id: verification
-    attributes:
-      label: Verification
-      description: Please confirm the following
-      options:
-        - label: I have verified this information is accurate
-          required: true
-        - label: This event is in the Dallas-Fort Worth area
-          required: true

@@ -2,10 +2,12 @@ package db
 
 import (
 	"database/sql"
+	"os"
 	"path/filepath"
+	"strconv"
 	"testing"
 	"time"
-	
+
 	_ "modernc.org/sqlite"
 )
 
@@ -285,4 +287,843 @@ func TestEventStructFields(t *testing.T) {
 	
 	// Verify field exists by accessing it
 	_ = event.EndDate
+}
+
+func TestCreateEvent(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert a track first
+	result, err := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert track: %v", err)
+	}
+	trackID, _ := result.LastInsertId()
+	
+	// Test CreateEvent with all fields
+	driverFee := 50.0
+	spectatorFee := 20.0
+	eventID, err := CreateEvent(
+		db,
+		"New Event",
+		trackID,
+		"2025-12-01 10:00:00",
+		"2025-12-01 18:00:00",
+		&driverFee,
+		&spectatorFee,
+		"https://test.com/event",
+		"Test event description",
+	)
+	if err != nil {
+		t.Fatalf("CreateEvent failed: %v", err)
+	}
+	
+	if eventID == 0 {
+		t.Error("Expected non-zero event ID")
+	}
+	
+	// Verify event was created
+	events, err := ListEvents(db)
+	if err != nil {
+		t.Fatalf("Failed to list events: %v", err)
+	}
+	
+	if len(events) != 1 {
+		t.Errorf("Expected 1 event, got %d", len(events))
+	}
+	
+	if events[0].Title != "New Event" {
+		t.Errorf("Expected title 'New Event', got %s", events[0].Title)
+	}
+}
+
+func TestCreateEventWithNullFields(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert a track
+	result, err := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert track: %v", err)
+	}
+	trackID, _ := result.LastInsertId()
+	
+	// Test CreateEvent with null optional fields
+	eventID, err := CreateEvent(
+		db,
+		"Minimal Event",
+		trackID,
+		"2025-12-01 10:00:00",
+		"", // no end date
+		nil, // no driver fee
+		nil, // no spectator fee
+		"",
+		"",
+	)
+	if err != nil {
+		t.Fatalf("CreateEvent with nulls failed: %v", err)
+	}
+	
+	if eventID == 0 {
+		t.Error("Expected non-zero event ID")
+	}
+	
+	// Verify event
+	events, err := ListEvents(db)
+	if err != nil {
+		t.Fatalf("Failed to list events: %v", err)
+	}
+	
+	if len(events) != 1 {
+		t.Fatalf("Expected 1 event, got %d", len(events))
+	}
+	
+	if events[0].EndDate != nil {
+		t.Error("Expected nil EndDate")
+	}
+	
+	if events[0].DriverFee != nil {
+		t.Error("Expected nil DriverFee")
+	}
+	
+	if events[0].SpectatorFee != nil {
+		t.Error("Expected nil SpectatorFee")
+	}
+}
+
+func TestDeleteEvent(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert a track
+	result, err := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert track: %v", err)
+	}
+	trackID, _ := result.LastInsertId()
+	
+	// Create an event
+	driverFee := 50.0
+	eventID, err := CreateEvent(
+		db,
+		"Event to Delete",
+		trackID,
+		"2025-12-01 10:00:00",
+		"",
+		&driverFee,
+		nil,
+		"https://test.com/event",
+		"Will be deleted",
+	)
+	if err != nil {
+		t.Fatalf("CreateEvent failed: %v", err)
+	}
+	
+	// Add event class
+	classResult, err := db.Exec(
+		"INSERT INTO event_classes(event_id, name, buyin_fee) VALUES(?, ?, ?)",
+		eventID, "Test Class", 100.0,
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert event class: %v", err)
+	}
+	classID, _ := classResult.LastInsertId()
+	
+	// Add class rule
+	_, err = db.Exec(
+		"INSERT INTO event_class_rules(event_class_id, rule) VALUES(?, ?)",
+		classID, "Test rule",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert class rule: %v", err)
+	}
+	
+	// Delete the event
+	err = DeleteEvent(db, eventID)
+	if err != nil {
+		t.Fatalf("DeleteEvent failed: %v", err)
+	}
+	
+	// Verify event was deleted
+	events, err := ListEvents(db)
+	if err != nil {
+		t.Fatalf("Failed to list events: %v", err)
+	}
+	
+	if len(events) != 0 {
+		t.Errorf("Expected 0 events after deletion, got %d", len(events))
+	}
+	
+	// Verify classes were deleted (cascade)
+	classes, err := ListEventClasses(db)
+	if err != nil {
+		t.Fatalf("Failed to list event classes: %v", err)
+	}
+	
+	if len(classes) != 0 {
+		t.Errorf("Expected 0 classes after event deletion, got %d", len(classes))
+	}
+	
+	// Verify rules were deleted (cascade)
+	rules, err := ListEventClassRules(db)
+	if err != nil {
+		t.Fatalf("Failed to list rules: %v", err)
+	}
+	
+	if len(rules) != 0 {
+		t.Errorf("Expected 0 rules after event deletion, got %d", len(rules))
+	}
+}
+
+func TestListEventClasses(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert track and event
+	trackResult, _ := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	trackID, _ := trackResult.LastInsertId()
+	
+	eventResult, _ := db.Exec(
+		"INSERT INTO events(title, track_id, event_datetime) VALUES(?, ?, ?)",
+		"Test Event", trackID, "2025-12-01 10:00:00",
+	)
+	eventID, _ := eventResult.LastInsertId()
+	
+	// Insert event classes
+	_, err := db.Exec(
+		"INSERT INTO event_classes(event_id, name, buyin_fee) VALUES(?, ?, ?)",
+		eventID, "Pro Class", 100.0,
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert class: %v", err)
+	}
+	
+	_, err = db.Exec(
+		"INSERT INTO event_classes(event_id, name, buyin_fee) VALUES(?, ?, ?)",
+		eventID, "Street Class", nil,
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert class: %v", err)
+	}
+	
+	// List classes
+	classes, err := ListEventClasses(db)
+	if err != nil {
+		t.Fatalf("ListEventClasses failed: %v", err)
+	}
+	
+	if len(classes) != 2 {
+		t.Errorf("Expected 2 classes, got %d", len(classes))
+	}
+	
+	// Verify first class
+	if classes[0].Name != "Pro Class" {
+		t.Errorf("Expected 'Pro Class', got %s", classes[0].Name)
+	}
+	
+	if classes[0].BuyinFee == nil || *classes[0].BuyinFee != 100.0 {
+		t.Errorf("Expected buyin fee 100.0, got %v", classes[0].BuyinFee)
+	}
+	
+	// Verify second class has nil buyin fee
+	if classes[1].BuyinFee != nil {
+		t.Errorf("Expected nil buyin fee, got %v", classes[1].BuyinFee)
+	}
+}
+
+func TestListEventClassRules(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert track, event, and class
+	trackResult, _ := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	trackID, _ := trackResult.LastInsertId()
+	
+	eventResult, _ := db.Exec(
+		"INSERT INTO events(title, track_id, event_datetime) VALUES(?, ?, ?)",
+		"Test Event", trackID, "2025-12-01 10:00:00",
+	)
+	eventID, _ := eventResult.LastInsertId()
+	
+	classResult, _ := db.Exec(
+		"INSERT INTO event_classes(event_id, name) VALUES(?, ?)",
+		eventID, "Test Class",
+	)
+	classID, _ := classResult.LastInsertId()
+	
+	// Insert rules
+	_, err := db.Exec(
+		"INSERT INTO event_class_rules(event_class_id, rule) VALUES(?, ?)",
+		classID, "Rule 1: Safety first",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert rule: %v", err)
+	}
+	
+	_, err = db.Exec(
+		"INSERT INTO event_class_rules(event_class_id, rule) VALUES(?, ?)",
+		classID, "Rule 2: No cheating",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert rule: %v", err)
+	}
+	
+	// List rules
+	rules, err := ListEventClassRules(db)
+	if err != nil {
+		t.Fatalf("ListEventClassRules failed: %v", err)
+	}
+	
+	if len(rules) != 2 {
+		t.Errorf("Expected 2 rules, got %d", len(rules))
+	}
+	
+	if rules[0].Rule != "Rule 1: Safety first" {
+		t.Errorf("Expected 'Rule 1: Safety first', got %s", rules[0].Rule)
+	}
+	
+	if rules[1].Rule != "Rule 2: No cheating" {
+		t.Errorf("Expected 'Rule 2: No cheating', got %s", rules[1].Rule)
+	}
+}
+
+func TestImportEventsFromCSV(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert a track
+	trackResult, _ := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	trackID, _ := trackResult.LastInsertId()
+	
+	// Create temporary CSV file
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "events.csv")
+	
+	csvContent := `title,track_id,start_date,end_date,driver_fee,spectator_fee,url,description
+Event 1,` + strconv.FormatInt(trackID, 10) + `,2025-12-01 10:00:00,2025-12-01 18:00:00,50.0,20.0,https://test.com/event1,First event
+Event 2,` + strconv.FormatInt(trackID, 10) + `,2025-12-15 10:00:00,,30.0,,https://test.com/event2,Second event`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	// Import events
+	count, err := ImportEventsFromCSV(db, csvFile)
+	if err != nil {
+		t.Fatalf("ImportEventsFromCSV failed: %v", err)
+	}
+	
+	if count != 2 {
+		t.Errorf("Expected 2 events imported, got %d", count)
+	}
+	
+	// Verify events
+	events, err := ListEvents(db)
+	if err != nil {
+		t.Fatalf("Failed to list events: %v", err)
+	}
+	
+	if len(events) != 2 {
+		t.Errorf("Expected 2 events, got %d", len(events))
+	}
+}
+
+func TestImportEventsFromCSVInvalidFile(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Test with non-existent file
+	_, err := ImportEventsFromCSV(db, "nonexistent.csv")
+	if err == nil {
+		t.Error("Expected error for non-existent file")
+	}
+}
+
+func TestImportEventsFromCSVInvalidHeader(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "bad_events.csv")
+	
+	// CSV with wrong number of columns
+	csvContent := `title,track_id,start_date
+Event 1,1,2025-12-01`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventsFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid CSV header")
+	}
+}
+
+func TestImportEventClassesFromCSV(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert track and event
+	trackResult, _ := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	trackID, _ := trackResult.LastInsertId()
+	
+	eventResult, _ := db.Exec(
+		"INSERT INTO events(title, track_id, event_datetime) VALUES(?, ?, ?)",
+		"Test Event", trackID, "2025-12-01 10:00:00",
+	)
+	eventID, _ := eventResult.LastInsertId()
+	
+	// Create CSV file
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "classes.csv")
+	
+	csvContent := `event_id,name,buyin_fee
+` + strconv.FormatInt(eventID, 10) + `,Pro Class,100.0
+` + strconv.FormatInt(eventID, 10) + `,Street Class,`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	// Import classes
+	count, err := ImportEventClassesFromCSV(db, csvFile)
+	if err != nil {
+		t.Fatalf("ImportEventClassesFromCSV failed: %v", err)
+	}
+	
+	if count != 2 {
+		t.Errorf("Expected 2 classes imported, got %d", count)
+	}
+	
+	// Verify classes
+	classes, err := ListEventClasses(db)
+	if err != nil {
+		t.Fatalf("Failed to list classes: %v", err)
+	}
+	
+	if len(classes) != 2 {
+		t.Errorf("Expected 2 classes, got %d", len(classes))
+	}
+}
+
+func TestImportEventClassRulesFromCSV(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert track, event, and class
+	trackResult, _ := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	trackID, _ := trackResult.LastInsertId()
+	
+	eventResult, _ := db.Exec(
+		"INSERT INTO events(title, track_id, event_datetime) VALUES(?, ?, ?)",
+		"Test Event", trackID, "2025-12-01 10:00:00",
+	)
+	eventID, _ := eventResult.LastInsertId()
+	
+	classResult, _ := db.Exec(
+		"INSERT INTO event_classes(event_id, name) VALUES(?, ?)",
+		eventID, "Test Class",
+	)
+	classID, _ := classResult.LastInsertId()
+	
+	// Create CSV file
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "rules.csv")
+	
+	csvContent := `event_class_id,rule
+` + strconv.FormatInt(classID, 10) + `,Safety equipment required
+` + strconv.FormatInt(classID, 10) + `,Valid license required`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	// Import rules
+	count, err := ImportEventClassRulesFromCSV(db, csvFile)
+	if err != nil {
+		t.Fatalf("ImportEventClassRulesFromCSV failed: %v", err)
+	}
+	
+	if count != 2 {
+		t.Errorf("Expected 2 rules imported, got %d", count)
+	}
+	
+	// Verify rules
+	rules, err := ListEventClassRules(db)
+	if err != nil {
+		t.Fatalf("Failed to list rules: %v", err)
+	}
+	
+	if len(rules) != 2 {
+		t.Errorf("Expected 2 rules, got %d", len(rules))
+	}
+}
+
+func TestSeed(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Run seed function
+	err := Seed(db)
+	if err != nil {
+		t.Fatalf("Seed failed: %v", err)
+	}
+	
+	// Verify tracks were seeded
+	tracks, err := ListTracks(db)
+	if err != nil {
+		t.Fatalf("Failed to list tracks: %v", err)
+	}
+	
+	if len(tracks) < 2 {
+		t.Errorf("Expected at least 2 tracks after seeding, got %d", len(tracks))
+	}
+	
+	// Verify events were seeded
+	events, err := ListEvents(db)
+	if err != nil {
+		t.Fatalf("Failed to list events: %v", err)
+	}
+	
+	if len(events) < 2 {
+		t.Errorf("Expected at least 2 events after seeding, got %d", len(events))
+	}
+	
+	// Verify event classes were seeded
+	classes, err := ListEventClasses(db)
+	if err != nil {
+		t.Fatalf("Failed to list event classes: %v", err)
+	}
+	
+	if len(classes) < 3 {
+		t.Errorf("Expected at least 3 event classes after seeding, got %d", len(classes))
+	}
+	
+	// Verify event class rules were seeded
+	rules, err := ListEventClassRules(db)
+	if err != nil {
+		t.Fatalf("Failed to list event class rules: %v", err)
+	}
+	
+	if len(rules) < 7 {
+		t.Errorf("Expected at least 7 event class rules after seeding, got %d", len(rules))
+	}
+}
+
+func TestImportEventsFromCSVWithInvalidTrackID(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "events.csv")
+	
+	// CSV with invalid track_id
+	csvContent := `title,track_id,start_date,end_date,driver_fee,spectator_fee,url,description
+Event 1,invalid,2025-12-01 10:00:00,,,,,`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventsFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid track_id")
+	}
+}
+
+func TestImportEventsFromCSVWithInvalidDriverFee(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert a track
+	trackResult, _ := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	trackID, _ := trackResult.LastInsertId()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "events.csv")
+	
+	// CSV with invalid driver_fee
+	csvContent := `title,track_id,start_date,end_date,driver_fee,spectator_fee,url,description
+Event 1,` + strconv.FormatInt(trackID, 10) + `,2025-12-01 10:00:00,,invalid,,,`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventsFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid driver_fee")
+	}
+}
+
+func TestImportEventsFromCSVWithInvalidSpectatorFee(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert a track
+	trackResult, _ := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	trackID, _ := trackResult.LastInsertId()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "events.csv")
+	
+	// CSV with invalid spectator_fee
+	csvContent := `title,track_id,start_date,end_date,driver_fee,spectator_fee,url,description
+Event 1,` + strconv.FormatInt(trackID, 10) + `,2025-12-01 10:00:00,,,invalid,,`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventsFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid spectator_fee")
+	}
+}
+
+func TestImportEventsFromCSVWithWrongColumnCount(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "events.csv")
+	
+	// CSV with wrong number of columns in data row
+	csvContent := `title,track_id,start_date,end_date,driver_fee,spectator_fee,url,description
+Event 1,1,2025-12-01`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventsFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for wrong column count")
+	}
+}
+
+func TestImportEventClassesFromCSVInvalidEventID(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "classes.csv")
+	
+	// CSV with invalid event_id
+	csvContent := `event_id,name,buyin_fee
+invalid,Test Class,100.0`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventClassesFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid event_id")
+	}
+}
+
+func TestImportEventClassesFromCSVInvalidBuyinFee(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Insert track and event
+	trackResult, _ := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	trackID, _ := trackResult.LastInsertId()
+	
+	eventResult, _ := db.Exec(
+		"INSERT INTO events(title, track_id, event_datetime) VALUES(?, ?, ?)",
+		"Test Event", trackID, "2025-12-01 10:00:00",
+	)
+	eventID, _ := eventResult.LastInsertId()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "classes.csv")
+	
+	// CSV with invalid buyin_fee
+	csvContent := `event_id,name,buyin_fee
+` + strconv.FormatInt(eventID, 10) + `,Test Class,invalid`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventClassesFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid buyin_fee")
+	}
+}
+
+func TestImportEventClassesFromCSVWrongColumnCount(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "classes.csv")
+	
+	// CSV with wrong number of columns
+	csvContent := `event_id,name,buyin_fee
+1,Test Class`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventClassesFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for wrong column count")
+	}
+}
+
+func TestImportEventClassesFromCSVInvalidHeader(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "classes.csv")
+	
+	// CSV with wrong header
+	csvContent := `event_id,name
+1,Test Class`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventClassesFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid header")
+	}
+}
+
+func TestImportEventClassRulesFromCSVInvalidClassID(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "rules.csv")
+	
+	// CSV with invalid event_class_id
+	csvContent := `event_class_id,rule
+invalid,Test rule`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventClassRulesFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid event_class_id")
+	}
+}
+
+func TestImportEventClassRulesFromCSVWrongColumnCount(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "rules.csv")
+	
+	// CSV with wrong number of columns
+	csvContent := `event_class_id,rule
+1`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventClassRulesFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for wrong column count")
+	}
+}
+
+func TestImportEventClassRulesFromCSVInvalidHeader(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	tmpDir := t.TempDir()
+	csvFile := filepath.Join(tmpDir, "rules.csv")
+	
+	// CSV with wrong header
+	csvContent := `event_class_id
+1`
+	
+	err := os.WriteFile(csvFile, []byte(csvContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create CSV file: %v", err)
+	}
+	
+	_, err = ImportEventClassRulesFromCSV(db, csvFile)
+	if err == nil {
+		t.Error("Expected error for invalid header")
+	}
+}
+
+func TestImportEventClassesFromCSVNonExistentFile(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	_, err := ImportEventClassesFromCSV(db, "nonexistent.csv")
+	if err == nil {
+		t.Error("Expected error for non-existent file")
+	}
+}
+
+func TestImportEventClassRulesFromCSVNonExistentFile(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	_, err := ImportEventClassRulesFromCSV(db, "nonexistent.csv")
+	if err == nil {
+		t.Error("Expected error for non-existent file")
+	}
 }

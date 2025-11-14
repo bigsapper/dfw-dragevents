@@ -34,7 +34,7 @@ The test suite covers:
 - Ascending and descending date sorting
 - Edge cases: Invalid dates, empty arrays, single events
 
-**Application Logic (`app.test.js` - 51 tests)**
+**Application Logic (`app.test.js` - 63 tests)**
 - Date formatting (single dates, date ranges, invalid dates)
 - Date range formatting (multi-day events, cross-month, cross-year)
 - JSON fetching with error handling
@@ -43,18 +43,29 @@ The test suite covers:
 - Event detail rendering (fees, classes, schema.org data)
 - Initialization functions (events list and event detail setup)
 - Button click handlers and active state management
+- URL validation and security
 
-**Current Coverage:** 98.7% overall ✅
+**Year Display (`year.test.js` - 2 tests)**
+- Dynamic copyright year display
+- Year element updates
+
+**Current Coverage:** 98.52% overall ✅
+- **Statements**: 98.52%
+- **Branches**: 93.87%
+- **Functions**: 96.42%
+- **Lines**: 98.36%
 - `filters.js`: 100% coverage
-- `app.js`: 98.5% coverage
-- Only uncovered: DOMContentLoaded event listener registration (lines 269-270)
+- `app.js`: 98.32% coverage
+- `year.js`: 100% coverage
 
 ### Test Files
 
 - `assets/js/filters.test.js` - Unit tests for date filtering (18 tests)
-- `assets/js/app.test.js` - Integration tests for app logic (51 tests)
+- `assets/js/app.test.js` - Integration tests for app logic (63 tests)
+- `assets/js/year.test.js` - Year display tests (2 tests)
 - `assets/js/filters.js` - Filtering logic (100% coverage)
-- `assets/js/app.js` - Main application (98.5% coverage)
+- `assets/js/app.js` - Main application (98.32% coverage)
+- `assets/js/year.js` - Year display (100% coverage)
 
 ## Development
 

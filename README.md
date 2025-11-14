@@ -160,7 +160,7 @@ dfw-dragevents/
 - **Frontend (site/)** - Static HTML/CSS/JS with Bootstrap 5, ES6 modules, date filtering, comprehensive test suite
 - **Backend (tools/)** - Go CLI for database management, SQLite with migrations, exports to JSON
 - **Database** - Tracks, events (with start/end dates), event classes, and rules
-- **Testing** - 83 unit tests (98.3% coverage), Vitest framework, Happy DOM environment
+- **Testing** - 120 total tests: 83 frontend (98.52% coverage), 37 backend (81% coverage), Vitest + Go testing frameworks
 - **Security** - Grade A/A+, XSS prevention, URL validation, SRI hashes, CloudFront security headers, HTTPS enforced
 - **Infrastructure** - AWS S3, CloudFront CDN with response headers policy, Route 53 DNS, ACM SSL certificates
 
@@ -294,10 +294,18 @@ go run ./cmd export                        # Export to JSON
 ```
 
 **Test Coverage:**
-- 6 tests covering database operations
-- Event CRUD operations
-- Date field handling
-- Migration system
+- **37 total tests** (29 db + 8 export)
+- **Coverage:**
+  - `internal/db`: 81.0% coverage ✅
+  - `internal/export`: 66.7% coverage ✅
+- **What's Tested:**
+  - Database operations (CRUD)
+  - Event, track, class, and rule management
+  - CSV import functionality with error handling
+  - Date field handling (start/end dates)
+  - Migration system
+  - JSON export operations
+  - Seed data generation
 
 ---
 
@@ -313,16 +321,20 @@ npm run test:coverage  # Run tests with coverage report
 
 **Test Suite:**
 - **83 total tests** (18 filters + 63 app + 2 year)
-- **98.3% overall coverage**
+- **98.52% overall coverage**
 - **Vitest** testing framework
 - **Happy DOM** for browser environment simulation
 
 **Coverage Standards:**
 - **Target:** ≥80% coverage for all files
 - **Current:**
+  - **Statements**: 98.52% ✅
+  - **Branches**: 93.87% ✅
+  - **Functions**: 96.42% ✅
+  - **Lines**: 98.36% ✅
   - `filters.js`: 100% coverage ✅
-  - `app.js`: 98.5% coverage ✅
-  - Overall: 98.3% coverage ✅
+  - `app.js`: 98.32% coverage ✅
+  - `year.js`: 100% coverage ✅
 
 **Test Files:**
 - `site/assets/js/filters.test.js` - Date filtering logic (18 tests)

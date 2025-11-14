@@ -6,6 +6,46 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-11-13] - Comprehensive Backend Test Coverage
+
+### Added
+- **Backend Test Suite Expansion**
+  - Added 31 new tests for backend Go code
+  - `internal/db`: 29 tests (up from 6)
+  - `internal/export`: 8 tests (new)
+  - Total backend tests: 6 → 37 tests
+
+- **Database Package Tests (`db_test.go`)**
+  - CreateEvent and CreateEventWithNullFields tests
+  - DeleteEvent with cascade deletion verification
+  - ListEventClasses and ListEventClassRules tests
+  - Seed function comprehensive testing
+  - CSV import tests for events, classes, and rules
+  - Error handling tests for invalid CSV data
+  - Edge case testing (invalid IDs, malformed data, wrong column counts)
+
+- **Export Package Tests (`export_test.go`)**
+  - EnsureDir directory creation tests
+  - WriteJSON file writing and validation
+  - All function for complete export workflow
+  - Complex data structure handling
+  - Empty data handling
+  - Multiple items export verification
+
+### Changed
+- **Test Coverage Improvements**
+  - `internal/db`: 14.8% → 81.0% coverage ✅
+  - `internal/export`: 0% → 66.7% coverage ✅
+  - Comprehensive error path testing
+  - CSV import validation and error handling
+
+### Testing Metrics
+- **Backend (Go)**: 37 tests, 81% avg coverage
+- **Frontend (JavaScript)**: 83 tests, 98.52% coverage
+- **Total**: 120 tests across full stack
+
+---
+
 ## [2025-11-13] - CloudFront Security Headers & CSP Improvements
 
 ### Added
