@@ -31,6 +31,26 @@
             "id": 3,
             "event_class_id": 1,
             "rule": "Full interior required"
+          },
+          {
+            "id": 8,
+            "event_class_id": 1,
+            "rule": "DOT street tires only"
+          },
+          {
+            "id": 9,
+            "event_class_id": 1,
+            "rule": "DOT street tires only"
+          },
+          {
+            "id": 10,
+            "event_class_id": 1,
+            "rule": "Maximum 10.5\" tire width"
+          },
+          {
+            "id": 11,
+            "event_class_id": 1,
+            "rule": "Full interior required"
           }
         ]
       },
@@ -49,8 +69,30 @@
             "id": 5,
             "event_class_id": 2,
             "rule": "Valid registration and insurance"
+          },
+          {
+            "id": 12,
+            "event_class_id": 2,
+            "rule": "Street legal vehicle"
+          },
+          {
+            "id": 13,
+            "event_class_id": 2,
+            "rule": "Valid registration and insurance"
           }
         ]
+      },
+      {
+        "id": 4,
+        "event_id": 1,
+        "name": "Pro Street",
+        "buyin_fee": 100
+      },
+      {
+        "id": 5,
+        "event_id": 1,
+        "name": "Street",
+        "buyin_fee": 50
       }
     ]
   },
@@ -80,8 +122,85 @@
             "id": 7,
             "event_class_id": 3,
             "rule": "Helmet required for sub-14 second runs"
+          },
+          {
+            "id": 14,
+            "event_class_id": 3,
+            "rule": "All vehicles welcome"
+          },
+          {
+            "id": 15,
+            "event_class_id": 3,
+            "rule": "Helmet required for sub-14 second runs"
           }
         ]
+      },
+      {
+        "id": 6,
+        "event_id": 2,
+        "name": "Test \u0026 Tune"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "GT-R Festival",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2025-11-14T09:00:00Z",
+    "end_date": "2025-11-16T17:00:00Z",
+    "event_driver_fee": 35,
+    "event_spectator_fee": 15,
+    "url": "https://gtrfestival.com/home-usa",
+    "description": "The Ultimate Celebration of All Things GT-R and Nissan IS RETURNING  TO TEXAS MOTORPLEX"
+  },
+  {
+    "id": 6,
+    "title": "Left Over Nationals",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2025-11-28T09:00:00Z",
+    "end_date": "2025-11-29T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark/posts/1166273152294352?ref=embed_post",
+    "description": "Bracket \u0026 Index event. Saturday Ironman to All Classes!",
+    "classes": [
+      {
+        "id": 7,
+        "event_id": 6,
+        "name": "Super Pro",
+        "buyin_fee": 100
+      },
+      {
+        "id": 8,
+        "event_id": 6,
+        "name": "Pro ET",
+        "buyin_fee": 60
+      },
+      {
+        "id": 9,
+        "event_id": 6,
+        "name": "7.00 Index",
+        "buyin_fee": 75
+      },
+      {
+        "id": 10,
+        "event_id": 6,
+        "name": "5.80 Index",
+        "buyin_fee": 100
+      },
+      {
+        "id": 11,
+        "event_id": 6,
+        "name": "Jr All Run",
+        "buyin_fee": 40
+      },
+      {
+        "id": 12,
+        "event_id": 6,
+        "name": "Divas Daily Driver",
+        "buyin_fee": 20
       }
     ]
   }

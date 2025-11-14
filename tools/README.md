@@ -12,11 +12,12 @@ make event-delete ID=5                # Delete event by ID
 make event-import FILE=events.csv     # Bulk import from CSV
 ```
 
-### Database
+### Database & Deployment
 ```powershell
 make init                             # Initialize database
 make seed                             # Add sample data
 make export                           # Export to JSON
+make deploy                           # Deploy to AWS
 ```
 
 ### Testing & Build
@@ -41,4 +42,4 @@ Use `examples/events_template.csv` as a starting point for bulk imports.
 1. Add/edit events (CSV or interactive CLI)
 2. `make export` - Generate JSON
 3. Test locally in `../site/`
-4. Deploy via `aws/deploy.ps1`
+4. `make deploy` - Deploy to AWS

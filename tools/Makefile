@@ -1,4 +1,4 @@
-.PHONY: all build test clean init seed export help
+.PHONY: all build test clean init seed export deploy deploy-full help
 
 # Default target
 all: test build
@@ -44,6 +44,18 @@ seed:
 export:
 	@echo "Exporting data..."
 	go run ./cmd export
+
+# Deploy to AWS (exports data first, then deploys)
+deploy:
+	@echo "Deploying to AWS..."
+	@$(MAKE) export
+	@cd aws && powershell -ExecutionPolicy Bypass -File deploy.ps1 -SkipBucketCreation
+
+# Deploy to AWS (full - includes bucket creation)
+deploy-full:
+	@echo "Deploying to AWS (full setup)..."
+	@$(MAKE) export
+	@cd aws && powershell -ExecutionPolicy Bypass -File deploy.ps1
 
 # Event management
 event-add:
@@ -122,6 +134,10 @@ help:
 	@echo ""
 	@echo "  make export         - Export data to JSON"
 	@echo "  make full-workflow  - Run complete workflow (clean, init, seed, export)"
+	@echo ""
+	@echo "Deployment:"
+	@echo "  make deploy         - Deploy to AWS (exports data + uploads)"
+	@echo "  make deploy-full    - Deploy to AWS with bucket creation"
 	@echo ""
 	@echo "Code Quality:"
 	@echo "  make fmt            - Format code"

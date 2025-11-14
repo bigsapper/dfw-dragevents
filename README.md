@@ -245,14 +245,20 @@ Open http://localhost:8000 and verify your changes
 
 ### 4. Deploy to Production
 ```powershell
-cd tools\aws
-.\deploy.ps1 -SkipBucketCreation
+cd tools
+make deploy
 ```
 This will:
 - Export latest data
 - Upload to S3
 - Invalidate CloudFront cache
 - Changes live in 1-2 minutes
+
+**Alternative:** Run the script directly:
+```powershell
+cd tools\aws
+.\deploy.ps1 -SkipBucketCreation
+```
 
 ### 5. Commit to Git
 ```powershell
