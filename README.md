@@ -192,6 +192,10 @@ cd tools
 # Add events from CSV (recommended for bulk)
 make event-import FILE=events.csv
 
+# Add event classes and rules
+make event-import-classes FILE=classes.csv
+make event-import-rules FILE=rules.csv
+
 # Add single event interactively
 make event-add
 

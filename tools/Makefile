@@ -64,6 +64,16 @@ event-import:
 	@echo "Importing events from $(FILE)..."
 	go run ./cmd event import $(FILE)
 
+event-import-classes:
+	@if "$(FILE)" == "" (echo Error: FILE parameter required. Usage: make event-import-classes FILE=classes.csv & exit /b 1)
+	@echo "Importing event classes from $(FILE)..."
+	go run ./cmd event import-classes $(FILE)
+
+event-import-rules:
+	@if "$(FILE)" == "" (echo Error: FILE parameter required. Usage: make event-import-rules FILE=rules.csv & exit /b 1)
+	@echo "Importing event class rules from $(FILE)..."
+	go run ./cmd event import-rules $(FILE)
+
 # Run full workflow: clean db, init, seed, export
 full-workflow: clean-db init seed export
 	@echo "Full workflow complete"
@@ -107,6 +117,8 @@ help:
 	@echo "  make event-list     - List all events"
 	@echo "  make event-delete ID=<id> - Delete event by ID"
 	@echo "  make event-import FILE=<file> - Import events from CSV"
+	@echo "  make event-import-classes FILE=<file> - Import event classes from CSV"
+	@echo "  make event-import-rules FILE=<file> - Import class rules from CSV"
 	@echo ""
 	@echo "  make export         - Export data to JSON"
 	@echo "  make full-workflow  - Run complete workflow (clean, init, seed, export)"

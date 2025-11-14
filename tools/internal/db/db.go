@@ -355,3 +355,130 @@ func ImportEventsFromCSV(db *sql.DB, filename string) (int, error) {
 
 	return count, nil
 }
+
+// ImportEventClassesFromCSV imports event classes from a CSV file
+// Expected CSV columns: event_id,name,buyin_fee
+func ImportEventClassesFromCSV(db *sql.DB, filename string) (int, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return 0, fmt.Errorf("open CSV: %w", err)
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	// Read header
+	header, err := reader.Read()
+	if err != nil {
+		return 0, fmt.Errorf("read CSV header: %w", err)
+	}
+	
+	// Validate header
+	expectedHeaders := []string{"event_id", "name", "buyin_fee"}
+	if len(header) != len(expectedHeaders) {
+		return 0, fmt.Errorf("invalid CSV format: expected %d columns, got %d", len(expectedHeaders), len(header))
+	}
+
+	count := 0
+	lineNum := 1
+	for {
+		record, err := reader.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return count, fmt.Errorf("read CSV line %d: %w", lineNum+1, err)
+		}
+		lineNum++
+
+		if len(record) != 3 {
+			return count, fmt.Errorf("line %d: expected 3 columns, got %d", lineNum, len(record))
+		}
+
+		// Parse fields
+		eventID, err := strconv.ParseInt(strings.TrimSpace(record[0]), 10, 64)
+		if err != nil {
+			return count, fmt.Errorf("line %d: invalid event_id: %w", lineNum, err)
+		}
+		name := strings.TrimSpace(record[1])
+		
+		var buyinFee *float64
+		if bf := strings.TrimSpace(record[2]); bf != "" {
+			val, err := strconv.ParseFloat(bf, 64)
+			if err != nil {
+				return count, fmt.Errorf("line %d: invalid buyin_fee: %w", lineNum, err)
+			}
+			buyinFee = &val
+		}
+
+		// Insert class
+		var buyinFeeVal interface{}
+		if buyinFee != nil {
+			buyinFeeVal = *buyinFee
+		}
+		_, err = db.Exec(`INSERT INTO event_classes(event_id, name, buyin_fee) VALUES(?, ?, ?)`,
+			eventID, name, buyinFeeVal)
+		if err != nil {
+			return count, fmt.Errorf("line %d: insert class: %w", lineNum, err)
+		}
+		count++
+	}
+
+	return count, nil
+}
+
+// ImportEventClassRulesFromCSV imports event class rules from a CSV file
+// Expected CSV columns: event_class_id,rule
+func ImportEventClassRulesFromCSV(db *sql.DB, filename string) (int, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return 0, fmt.Errorf("open CSV: %w", err)
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	// Read header
+	header, err := reader.Read()
+	if err != nil {
+		return 0, fmt.Errorf("read CSV header: %w", err)
+	}
+	
+	// Validate header
+	expectedHeaders := []string{"event_class_id", "rule"}
+	if len(header) != len(expectedHeaders) {
+		return 0, fmt.Errorf("invalid CSV format: expected %d columns, got %d", len(expectedHeaders), len(header))
+	}
+
+	count := 0
+	lineNum := 1
+	for {
+		record, err := reader.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return count, fmt.Errorf("read CSV line %d: %w", lineNum+1, err)
+		}
+		lineNum++
+
+		if len(record) != 2 {
+			return count, fmt.Errorf("line %d: expected 2 columns, got %d", lineNum, len(record))
+		}
+
+		// Parse fields
+		classID, err := strconv.ParseInt(strings.TrimSpace(record[0]), 10, 64)
+		if err != nil {
+			return count, fmt.Errorf("line %d: invalid event_class_id: %w", lineNum, err)
+		}
+		rule := strings.TrimSpace(record[1])
+
+		// Insert rule
+		_, err = db.Exec(`INSERT INTO event_class_rules(event_class_id, rule) VALUES(?, ?)`,
+			classID, rule)
+		if err != nil {
+			return count, fmt.Errorf("line %d: insert rule: %w", lineNum, err)
+		}
+		count++
+	}
+
+	return count, nil
+}

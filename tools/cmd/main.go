@@ -24,6 +24,8 @@ func usage() {
 	fmt.Println("    go run ./cmd event list        # list all events")
 	fmt.Println("    go run ./cmd event delete <id> # delete event by ID")
 	fmt.Println("    go run ./cmd event import <csv> # import events from CSV")
+	fmt.Println("    go run ./cmd event import-classes <csv> # import event classes from CSV")
+	fmt.Println("    go run ./cmd event import-rules <csv>   # import class rules from CSV")
 	fmt.Println("  Export:")
 	fmt.Println("    go run ./cmd export            # write JSON to ../site/data/")
 }
@@ -81,6 +83,20 @@ func main() {
 				os.Exit(2)
 			}
 			importEventsFromCSV(db, os.Args[3])
+		case "import-classes":
+			if len(os.Args) < 4 {
+				fmt.Println("Error: CSV file path required")
+				fmt.Println("Usage: go run ./cmd event import-classes <csv_file>")
+				os.Exit(2)
+			}
+			importEventClassesFromCSV(db, os.Args[3])
+		case "import-rules":
+			if len(os.Args) < 4 {
+				fmt.Println("Error: CSV file path required")
+				fmt.Println("Usage: go run ./cmd event import-rules <csv_file>")
+				os.Exit(2)
+			}
+			importEventClassRulesFromCSV(db, os.Args[3])
 		default:
 			usage(); os.Exit(2)
 		}
@@ -256,6 +272,28 @@ func importEventsFromCSV(db *sql.DB, filename string) {
 		log.Fatalf("Failed to import events: %v", err)
 	}
 	fmt.Printf("✓ Successfully imported %d events from %s\n", count, filename)
+	fmt.Println("\nNext steps:")
+	fmt.Println("  1. Run 'make export' to generate JSON files")
+	fmt.Println("  2. Test locally with 'python -m http.server 8000' in the site/ directory")
+}
+
+func importEventClassesFromCSV(db *sql.DB, filename string) {
+	count, err := dbpkg.ImportEventClassesFromCSV(db, filename)
+	if err != nil {
+		log.Fatalf("Failed to import event classes: %v", err)
+	}
+	fmt.Printf("✓ Successfully imported %d event classes from %s\n", count, filename)
+	fmt.Println("\nNext steps:")
+	fmt.Println("  1. Import rules with 'make event-import-rules FILE=rules.csv'")
+	fmt.Println("  2. Run 'make export' to generate JSON files")
+}
+
+func importEventClassRulesFromCSV(db *sql.DB, filename string) {
+	count, err := dbpkg.ImportEventClassRulesFromCSV(db, filename)
+	if err != nil {
+		log.Fatalf("Failed to import event class rules: %v", err)
+	}
+	fmt.Printf("✓ Successfully imported %d rules from %s\n", count, filename)
 	fmt.Println("\nNext steps:")
 	fmt.Println("  1. Run 'make export' to generate JSON files")
 	fmt.Println("  2. Test locally with 'python -m http.server 8000' in the site/ directory")

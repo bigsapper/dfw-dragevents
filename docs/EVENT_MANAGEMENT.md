@@ -20,6 +20,15 @@ Follow the prompts to enter event details.
 make event-import FILE=examples/events_template.csv
 ```
 
+### Import Event Classes and Rules
+```powershell
+# Import classes for events
+make event-import-classes FILE=examples/event_classes_template.csv
+
+# Import rules for classes
+make event-import-rules FILE=examples/event_class_rules_template.csv
+```
+
 ### Delete an Event
 ```powershell
 make event-delete ID=5
@@ -86,6 +95,103 @@ make export
 - Leave fields empty (not blank spaces) for optional values
 - No currency symbols in fees (just numbers like `50.0`)
 - Track IDs: Run `make event-list` to see which tracks exist
+
+---
+
+## Event Classes and Rules
+
+Events can have multiple classes (e.g., "Pro Street", "Street", "Test & Tune"), and each class can have multiple rules.
+
+### Import Event Classes
+
+**CSV Format:** `event_classes_template.csv`
+```csv
+event_id,name,buyin_fee
+1,Pro Street,100.0
+1,Street,50.0
+2,Test & Tune,
+```
+
+**Field Reference:**
+
+| Field | Type | Required | Example | Notes |
+|-------|------|----------|---------|-------|
+| `event_id` | number | Yes | `1` | ID from events table |
+| `name` | text | Yes | "Pro Street" | Class name |
+| `buyin_fee` | decimal | No | `100.0` | Leave empty if no buy-in |
+
+**Import:**
+```powershell
+make event-import-classes FILE=examples/event_classes_template.csv
+```
+
+### Import Class Rules
+
+**CSV Format:** `event_class_rules_template.csv`
+```csv
+event_class_id,rule
+1,DOT street tires only
+1,Maximum 10.5" tire width
+1,Full interior required
+2,Street legal vehicle
+2,Valid registration and insurance
+```
+
+**Field Reference:**
+
+| Field | Type | Required | Example | Notes |
+|-------|------|----------|---------|-------|
+| `event_class_id` | number | Yes | `1` | ID from event_classes table |
+| `rule` | text | Yes | "DOT street tires only" | Rule description |
+
+**Import:**
+```powershell
+make event-import-rules FILE=examples/event_class_rules_template.csv
+```
+
+### Complete Workflow with Classes
+
+1. **Import events:**
+   ```powershell
+   make event-import FILE=my_events.csv
+   ```
+
+2. **Check event IDs:**
+   ```powershell
+   make event-list
+   # Note the event IDs (e.g., 1, 2, 3)
+   ```
+
+3. **Create classes CSV** with those event IDs:
+   ```csv
+   event_id,name,buyin_fee
+   1,Pro Street,100.0
+   1,Street,50.0
+   ```
+
+4. **Import classes:**
+   ```powershell
+   make event-import-classes FILE=my_classes.csv
+   ```
+
+5. **Check class IDs** (you'll need to query the database or check after export)
+
+6. **Create rules CSV** with class IDs:
+   ```csv
+   event_class_id,rule
+   1,DOT street tires only
+   1,Maximum 10.5" tire width
+   ```
+
+7. **Import rules:**
+   ```powershell
+   make event-import-rules FILE=my_rules.csv
+   ```
+
+8. **Export to website:**
+   ```powershell
+   make export
+   ```
 
 ---
 
