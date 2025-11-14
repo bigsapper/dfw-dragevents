@@ -31,26 +31,6 @@
             "id": 3,
             "event_class_id": 1,
             "rule": "Full interior required"
-          },
-          {
-            "id": 8,
-            "event_class_id": 1,
-            "rule": "DOT street tires only"
-          },
-          {
-            "id": 9,
-            "event_class_id": 1,
-            "rule": "DOT street tires only"
-          },
-          {
-            "id": 10,
-            "event_class_id": 1,
-            "rule": "Maximum 10.5\" tire width"
-          },
-          {
-            "id": 11,
-            "event_class_id": 1,
-            "rule": "Full interior required"
           }
         ]
       },
@@ -67,16 +47,6 @@
           },
           {
             "id": 5,
-            "event_class_id": 2,
-            "rule": "Valid registration and insurance"
-          },
-          {
-            "id": 12,
-            "event_class_id": 2,
-            "rule": "Street legal vehicle"
-          },
-          {
-            "id": 13,
             "event_class_id": 2,
             "rule": "Valid registration and insurance"
           }
@@ -98,15 +68,15 @@
   },
   {
     "id": 2,
-    "title": "Friday Night Drags",
+    "title": "Sunday TNT",
     "track_id": 2,
     "track_name": "Xtreme Raceway Park",
-    "start_date": "2025-10-24T18:00:00Z",
-    "end_date": "2025-10-24T23:00:00Z",
-    "event_driver_fee": 30,
-    "event_spectator_fee": 10,
+    "start_date": "2025-10-05T14:00:00Z",
+    "end_date": "2025-10-05T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
     "url": "https://www.xtremeracewaypark.com",
-    "description": "Test and tune night",
+    "description": "Test \u0026 Tune. All tires allowed. Every Sunday.",
     "classes": [
       {
         "id": 3,
@@ -122,23 +92,8 @@
             "id": 7,
             "event_class_id": 3,
             "rule": "Helmet required for sub-14 second runs"
-          },
-          {
-            "id": 14,
-            "event_class_id": 3,
-            "rule": "All vehicles welcome"
-          },
-          {
-            "id": 15,
-            "event_class_id": 3,
-            "rule": "Helmet required for sub-14 second runs"
           }
         ]
-      },
-      {
-        "id": 6,
-        "event_id": 2,
-        "name": "Test \u0026 Tune"
       }
     ]
   },
@@ -149,8 +104,8 @@
     "track_name": "Texas Motorplex",
     "start_date": "2025-11-14T09:00:00Z",
     "end_date": "2025-11-16T17:00:00Z",
-    "event_driver_fee": 35,
-    "event_spectator_fee": 15,
+    "event_driver_fee": 190,
+    "event_spectator_fee": 80,
     "url": "https://gtrfestival.com/home-usa",
     "description": "The Ultimate Celebration of All Things GT-R and Nissan IS RETURNING  TO TEXAS MOTORPLEX"
   },
