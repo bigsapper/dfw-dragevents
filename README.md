@@ -126,11 +126,7 @@ dfw-dragevents/
 │   ├── *.html                # Pages (index, events, event, about)
 │   ├── assets/
 │   │   ├── css/              # Stylesheets
-│   │   └── js/
-│   │       ├── app.js        # Main application logic
-│   │       ├── filters.js    # Date filtering logic
-│   │       ├── app.test.js   # Integration tests (51 tests)
-│   │       └── filters.test.js # Unit tests (18 tests)
+│   │   └── js/               # Application logic and test files (83 tests)
 │   ├── data/                 # JSON files (generated from database)
 │   ├── package.json          # Test dependencies (Vitest, Happy DOM)
 │   ├── vitest.config.js      # Test configuration
@@ -142,9 +138,7 @@ dfw-dragevents/
 │   │   ├── db/               # Database operations (with tests)
 │   │   └── export/           # JSON export logic
 │   ├── db/                   # SQLite database and migrations
-│   ├── aws/                  # Deployment scripts
-│   │   ├── deploy.ps1        # Main deployment script
-│   │   └── cleanup-s3.ps1    # S3 cleanup utility
+│   ├── aws/                  # Deployment scripts and AWS configuration
 │   └── Makefile              # Build automation
 │
 ├── docs/                     # Documentation and guides
@@ -152,7 +146,8 @@ dfw-dragevents/
 │   ├── AWS_CONSOLE_GUIDE.md
 │   ├── HIGH_AVAILABILITY.md
 │   ├── CLOUDFRONT_SECURITY.md
-│   └── DEPLOYMENT_INFO.md
+│   ├── DEPLOYMENT_INFO.md
+│   └── images/               # Architecture diagrams
 ├── CHANGELOG.md              # Project changelog
 └── README.md                 # This file
 ```
@@ -162,8 +157,9 @@ dfw-dragevents/
 - **Frontend (site/)** - Static HTML/CSS/JS with Bootstrap 5, ES6 modules, date filtering, comprehensive test suite
 - **Backend (tools/)** - Go CLI for database management, SQLite with migrations, exports to JSON
 - **Database** - Tracks, events (with start/end dates), event classes, and rules
-- **Testing** - 81 unit tests (98.3% coverage), Vitest framework, Happy DOM environment
-- **Security** - XSS prevention, URL validation, SRI hashes, Content Security Policy
+- **Testing** - 83 unit tests (98.3% coverage), Vitest framework, Happy DOM environment
+- **Security** - Grade A/A+, XSS prevention, URL validation, SRI hashes, CloudFront security headers, HTTPS enforced
+- **Infrastructure** - AWS S3, CloudFront CDN with response headers policy, Route 53 DNS, ACM SSL certificates
 
 ## Quick Start
 
@@ -264,7 +260,7 @@ npm run test:coverage  # Run tests with coverage report
 ```
 
 **Test Suite:**
-- **81 total tests** (18 filters + 63 app)
+- **83 total tests** (18 filters + 63 app + 2 year)
 - **98.3% overall coverage**
 - **Vitest** testing framework
 - **Happy DOM** for browser environment simulation
@@ -279,6 +275,7 @@ npm run test:coverage  # Run tests with coverage report
 **Test Files:**
 - `site/assets/js/filters.test.js` - Date filtering logic (18 tests)
 - `site/assets/js/app.test.js` - Integration tests (63 tests)
+- `site/assets/js/year.test.js` - Year display logic (2 tests)
 
 **What's Tested:**
 - Date formatting and validation
