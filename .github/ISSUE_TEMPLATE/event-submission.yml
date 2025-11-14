@@ -1,0 +1,125 @@
+name: 📅 Event Submission
+description: Submit a new drag racing event for the DFW area
+title: "[Event]: "
+labels: ["event"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting an event! Please fill out the information below to help us add it to the calendar.
+        
+  - type: input
+    id: event-name
+    attributes:
+      label: Event Name
+      description: What is the name of the event?
+      placeholder: "e.g., Friday Night Drags, Test & Tune, Street Car Shootout"
+    validations:
+      required: true
+      
+  - type: input
+    id: event-date
+    attributes:
+      label: Event Date
+      description: When is the event? (Use YYYY-MM-DD format)
+      placeholder: "2024-12-15"
+    validations:
+      required: true
+      
+  - type: input
+    id: event-time
+    attributes:
+      label: Event Time
+      description: What time does the event start?
+      placeholder: "e.g., 6:00 PM, Gates open at 5:00 PM"
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: track
+    attributes:
+      label: Track/Venue
+      description: Which track is hosting this event?
+      options:
+        - Texas Motorplex (Ennis, TX)
+        - Redline Raceway (Denton, TX)
+        - North Star Dragway (Denton, TX)
+        - Eagle Mountain Speedway (Rhome, TX)
+        - Other (please specify in description)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: Event Description
+      description: Provide details about the event
+      placeholder: |
+        Include information such as:
+        - Event format (Test & Tune, Bracket Racing, etc.)
+        - Special features or attractions
+        - Any restrictions or requirements
+    validations:
+      required: false
+      
+  - type: textarea
+    id: classes
+    attributes:
+      label: Race Classes
+      description: What racing classes are available?
+      placeholder: |
+        e.g.,
+        - Street Class
+        - Pro Class
+        - Motorcycle
+        - Jr. Dragster
+    validations:
+      required: false
+      
+  - type: input
+    id: entry-fee-racer
+    attributes:
+      label: Entry Fee (Racers)
+      description: How much does it cost for racers to enter?
+      placeholder: "e.g., $30, $25 pre-registration / $30 at gate"
+    validations:
+      required: false
+      
+  - type: input
+    id: entry-fee-spectator
+    attributes:
+      label: Entry Fee (Spectators)
+      description: How much does it cost for spectators?
+      placeholder: "e.g., $15, Free for children under 12"
+    validations:
+      required: false
+      
+  - type: input
+    id: event-url
+    attributes:
+      label: Event Website/Link
+      description: Link to the official event page or announcement
+      placeholder: "https://example.com/event-info"
+    validations:
+      required: false
+      
+  - type: input
+    id: contact-info
+    attributes:
+      label: Contact Information
+      description: How can people get more information? (phone, email, social media)
+      placeholder: "e.g., (555) 123-4567, info@track.com, @trackname"
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: I have verified this information is accurate
+          required: true
+        - label: This event is in the Dallas-Fort Worth area
+          required: true
