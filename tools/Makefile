@@ -45,6 +45,25 @@ export:
 	@echo "Exporting data..."
 	go run ./cmd export
 
+# Event management
+event-add:
+	@echo "Adding new event..."
+	go run ./cmd event add
+
+event-list:
+	@echo "Listing events..."
+	go run ./cmd event list
+
+event-delete:
+	@if "$(ID)" == "" (echo Error: ID parameter required. Usage: make event-delete ID=1 & exit /b 1)
+	@echo "Deleting event $(ID)..."
+	go run ./cmd event delete $(ID)
+
+event-import:
+	@if "$(FILE)" == "" (echo Error: FILE parameter required. Usage: make event-import FILE=events.csv & exit /b 1)
+	@echo "Importing events from $(FILE)..."
+	go run ./cmd event import $(FILE)
+
 # Run full workflow: clean db, init, seed, export
 full-workflow: clean-db init seed export
 	@echo "Full workflow complete"
@@ -77,11 +96,22 @@ help:
 	@echo "  make test           - Run tests"
 	@echo "  make test-coverage  - Run tests with coverage report"
 	@echo "  make clean          - Clean build artifacts"
+	@echo ""
+	@echo "Database:"
 	@echo "  make init           - Initialize database"
 	@echo "  make seed           - Seed database with sample data"
+	@echo "  make clean-db       - Clean database (creates backup)"
+	@echo ""
+	@echo "Event Management:"
+	@echo "  make event-add      - Interactively add a new event"
+	@echo "  make event-list     - List all events"
+	@echo "  make event-delete ID=<id> - Delete event by ID"
+	@echo "  make event-import FILE=<file> - Import events from CSV"
+	@echo ""
 	@echo "  make export         - Export data to JSON"
 	@echo "  make full-workflow  - Run complete workflow (clean, init, seed, export)"
-	@echo "  make clean-db       - Clean database (creates backup)"
+	@echo ""
+	@echo "Code Quality:"
 	@echo "  make fmt            - Format code"
 	@echo "  make lint           - Run linter"
 	@echo "  make check          - Run fmt, lint, and test"

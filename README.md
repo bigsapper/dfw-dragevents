@@ -139,11 +139,14 @@ dfw-dragevents/
 │   │   └── export/           # JSON export logic
 │   ├── db/                   # SQLite database and migrations
 │   ├── aws/                  # Deployment scripts and AWS configuration
-│   └── Makefile              # Build automation
+│   ├── examples/             # Example CSV templates
+│   ├── Makefile              # Build automation
+│   └── README.md             # Tools documentation
 │
 ├── docs/                     # Documentation and guides
 │   ├── AWS_DEPLOYMENT.md
 │   ├── AWS_CONSOLE_GUIDE.md
+│   ├── EVENT_MANAGEMENT.md
 │   ├── HIGH_AVAILABILITY.md
 │   ├── CLOUDFRONT_SECURITY.md
 │   ├── DEPLOYMENT_INFO.md
@@ -178,10 +181,49 @@ python -m http.server 8000
 ```
 Open http://localhost:8000
 
+## Event Management
+
+Easy ways to add and manage events without a web interface.
+
+### Quick Commands
+```powershell
+cd tools
+
+# Add events from CSV (recommended for bulk)
+make event-import FILE=events.csv
+
+# Add single event interactively
+make event-add
+
+# List all events
+make event-list
+
+# Delete event by ID
+make event-delete ID=5
+
+# Always export after changes
+make export
+```
+
+### CSV Import Example
+Edit `events.csv`:
+```csv
+title,track_id,start_date,end_date,driver_fee,spectator_fee,url,description
+Fall Nationals,1,2025-10-03 08:00:00,2025-10-12 18:00:00,50.0,20.0,https://texasmotorplex.com/events,NHRA fall event
+```
+
+Then import:
+```powershell
+make event-import FILE=events.csv
+make export
+```
+
+**Full Guide:** See [docs/EVENT_MANAGEMENT.md](docs/EVENT_MANAGEMENT.md) for complete documentation with examples, troubleshooting, and workflows.
+
 ## Development Workflow
 
 ### 1. Make Changes
-Edit HTML, CSS, JS, or update data in SQLite
+Edit HTML, CSS, JS, or update events (see Event Management above)
 
 ### 2. Export Data (if database changed)
 ```powershell

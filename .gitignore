@@ -1,12 +1,15 @@
 # SQLite database
 tools/db/db.sqlite
+tools/db/db.sqlite.backup
 tools/db/db.sqlite-journal
 tools/db/db.sqlite-wal
+tools/db/*.backup
 *.db
 *.sqlite
 *.sqlite3
 
 # Go build artifacts
+tools/bin/
 tools/cmd/cmd
 tools/cmd/cmd.exe
 *.exe
@@ -18,6 +21,14 @@ tools/cmd/cmd.exe
 *.test
 *.out
 coverage.txt
+tools/coverage.out
+tools/coverage.html
+
+# Frontend (Node.js)
+site/node_modules/
+site/coverage/
+node_modules/
+coverage/
 
 # IDE and editor files
 .vscode/
@@ -34,10 +45,6 @@ desktop.ini
 # Temporary files
 *.tmp
 *.log
-
-# Node modules (if you add any tooling later)
-node_modules/
-package-lock.json
 
 # Exported data (optional - uncomment if you don't want to commit JSON exports)
 # site/data/*.json

@@ -2,11 +2,14 @@ package db
 
 import (
 	"database/sql"
+	"encoding/csv"
 	"errors"
 	"fmt"
+	"io"
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -236,4 +239,119 @@ func ListEventClassRules(dbx *sql.DB) ([]EventClassRule, error) {
 		out = append(out, r)
 	}
 	return out, rows.Err()
+}
+
+// CreateEvent inserts a new event into the database
+func CreateEvent(db *sql.DB, title string, trackID int64, startDate, endDate string, driverFee, spectatorFee *float64, url, description string) (int64, error) {
+	var endDateVal interface{}
+	if endDate != "" {
+		endDateVal = endDate
+	}
+	var driverFeeVal, spectatorFeeVal interface{}
+	if driverFee != nil {
+		driverFeeVal = *driverFee
+	}
+	if spectatorFee != nil {
+		spectatorFeeVal = *spectatorFee
+	}
+	
+	result, err := db.Exec(`INSERT INTO events(title, track_id, event_datetime, end_date, event_driver_fee, event_spectator_fee, url, description)
+		VALUES(?, ?, ?, ?, ?, ?, ?, ?)`,
+		title, trackID, startDate, endDateVal, driverFeeVal, spectatorFeeVal, url, description)
+	if err != nil {
+		return 0, err
+	}
+	return result.LastInsertId()
+}
+
+// DeleteEvent removes an event and its associated classes and rules
+func DeleteEvent(db *sql.DB, eventID int64) error {
+	// Delete in order: rules -> classes -> event (due to foreign keys)
+	_, err := db.Exec(`DELETE FROM event_class_rules WHERE event_class_id IN (SELECT id FROM event_classes WHERE event_id = ?)`, eventID)
+	if err != nil {
+		return err
+	}
+	_, err = db.Exec(`DELETE FROM event_classes WHERE event_id = ?`, eventID)
+	if err != nil {
+		return err
+	}
+	_, err = db.Exec(`DELETE FROM events WHERE id = ?`, eventID)
+	return err
+}
+
+// ImportEventsFromCSV imports events from a CSV file
+// Expected CSV columns: title,track_id,start_date,end_date,driver_fee,spectator_fee,url,description
+func ImportEventsFromCSV(db *sql.DB, filename string) (int, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return 0, fmt.Errorf("open CSV: %w", err)
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	// Read header
+	header, err := reader.Read()
+	if err != nil {
+		return 0, fmt.Errorf("read CSV header: %w", err)
+	}
+	
+	// Validate header
+	expectedHeaders := []string{"title", "track_id", "start_date", "end_date", "driver_fee", "spectator_fee", "url", "description"}
+	if len(header) != len(expectedHeaders) {
+		return 0, fmt.Errorf("invalid CSV format: expected %d columns, got %d", len(expectedHeaders), len(header))
+	}
+
+	count := 0
+	lineNum := 1
+	for {
+		record, err := reader.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return count, fmt.Errorf("read CSV line %d: %w", lineNum+1, err)
+		}
+		lineNum++
+
+		if len(record) != 8 {
+			return count, fmt.Errorf("line %d: expected 8 columns, got %d", lineNum, len(record))
+		}
+
+		// Parse fields
+		title := strings.TrimSpace(record[0])
+		trackID, err := strconv.ParseInt(strings.TrimSpace(record[1]), 10, 64)
+		if err != nil {
+			return count, fmt.Errorf("line %d: invalid track_id: %w", lineNum, err)
+		}
+		startDate := strings.TrimSpace(record[2])
+		endDate := strings.TrimSpace(record[3])
+		
+		var driverFee, spectatorFee *float64
+		if df := strings.TrimSpace(record[4]); df != "" {
+			val, err := strconv.ParseFloat(df, 64)
+			if err != nil {
+				return count, fmt.Errorf("line %d: invalid driver_fee: %w", lineNum, err)
+			}
+			driverFee = &val
+		}
+		if sf := strings.TrimSpace(record[5]); sf != "" {
+			val, err := strconv.ParseFloat(sf, 64)
+			if err != nil {
+				return count, fmt.Errorf("line %d: invalid spectator_fee: %w", lineNum, err)
+			}
+			spectatorFee = &val
+		}
+		
+		url := strings.TrimSpace(record[6])
+		description := strings.TrimSpace(record[7])
+
+		// Create event
+		_, err = CreateEvent(db, title, trackID, startDate, endDate, driverFee, spectatorFee, url, description)
+		if err != nil {
+			return count, fmt.Errorf("line %d: create event: %w", lineNum, err)
+		}
+		count++
+	}
+
+	return count, nil
 }

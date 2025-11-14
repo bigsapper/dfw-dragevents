@@ -6,6 +6,62 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-11-13] - CloudFront Security Headers & CSP Improvements
+
+### Added
+- **CloudFront Response Headers Policy**
+  - Implemented 7 security headers at CloudFront level
+  - Strict-Transport-Security (HSTS) with preload
+  - Content-Security-Policy (HTTP header, not meta tag)
+  - X-Content-Type-Options: nosniff
+  - X-Frame-Options: SAMEORIGIN
+  - X-XSS-Protection: 1; mode=block
+  - Referrer-Policy: strict-origin-when-cross-origin
+  - Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+- **HTTP to HTTPS Redirect**
+  - Configured CloudFront to redirect all HTTP traffic to HTTPS
+  - Viewer Protocol Policy: Redirect HTTP to HTTPS
+  - Eliminates unencrypted traffic
+
+### Changed
+- **Removed 'unsafe-inline' from CSP**
+  - Created `site/assets/js/year.js` for copyright year update
+  - Externalized all inline JavaScript
+  - Removed CSP meta tags from HTML (now in CloudFront)
+  - CSP no longer requires 'unsafe-inline' for script-src
+  - Better XSS protection
+
+- **Security Headers Migration**
+  - Moved from HTML meta tags to CloudFront HTTP headers
+  - More secure (can't be bypassed by JavaScript)
+  - Applied before HTML parsing
+  - Industry best practice
+
+### Added Tests
+- **year.test.js** - 2 new tests for year.js
+  - Tests year element update functionality
+  - Tests error handling
+  - Total tests: 81 → 83
+  - Coverage: 98.03% → 98.52%
+
+### Security Status
+- **Before:** ⚠️ Grade D/F (missing headers, HTTP not redirecting)
+- **After:** ✅ Grade A/A+ (all headers present, HTTPS enforced)
+- **Cost:** $0 additional (all features free)
+
+### Files Modified
+- `site/assets/js/year.js` - New external script
+- `site/assets/js/year.test.js` - New test file
+- `site/index.html` - Removed CSP meta tag, added year.js
+- `site/events.html` - Removed CSP meta tag, added year.js
+- `site/event.html` - Removed CSP meta tag, added year.js
+- `site/about.html` - Removed CSP meta tag, added year.js
+- `site/404.html` - Removed CSP meta tag
+- CloudFront Distribution - Response Headers Policy configured
+
+---
+
 ## [2025-11-13] - Security Fixes
 
 ### Fixed
