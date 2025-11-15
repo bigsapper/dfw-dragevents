@@ -7,10 +7,24 @@
     "url": "https://texasmotorplex.com"
   },
   {
+    "id": 4,
+    "name": "Thunder Valley Raceway Park",
+    "city": "Ardmore, OK",
+    "address": "10500 48th Street Lexington, OK 73051",
+    "url": "https://www.thundervalleyracewaypark.com/"
+  },
+  {
     "id": 2,
     "name": "Xtreme Raceway Park",
     "city": "Ferris",
     "address": "1800 S Interstate 45, Ferris, TX",
     "url": "https://www.xtremeracewaypark.com"
+  },
+  {
+    "id": 3,
+    "name": "Yello Belly Drag Strip",
+    "city": "Grand Prairie",
+    "address": "4702 E Main St, Grand Prairie, TX",
+    "url": "https://www.yellobellydragstrip.net/"
   }
 ]
