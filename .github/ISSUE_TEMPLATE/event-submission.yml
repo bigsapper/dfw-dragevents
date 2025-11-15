@@ -44,6 +44,7 @@ body:
       options:
         - Texas Motorplex (Ennis, TX)
         - Xtreme Raceway Park (Ferris, TX)
+        - Yello Belly Drag Strip (Grand Prairie, TX)
         - Thunder Valley Dragway (Ardmore, OK)
         - Other (please specify in description)
     validations:
