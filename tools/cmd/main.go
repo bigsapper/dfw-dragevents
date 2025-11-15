@@ -19,6 +19,9 @@ func usage() {
 	fmt.Println("  Database:")
 	fmt.Println("    go run ./cmd db init           # apply migrations")
 	fmt.Println("    go run ./cmd db seed           # insert sample data")
+	fmt.Println("  Tracks:")
+	fmt.Println("    go run ./cmd track add         # interactively add a track")
+	fmt.Println("    go run ./cmd track list        # list all tracks")
 	fmt.Println("  Events:")
 	fmt.Println("    go run ./cmd event add         # interactively add an event")
 	fmt.Println("    go run ./cmd event list        # list all events")
@@ -52,6 +55,19 @@ func main() {
 			defer db.Close()
 			if err := dbpkg.Seed(db); err != nil { log.Fatal(err) }
 			fmt.Println("Seed data inserted.")
+		default:
+			usage(); os.Exit(2)
+		}
+	case "track":
+		if len(os.Args) < 3 { usage(); os.Exit(2) }
+		db, err := dbpkg.Open()
+		if err != nil { log.Fatal(err) }
+		defer db.Close()
+		switch os.Args[2] {
+		case "add":
+			addTrackInteractive(db)
+		case "list":
+			listTracks(db)
 		default:
 			usage(); os.Exit(2)
 		}
@@ -137,6 +153,78 @@ func main() {
 	default:
 		usage(); os.Exit(2)
 	}
+}
+
+func addTrackInteractive(db *sql.DB) {
+	scanner := bufio.NewScanner(os.Stdin)
+	
+	fmt.Println("\n=== Add New Track ===")
+	
+	// Name
+	fmt.Print("Name: ")
+	scanner.Scan()
+	name := strings.TrimSpace(scanner.Text())
+	if name == "" {
+		log.Fatal("Name is required")
+	}
+	
+	// City
+	fmt.Print("City: ")
+	scanner.Scan()
+	city := strings.TrimSpace(scanner.Text())
+	if city == "" {
+		log.Fatal("City is required")
+	}
+	
+	// Address
+	fmt.Print("Address: ")
+	scanner.Scan()
+	address := strings.TrimSpace(scanner.Text())
+	if address == "" {
+		log.Fatal("Address is required")
+	}
+	
+	// URL
+	fmt.Print("URL: ")
+	scanner.Scan()
+	url := strings.TrimSpace(scanner.Text())
+	
+	// Create track
+	id, err := dbpkg.CreateTrack(db, name, city, address, url)
+	if err != nil {
+		log.Fatalf("Failed to create track: %v", err)
+	}
+	
+	fmt.Printf("\n✓ Track created successfully! ID: %d\n", id)
+	fmt.Println("\nNext steps:")
+	fmt.Println("  1. Run 'make export' to generate JSON files")
+	fmt.Println("  2. Test locally with 'python -m http.server 8000' in the site/ directory")
+}
+
+func listTracks(db *sql.DB) {
+	tracks, err := dbpkg.ListTracks(db)
+	if err != nil {
+		log.Fatalf("Failed to list tracks: %v", err)
+	}
+	
+	if len(tracks) == 0 {
+		fmt.Println("No tracks found.")
+		return
+	}
+	
+	fmt.Println("\n=== Tracks ===")
+	fmt.Println()
+	for _, t := range tracks {
+		fmt.Printf("ID: %d\n", t.ID)
+		fmt.Printf("Name: %s\n", t.Name)
+		fmt.Printf("City: %s\n", t.City)
+		fmt.Printf("Address: %s\n", t.Address)
+		if t.URL != "" {
+			fmt.Printf("URL: %s\n", t.URL)
+		}
+		fmt.Println()
+	}
+	fmt.Printf("Total: %d tracks\n", len(tracks))
 }
 
 func addEventInteractive(db *sql.DB) {

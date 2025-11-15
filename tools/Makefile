@@ -57,6 +57,15 @@ deploy-full:
 	@$(MAKE) export
 	@cd aws && powershell -ExecutionPolicy Bypass -File deploy.ps1
 
+# Track management
+track-add:
+	@echo "Adding new track..."
+	go run ./cmd track add
+
+track-list:
+	@echo "Listing tracks..."
+	go run ./cmd track list
+
 # Event management
 event-add:
 	@echo "Adding new event..."
@@ -123,6 +132,10 @@ help:
 	@echo "  make init           - Initialize database"
 	@echo "  make seed           - Seed database with sample data"
 	@echo "  make clean-db       - Clean database (creates backup)"
+	@echo ""
+	@echo "Track Management:"
+	@echo "  make track-add      - Interactively add a new track"
+	@echo "  make track-list     - List all tracks"
 	@echo ""
 	@echo "Event Management:"
 	@echo "  make event-add      - Interactively add a new event"

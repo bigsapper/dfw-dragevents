@@ -160,7 +160,7 @@ dfw-dragevents/
 - **Frontend (site/)** - Static HTML/CSS/JS with Bootstrap 5, ES6 modules, date filtering, comprehensive test suite
 - **Backend (tools/)** - Go CLI for database management, SQLite with migrations, exports to JSON
 - **Database** - Tracks, events (with start/end dates), event classes, and rules
-- **Testing** - 125 total tests: 88 frontend (97.67% coverage), 37 backend (81% coverage), Vitest + Go testing frameworks
+- **Testing** - 142 total tests: 88 frontend (97.67% coverage), 54 backend (83.5% db, 91.7% export), Vitest + Go testing frameworks
 - **Security** - Grade A/A+, XSS prevention, URL validation, SRI hashes, CloudFront security headers, HTTPS enforced
 - **Infrastructure** - AWS S3, CloudFront CDN with response headers policy, Route 53 DNS, ACM SSL certificates
 
@@ -189,21 +189,17 @@ Easy ways to add and manage events without a web interface.
 ```powershell
 cd tools
 
-# Add events from CSV (recommended for bulk)
-make event-import FILE=events.csv
+# Track Management
+make track-add                        # Add single track interactively
+make track-list                       # List all tracks
 
-# Add event classes and rules
-make event-import-classes FILE=classes.csv
-make event-import-rules FILE=rules.csv
-
-# Add single event interactively
-make event-add
-
-# List all events
-make event-list
-
-# Delete event by ID
-make event-delete ID=5
+# Event Management
+make event-import FILE=events.csv     # Add events from CSV (recommended for bulk)
+make event-import-classes FILE=classes.csv  # Add event classes
+make event-import-rules FILE=rules.csv      # Add event class rules
+make event-add                        # Add single event interactively
+make event-list                       # List all events
+make event-delete ID=5                # Delete event by ID
 
 # Always export after changes
 make export
@@ -274,7 +270,8 @@ git push origin main
 **Make Commands:**
 ```powershell
 cd tools
-make test          # Run all tests
+make test          # Run all tests (54 tests)
+make test-coverage # Run tests with coverage report
 make build         # Build the CLI tool
 make check         # Run fmt, lint, and test
 make init          # Initialize database with migrations
@@ -294,18 +291,21 @@ go run ./cmd export                        # Export to JSON
 ```
 
 **Test Coverage:**
-- **37 total tests** (29 db + 8 export)
+- **54 total tests** (46 db + 11 export)
 - **Coverage:**
-  - `internal/db`: 81.0% coverage ✅
-  - `internal/export`: 66.7% coverage ✅
+  - `internal/db`: 83.5% coverage ✅ (exceeds 80% minimum)
+  - `internal/export`: 91.7% coverage ✅ (exceeds 80% minimum)
 - **What's Tested:**
   - Database operations (CRUD)
-  - Event, track, class, and rule management
+  - Track management (CreateTrack, ListTracks)
+  - Event, class, and rule management
   - CSV import functionality with error handling
   - Date field handling (start/end dates)
   - Migration system
-  - JSON export operations
+  - JSON export operations with error cases
   - Seed data generation
+  - Cascade deletion verification
+  - Error path testing for all functions
 
 ---
 

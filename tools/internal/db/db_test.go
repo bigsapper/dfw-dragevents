@@ -144,6 +144,53 @@ func TestTrackOperations(t *testing.T) {
 	}
 }
 
+func TestCreateTrack(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Create a track using CreateTrack function
+	name := "New Track"
+	city := "New City"
+	address := "456 New St"
+	url := "https://newtrack.com"
+	
+	id, err := CreateTrack(db, name, city, address, url)
+	if err != nil {
+		t.Fatalf("Failed to create track: %v", err)
+	}
+	
+	if id == 0 {
+		t.Error("Expected non-zero track ID")
+	}
+	
+	// Verify track was created
+	tracks, err := ListTracks(db)
+	if err != nil {
+		t.Fatalf("Failed to list tracks: %v", err)
+	}
+	
+	if len(tracks) != 1 {
+		t.Errorf("Expected 1 track, got %d", len(tracks))
+	}
+	
+	track := tracks[0]
+	if track.ID != id {
+		t.Errorf("Expected track ID %d, got %d", id, track.ID)
+	}
+	if track.Name != name {
+		t.Errorf("Expected track name %s, got %s", name, track.Name)
+	}
+	if track.City != city {
+		t.Errorf("Expected track city %s, got %s", city, track.City)
+	}
+	if track.Address != address {
+		t.Errorf("Expected track address %s, got %s", address, track.Address)
+	}
+	if track.URL != url {
+		t.Errorf("Expected track URL %s, got %s", url, track.URL)
+	}
+}
+
 func TestEventOperations(t *testing.T) {
 	db := setupTestDB(t)
 	defer db.Close()
@@ -1125,5 +1172,211 @@ func TestImportEventClassRulesFromCSVNonExistentFile(t *testing.T) {
 	_, err := ImportEventClassRulesFromCSV(db, "nonexistent.csv")
 	if err == nil {
 		t.Error("Expected error for non-existent file")
+	}
+}
+
+func TestCreateTrackWithError(t *testing.T) {
+	db := setupTestDB(t)
+	db.Close() // Close DB to cause error
+	
+	_, err := CreateTrack(db, "Test Track", "Test City", "123 Test St", "https://test.com")
+	if err == nil {
+		t.Error("Expected error when creating track with closed database")
+	}
+}
+
+func TestDeleteEventWithError(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Try to delete non-existent event
+	err := DeleteEvent(db, 99999)
+	if err != nil {
+		t.Errorf("DeleteEvent should not error for non-existent event: %v", err)
+	}
+}
+
+func TestDeleteEventWithCascade(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Create a track
+	trackResult, err := db.Exec(
+		"INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)",
+		"Test Track", "Test City", "123 Test St", "https://test.com",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert track: %v", err)
+	}
+	trackID, _ := trackResult.LastInsertId()
+	
+	// Create an event
+	eventResult, err := db.Exec(
+		"INSERT INTO events(title, track_id, event_datetime, url, description) VALUES(?, ?, ?, ?, ?)",
+		"Test Event", trackID, "2025-10-01 10:00:00", "https://test.com", "Test",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert event: %v", err)
+	}
+	eventID, _ := eventResult.LastInsertId()
+	
+	// Create event classes
+	classResult, err := db.Exec(
+		"INSERT INTO event_classes(event_id, name, buyin_fee) VALUES(?, ?, ?)",
+		eventID, "Test Class", 50.0,
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert event class: %v", err)
+	}
+	classID, _ := classResult.LastInsertId()
+	
+	// Create event class rules
+	_, err = db.Exec(
+		"INSERT INTO event_class_rules(event_class_id, rule) VALUES(?, ?)",
+		classID, "Test Rule",
+	)
+	if err != nil {
+		t.Fatalf("Failed to insert event class rule: %v", err)
+	}
+	
+	// Delete the event (should cascade delete classes and rules)
+	err = DeleteEvent(db, eventID)
+	if err != nil {
+		t.Fatalf("Failed to delete event: %v", err)
+	}
+	
+	// Verify event was deleted
+	var count int
+	err = db.QueryRow("SELECT COUNT(*) FROM events WHERE id = ?", eventID).Scan(&count)
+	if err != nil {
+		t.Fatalf("Failed to query events: %v", err)
+	}
+	if count != 0 {
+		t.Errorf("Expected event to be deleted, but found %d events", count)
+	}
+	
+	// Verify classes were deleted
+	err = db.QueryRow("SELECT COUNT(*) FROM event_classes WHERE event_id = ?", eventID).Scan(&count)
+	if err != nil {
+		t.Fatalf("Failed to query event classes: %v", err)
+	}
+	if count != 0 {
+		t.Errorf("Expected event classes to be deleted, but found %d classes", count)
+	}
+	
+	// Verify rules were deleted
+	err = db.QueryRow("SELECT COUNT(*) FROM event_class_rules WHERE event_class_id = ?", classID).Scan(&count)
+	if err != nil {
+		t.Fatalf("Failed to query event class rules: %v", err)
+	}
+	if count != 0 {
+		t.Errorf("Expected event class rules to be deleted, but found %d rules", count)
+	}
+}
+
+func TestDeleteEventWithClosedDB(t *testing.T) {
+	db := setupTestDB(t)
+	db.Close() // Close DB to cause error
+	
+	err := DeleteEvent(db, 1)
+	if err == nil {
+		t.Error("Expected error when deleting event with closed database")
+	}
+}
+
+func TestSeedWithAllData(t *testing.T) {
+	db := setupTestDB(t)
+	defer db.Close()
+	
+	// Test Seed function
+	err := Seed(db)
+	if err != nil {
+		t.Fatalf("Seed failed: %v", err)
+	}
+	
+	// Verify tracks were created
+	tracks, err := ListTracks(db)
+	if err != nil {
+		t.Fatalf("Failed to list tracks: %v", err)
+	}
+	if len(tracks) != 2 {
+		t.Errorf("Expected 2 tracks, got %d", len(tracks))
+	}
+	
+	// Verify events were created
+	events, err := ListEvents(db)
+	if err != nil {
+		t.Fatalf("Failed to list events: %v", err)
+	}
+	if len(events) != 2 {
+		t.Errorf("Expected 2 events, got %d", len(events))
+	}
+	
+	// Verify event classes were created
+	classes, err := ListEventClasses(db)
+	if err != nil {
+		t.Fatalf("Failed to list event classes: %v", err)
+	}
+	if len(classes) != 3 {
+		t.Errorf("Expected 3 event classes, got %d", len(classes))
+	}
+	
+	// Verify event class rules were created
+	rules, err := ListEventClassRules(db)
+	if err != nil {
+		t.Fatalf("Failed to list event class rules: %v", err)
+	}
+	if len(rules) != 7 {
+		t.Errorf("Expected 7 event class rules, got %d", len(rules))
+	}
+}
+
+func TestListTracksWithError(t *testing.T) {
+	db := setupTestDB(t)
+	db.Close() // Close DB to cause error
+	
+	_, err := ListTracks(db)
+	if err == nil {
+		t.Error("Expected error when listing tracks with closed database")
+	}
+}
+
+func TestListEventsWithError(t *testing.T) {
+	db := setupTestDB(t)
+	db.Close() // Close DB to cause error
+	
+	_, err := ListEvents(db)
+	if err == nil {
+		t.Error("Expected error when listing events with closed database")
+	}
+}
+
+func TestListEventClassesWithError(t *testing.T) {
+	db := setupTestDB(t)
+	db.Close() // Close DB to cause error
+	
+	_, err := ListEventClasses(db)
+	if err == nil {
+		t.Error("Expected error when listing event classes with closed database")
+	}
+}
+
+func TestListEventClassRulesWithError(t *testing.T) {
+	db := setupTestDB(t)
+	db.Close() // Close DB to cause error
+	
+	_, err := ListEventClassRules(db)
+	if err == nil {
+		t.Error("Expected error when listing event class rules with closed database")
+	}
+}
+
+func TestCreateEventWithError(t *testing.T) {
+	db := setupTestDB(t)
+	db.Close() // Close DB to cause error
+	
+	_, err := CreateEvent(db, "Test Event", 1, "2025-10-01 10:00:00", "", nil, nil, "", "")
+	if err == nil {
+		t.Error("Expected error when creating event with closed database")
 	}
 }

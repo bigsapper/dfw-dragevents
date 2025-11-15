@@ -6,6 +6,75 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-11-15] - Track Management & Enhanced Test Coverage
+
+### Added
+- **Track Management CLI Commands**
+  - `make track-add` - Interactively add new tracks to the database
+  - `make track-list` - List all tracks with details
+  - `CreateTrack()` function in `internal/db/db.go`
+  - `addTrackInteractive()` and `listTracks()` functions in CLI
+  - Track management section in CLI usage/help text
+  - Makefile targets for track operations
+
+- **Comprehensive Test Coverage Improvements**
+  - Added 16 new backend tests (38 → 54 tests)
+  - `TestCreateTrack` - Tests new CreateTrack function (100% coverage)
+  - `TestCreateTrackWithError` - Error handling tests
+  - `TestDeleteEventWithCascade` - Cascade deletion verification
+  - `TestDeleteEventWithClosedDB` - Database error handling
+  - `TestSeedWithAllData` - Comprehensive seed data verification
+  - Error case tests for all List functions (Tracks, Events, Classes, Rules)
+  - Export package error tests (marshal errors, file write errors)
+  - Error message verification tests
+
+### Changed
+- **Test Coverage Metrics**
+  - Backend DB: 80.9% → 83.5% coverage ✅
+  - Backend Export: 66.7% → 91.7% coverage ✅
+  - Total backend tests: 38 → 54 tests (+42% increase)
+  - Total project tests: 126 → 142 tests
+
+- **Coverage by Function**
+  - CreateTrack: 100% (new)
+  - CreateEvent: 100%
+  - WriteJSON: 100%
+  - EnsureDir: 100%
+  - ListEvents: 96.9%
+  - ListEventClasses: 93.8%
+  - ImportEventsFromCSV: 93.5%
+  - ImportEventClassesFromCSV: 92.5%
+  - ListEventClassRules: 91.7%
+  - ListTracks: 90.9%
+  - ImportEventClassRulesFromCSV: 90.3%
+  - DeleteEvent: 87.5%
+  - All (export): 85.7%
+
+### Documentation Updates
+- Updated `tools/README.md` with track management commands
+- Updated main `README.md` with new testing metrics
+- Added track management to Quick Commands section
+- Updated test coverage statistics across all documentation
+
+### Testing Standards
+- ✅ Minimum 80% coverage requirement met for all packages
+- ✅ Working towards 95% coverage target
+- ✅ All 54 backend tests passing
+- ✅ All 88 frontend tests passing
+- ✅ Total: 142 tests across full stack
+
+### Files Modified
+- `tools/internal/db/db.go` - Added CreateTrack function
+- `tools/internal/db/db_test.go` - Added 11 new tests
+- `tools/internal/export/export_test.go` - Added 5 new tests
+- `tools/cmd/main.go` - Added track commands and functions
+- `tools/Makefile` - Added track-add and track-list targets
+- `tools/README.md` - Updated with track commands and metrics
+- `README.md` - Updated with new testing metrics
+- `CHANGELOG.md` - This entry
+
+---
+
 ## [2025-11-15] - Favicon Implementation
 
 ### Added

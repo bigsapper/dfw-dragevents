@@ -137,6 +137,15 @@ func Seed(db *sql.DB) error {
 	return err
 }
 
+func CreateTrack(db *sql.DB, name, city, address, url string) (int64, error) {
+	result, err := db.Exec(`INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)`,
+		name, city, address, url)
+	if err != nil {
+		return 0, err
+	}
+	return result.LastInsertId()
+}
+
 func ListTracks(db *sql.DB) ([]Track, error) {
 	rows, err := db.Query(`SELECT id, name, city, address, url FROM tracks ORDER BY name`)
 	if err != nil { return nil, err }

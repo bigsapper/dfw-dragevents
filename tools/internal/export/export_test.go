@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -273,5 +274,80 @@ func TestEnsureDirAlreadyExists(t *testing.T) {
 	err = EnsureDir(testPath)
 	if err != nil {
 		t.Errorf("EnsureDir failed on existing directory: %v", err)
+	}
+}
+
+func TestWriteJSONWithMarshalError(t *testing.T) {
+	tmpDir := t.TempDir()
+	testFile := filepath.Join(tmpDir, "test.json")
+	
+	// Create data that cannot be marshaled (channels cannot be marshaled to JSON)
+	invalidData := make(chan int)
+	
+	err := WriteJSON(testFile, invalidData)
+	if err == nil {
+		t.Error("Expected error when marshaling invalid data, got nil")
+	}
+}
+
+func TestAllWithTracksError(t *testing.T) {
+	tmpDir := t.TempDir()
+	dataDir := filepath.Join(tmpDir, "data")
+	
+	// Create directory first
+	if err := EnsureDir(dataDir); err != nil {
+		t.Fatalf("Failed to create directory: %v", err)
+	}
+	
+	// Create tracks.json as a directory to cause error when writing tracks
+	tracksPath := filepath.Join(dataDir, "tracks.json")
+	if err := os.MkdirAll(tracksPath, 0755); err != nil {
+		t.Fatalf("Failed to create tracks.json directory: %v", err)
+	}
+	
+	tracks := []db.Track{
+		{ID: 1, Name: "Test Track", City: "Test City", Address: "123 Test St", URL: "https://test.com"},
+	}
+	events := []db.Event{}
+	
+	err := All(dataDir, tracks, events)
+	if err == nil {
+		t.Error("Expected error when tracks.json is a directory, got nil")
+	}
+	
+	// Verify error message contains "tracks.json"
+	if err != nil && !strings.Contains(err.Error(), "tracks.json") {
+		t.Errorf("Expected error message to contain 'tracks.json', got: %v", err)
+	}
+}
+
+func TestAllWithEventsError(t *testing.T) {
+	tmpDir := t.TempDir()
+	dataDir := filepath.Join(tmpDir, "data")
+	
+	// Create directory first
+	if err := EnsureDir(dataDir); err != nil {
+		t.Fatalf("Failed to create directory: %v", err)
+	}
+	
+	// Create events.json as a directory to cause error when writing events
+	eventsPath := filepath.Join(dataDir, "events.json")
+	if err := os.MkdirAll(eventsPath, 0755); err != nil {
+		t.Fatalf("Failed to create events.json directory: %v", err)
+	}
+	
+	tracks := []db.Track{}
+	events := []db.Event{
+		{ID: 1, Title: "Test Event", TrackID: 1, TrackName: "Test Track", StartDate: time.Now()},
+	}
+	
+	err := All(dataDir, tracks, events)
+	if err == nil {
+		t.Error("Expected error when events.json is a directory, got nil")
+	}
+	
+	// Verify error message contains "events.json"
+	if err != nil && !strings.Contains(err.Error(), "events.json") {
+		t.Errorf("Expected error message to contain 'events.json', got: %v", err)
 	}
 }

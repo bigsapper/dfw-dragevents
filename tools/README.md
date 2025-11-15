@@ -4,6 +4,12 @@ Go-based CLI for database management and event operations.
 
 ## Quick Commands
 
+### Track Management
+```powershell
+make track-add                        # Add single track interactively
+make track-list                       # List all tracks
+```
+
 ### Event Management
 ```powershell
 make event-add                        # Add single event interactively
@@ -22,7 +28,8 @@ make deploy                           # Deploy to AWS
 
 ### Testing & Build
 ```powershell
-make test                             # Run tests
+make test                             # Run tests (54 tests)
+make test-coverage                    # Run tests with coverage (83.5% db, 91.7% export)
 make build                            # Build CLI executable
 make help                             # Show all commands
 ```
