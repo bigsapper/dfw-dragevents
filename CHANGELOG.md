@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-11-15] - Favicon Implementation
+
+### Added
+- **Comprehensive Favicon Support**
+  - Added 5 favicon files to site root for cross-browser/device compatibility
+  - `favicon.ico` (239 bytes) - Standard browser icon
+  - `favicon-16x16.png` (332 bytes) - Small size for browser tabs
+  - `favicon-32x32.png` (332 bytes) - Standard size
+  - `apple-touch-icon.png` (1,656 bytes) - iOS and mobile devices
+  - `favicon.svg` (2,216 bytes) - Scalable vector source
+  - Design: Checkered flag pattern with gold border (drag racing theme)
+
+### Changed
+- **HTML Meta Tags**
+  - Updated all 6 HTML pages with complete favicon references
+  - Added `<link>` tags for .ico, 16x16, 32x32, and apple-touch-icon
+  - Ensures proper favicon display across browsers, devices, and contexts
+  - Files updated: `index.html`, `events.html`, `event.html`, `about.html`, `about-technical.html`, `404.html`
+
+### Technical Details
+- Favicons placed in site root per web standards and SEO best practices
+- Supports modern browsers, legacy browsers, iOS, Android, and PWA contexts
+- All 88 tests passing
+
+---
+
 ## [2025-11-14] - Multi-Day Event Date Filtering
 
 ### Fixed
