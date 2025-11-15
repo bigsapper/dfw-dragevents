@@ -23,6 +23,11 @@ tools/cmd/cmd.exe
 coverage.txt
 tools/coverage.out
 tools/coverage.html
+tools/coverage/
+tools/coverage_db/
+tools/db_cov/
+tools/db_coverage/
+tools/internal_coverage/
 
 # Frontend (Node.js)
 site/node_modules/
