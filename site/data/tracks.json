@@ -1,9 +1,23 @@
 [
   {
+    "id": 6,
+    "name": "Houston Motorsports Park",
+    "city": "Houston",
+    "address": "11620 N. Lake Houston Parkway, Houston, TX 77044",
+    "url": "http://www.houstonmotorsportspark.com"
+  },
+  {
+    "id": 5,
+    "name": "Little River Dragway",
+    "city": "Holland",
+    "address": "13550 State Hwy 95, Holland, TX 76534",
+    "url": "https://littleriverdragway.com"
+  },
+  {
     "id": 1,
     "name": "Texas Motorplex",
     "city": "Ennis",
-    "address": "7500 US-287, Ennis, TX",
+    "address": "7500 W Hwy 287, Ennis, TX 75119",
     "url": "https://texasmotorplex.com"
   },
   {
@@ -11,20 +25,27 @@
     "name": "Thunder Valley Raceway Park",
     "city": "Ardmore, OK",
     "address": "10500 48th Street Lexington, OK 73051",
-    "url": "https://www.thundervalleyracewaypark.com/"
+    "url": "https://www.thundervalleyracewaypark.com"
+  },
+  {
+    "id": 7,
+    "name": "WesTX Abilene Raceway",
+    "city": "Abilene",
+    "address": "5601 W Stamford St, Abilene, TX 79603",
+    "url": "https://www.waraceway.com"
   },
   {
     "id": 2,
     "name": "Xtreme Raceway Park",
     "city": "Ferris",
-    "address": "1800 S Interstate 45, Ferris, TX",
+    "address": "1800 S Interstate 45, Ferris, TX 75125",
     "url": "https://www.xtremeracewaypark.com"
   },
   {
     "id": 3,
     "name": "Yello Belly Drag Strip",
     "city": "Grand Prairie",
-    "address": "4702 E Main St, Grand Prairie, TX",
-    "url": "https://www.yellobellydragstrip.net/"
+    "address": "4702 E Main St, Grand Prairie, TX 75050",
+    "url": "https://www.yellobellydragstrip.net"
   }
 ]
