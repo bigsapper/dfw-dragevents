@@ -158,5 +158,103 @@
         "buyin_fee": 20
       }
     ]
+  },
+  {
+    "id": 7,
+    "title": "T\u0026E Promotions Streetcar Showdown",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2025-12-05T09:00:00Z",
+    "end_date": "2025-12-06T23:00:00Z",
+    "event_driver_fee": 25,
+    "event_spectator_fee": 25,
+    "url": "https://www.tandepromotions.com",
+    "description": "Get ready for the fastest street cars in the nation all in one spot. You don't want to miss it!",
+    "classes": [
+      {
+        "id": 13,
+        "event_id": 7,
+        "name": "Lil Gangsters",
+        "buyin_fee": 0
+      },
+      {
+        "id": 14,
+        "event_id": 7,
+        "name": "Cheap Street",
+        "buyin_fee": 0
+      },
+      {
+        "id": 15,
+        "event_id": 7,
+        "name": "Five Star Ford — Boosted Street",
+        "buyin_fee": 0
+      },
+      {
+        "id": 16,
+        "event_id": 7,
+        "name": "True Street",
+        "buyin_fee": 0
+      },
+      {
+        "id": 17,
+        "event_id": 7,
+        "name": "Bracket Racket (Dial Your Own)",
+        "buyin_fee": 0
+      },
+      {
+        "id": 18,
+        "event_id": 7,
+        "name": "Cowboys Snow Cones — Jr Shootout",
+        "buyin_fee": 0
+      },
+      {
+        "id": 19,
+        "event_id": 7,
+        "name": "Magnuson — Heavyweights",
+        "buyin_fee": 0
+      },
+      {
+        "id": 20,
+        "event_id": 7,
+        "name": "Baileys Hyperformance — 10.00 Index",
+        "buyin_fee": 0
+      },
+      {
+        "id": 21,
+        "event_id": 7,
+        "name": "11.00 Index",
+        "buyin_fee": 0
+      },
+      {
+        "id": 22,
+        "event_id": 7,
+        "name": "Jotech Motorsports — GTR vs the World",
+        "buyin_fee": 0
+      },
+      {
+        "id": 23,
+        "event_id": 7,
+        "name": "Nitrous Outlet — Clash of Titans 4.50",
+        "buyin_fee": 0
+      },
+      {
+        "id": 24,
+        "event_id": 7,
+        "name": "Nitrous Outlet — 420",
+        "buyin_fee": 0
+      },
+      {
+        "id": 25,
+        "event_id": 7,
+        "name": "Open Test \u0026 Tune",
+        "buyin_fee": 0
+      },
+      {
+        "id": 26,
+        "event_id": 7,
+        "name": "Motorcycle Meet \u0026 TNT (Saturday)",
+        "buyin_fee": 0
+      }
+    ]
   }
 ]
