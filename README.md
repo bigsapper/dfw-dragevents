@@ -388,11 +388,19 @@ npm audit fix          # Automatically fix vulnerabilities (if available)
 
 ## AWS Deployment
 
-### Quick Deploy (PowerShell)
+### Quick Deploy (Make)
+```powershell
+cd tools
+make deploy
+```
+This command automatically exports fresh JSON, runs the PowerShell deployment script, uploads to S3, syncs the failover bucket, and invalidates CloudFront.
+
+**Alternative (direct PowerShell script):**
 ```powershell
 cd tools\aws
-.\deploy.ps1
+.\deploy.ps1 -SkipBucketCreation
 ```
+Use `make deploy-full` if you need the script to create buckets from scratch.
 
 ### Documentation
 - **[AWS Deployment Guide](docs/AWS_DEPLOYMENT.md)** - Complete deployment guide (CLI + script)
@@ -402,7 +410,7 @@ cd tools\aws
 ```powershell
 # Export data
 cd tools
-go run ./cmd export
+make export
 
 # Upload to S3
 aws s3 sync ../site/ s3://dfw-dragevents.com/ --delete

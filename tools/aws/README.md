@@ -5,7 +5,7 @@ Automated PowerShell scripts for deploying dfw-dragevents.com to AWS.
 ## Scripts Overview
 
 ### 1. `deploy.ps1` - S3 Deployment
-Deploys the static site to S3 with public read access.
+Deploys the static site to S3 with public read access. Normally invoked through `make deploy` so exports run first, but you can call it directly when needed.
 
 **Usage:**
 ```powershell
@@ -59,8 +59,14 @@ For CloudFront and HTTPS configuration, see the detailed guides:
 
 ### Option A: HTTP Only (S3 + Route 53)
 ```powershell
-# 1. Deploy to S3
-.\deploy.ps1
+# 1. Deploy to S3 (recommended)
+cd ..\
+cd tools
+make deploy
+
+# Or script-only from this folder
+cd aws
+.\deploy.ps1 -SkipBucketCreation
 
 # 2. Configure DNS
 .\configure-dns.ps1 -IncludeWWW
@@ -71,8 +77,14 @@ Start-Process "http://dfw-dragevents.com"
 
 ### Option B: HTTPS (S3 + CloudFront + Route 53)
 ```powershell
-# 1. Deploy to S3
-.\deploy.ps1
+# 1. Deploy to S3 (recommended)
+cd ..\
+cd tools
+make deploy
+
+# Or script-only from this folder
+cd aws
+.\deploy.ps1 -SkipBucketCreation
 
 # 2. Set up CloudFront + SSL
 # Follow the AWS Console Guide or AWS Deployment Guide for detailed steps
@@ -93,13 +105,17 @@ Start-Process "https://dfw-dragevents.com"
 ```powershell
 # 1. Update data (if needed)
 cd ..\
-go run ./cmd export
+cd tools
+make export
 
-# 2. Upload to S3
+# 2. Deploy (handles export + upload + cache invalidation)
+make deploy
+
+# Or script-only from this folder
 cd aws
 .\deploy.ps1 -SkipBucketCreation
 
-# 3. Invalidate CloudFront cache (if using CloudFront)
+# 3. Invalidate CloudFront cache (if using CloudFront and you skipped make deploy)
 aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
 ```
 

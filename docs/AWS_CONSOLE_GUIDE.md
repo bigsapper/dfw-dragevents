@@ -112,7 +112,10 @@ Visit https://dfw-dragevents.com
 
 ```powershell
 cd tools
-go run ./cmd export
+make export
+make deploy   # runs export + upload + invalidation
+
+# Or, if you must run the script directly:
 cd aws
 .\deploy.ps1 -SkipBucketCreation
 ```

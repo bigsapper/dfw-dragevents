@@ -39,6 +39,14 @@ Provide:
 
 ### Quick Start
 ```powershell
+cd ..\
+cd tools
+make deploy
+```
+This runs the full automated workflow (export, upload, CloudFront invalidation).
+
+**Run script directly (skip Make):**
+```powershell
 cd tools\aws
 .\deploy.ps1
 ```
@@ -69,9 +77,9 @@ cd tools\aws
 ### Step 1: Export data
 ```powershell
 cd tools
-go run ./cmd db init
-go run ./cmd db seed
-go run ./cmd export
+make init   # only if schema changed
+make seed   # seed data if needed
+make export
 ```
 
 ### Step 2: Create S3 bucket
@@ -252,17 +260,20 @@ Visit https://dfw-dragevents.com and verify:
 ```powershell
 # 1. Update database (add/edit events, tracks, classes)
 cd tools
-go run ./cmd db init   # if schema changed
+make init   # if schema changed
 # ... manually edit data or add CLI commands
 
 # 2. Export to JSON
-go run ./cmd export
+make export
 
-# 3. Upload to S3
+# 3. Deploy via Make
+make deploy
+
+# Or script-only:
 cd aws
 .\deploy.ps1 -SkipBucketCreation
 
-# Or manually:
+# Manual AWS CLI upload (advanced)
 aws s3 sync ../site/ s3://dfw-dragevents.com/ --delete
 ```
 
