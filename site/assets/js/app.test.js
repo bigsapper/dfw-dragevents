@@ -189,8 +189,8 @@ describe('loadEventsList', () => {
       title: 'Test Event 1',
       track_id: 1,
       track_name: 'Test Track',
-      start_date: '2025-10-15T10:00:00Z',
-      end_date: '2025-10-15T18:00:00Z',
+      start_date: '2026-10-15T10:00:00Z',
+      end_date: '2026-10-15T18:00:00Z',
       description: 'Test description'
     },
     {
@@ -198,7 +198,7 @@ describe('loadEventsList', () => {
       title: 'Test Event 2',
       track_id: 2,
       track_name: 'Another Track',
-      start_date: '2025-11-20T10:00:00Z',
+      start_date: '2026-11-20T10:00:00Z',
       end_date: null,
       description: ''
     }

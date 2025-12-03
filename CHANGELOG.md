@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2025-12-03] - Texas Eliminator Bracket Series Events
+
+### Added
+- **Texas Motorplex Eliminator Bracket Series 2026**
+  - LMI Eliminator Memorial Season Kick-Off (Feb 27 - Mar 1, 2026)
+  - Texas Eliminator Bracket Series (Apr 24-26, 2026)
+  - Texas Eliminator Bracket Series (Jun 27-28, 2026)
+  - Eli Lopez Memorial Season Finale (Jul 24-25, 2026)
+  - 26 event classes across all events including:
+    - All Run Gamblers (Friday)
+    - Jr. Dragsters Gamblers (Friday)
+    - Test N Tune (Friday)
+    - Super Pro
+    - No-Box
+    - Sportsman
+    - Jr. Street
+    - Jr. Dragsters
+
+### Changed
+- Updated frontend test mock data dates from 2025 to 2026 to ensure tests pass with upcoming filter
+
+### Fixed
+- Fixed failing frontend test due to outdated mock event dates
+
+---
+
 ## [2025-11-15] - Track Management & Enhanced Test Coverage
 
 ### Added
