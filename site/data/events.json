@@ -291,13 +291,13 @@
   },
   {
     "id": 9,
-    "title": "LMI Eliminator Memorial Season Kick-Off",
+    "title": "Lynn Gleghorn Memorial Season Kick-Off",
     "track_id": 1,
     "track_name": "Texas Motorplex",
     "start_date": "2026-02-27T16:00:00Z",
     "end_date": "2026-03-01T18:00:00Z",
     "event_spectator_fee": 15,
-    "url": "https://texasmotorplex.com",
+    "url": "https://www.facebook.com/groups/1660549267572522",
     "description": "Texas Eliminator Bracket Series - Season opener with multiple bracket classes",
     "classes": [
       {
@@ -358,7 +358,7 @@
     "start_date": "2026-04-24T08:00:00Z",
     "end_date": "2026-04-26T18:00:00Z",
     "event_spectator_fee": 15,
-    "url": "https://texasmotorplex.com",
+    "url": "https://www.facebook.com/groups/1660549267572522",
     "description": "Texas Eliminator Bracket Series event",
     "classes": [
       {
@@ -412,6 +412,62 @@
     ]
   },
   {
+    "id": 13,
+    "title": "Pennington Bros. SuperBuck$ Showdown",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-06-04T09:00:00Z",
+    "end_date": "2026-06-06T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 15,
+    "url": "https://www.facebook.com/profile.php?id=61558222352304",
+    "description": "Pennington Bros. 3rd Annual Summer SuperBuck$",
+    "classes": [
+      {
+        "id": 56,
+        "event_id": 13,
+        "name": "All Run Warmup (Thursday)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 57,
+        "event_id": 13,
+        "name": "Test N Tune (Thursday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 58,
+        "event_id": 13,
+        "name": "Super Pro",
+        "buyin_fee": 450
+      },
+      {
+        "id": 59,
+        "event_id": 13,
+        "name": "No-Box",
+        "buyin_fee": 150
+      },
+      {
+        "id": 60,
+        "event_id": 13,
+        "name": "Duck Race",
+        "buyin_fee": 80
+      },
+      {
+        "id": 61,
+        "event_id": 13,
+        "name": "Jr. Dragsters Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 62,
+        "event_id": 13,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
     "id": 11,
     "title": "Texas Eliminator Bracket Series",
     "track_id": 1,
@@ -419,7 +475,7 @@
     "start_date": "2026-06-27T08:00:00Z",
     "end_date": "2026-06-28T18:00:00Z",
     "event_spectator_fee": 15,
-    "url": "https://texasmotorplex.com",
+    "url": "https://www.facebook.com/groups/1660549267572522",
     "description": "Texas Eliminator Bracket Series event",
     "classes": [
       {
@@ -462,7 +518,7 @@
     "start_date": "2026-07-24T08:00:00Z",
     "end_date": "2026-07-25T18:00:00Z",
     "event_spectator_fee": 15,
-    "url": "https://texasmotorplex.com",
+    "url": "https://www.facebook.com/groups/1660549267572522",
     "description": "Texas Eliminator Bracket Series - Season finale",
     "classes": [
       {
@@ -492,6 +548,62 @@
       {
         "id": 55,
         "event_id": 12,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Pennington Bros. SuperBuck$ Showdown",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-10-29T09:00:00Z",
+    "end_date": "2026-10-31T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 15,
+    "url": "https://www.facebook.com/profile.php?id=61558222352304",
+    "description": "Pennington Bros. 3rd Annual Fall SuperBuck$",
+    "classes": [
+      {
+        "id": 63,
+        "event_id": 14,
+        "name": "All Run Warmup (Thursday)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 64,
+        "event_id": 14,
+        "name": "Test N Tune (Thursday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 65,
+        "event_id": 14,
+        "name": "Super Pro",
+        "buyin_fee": 450
+      },
+      {
+        "id": 66,
+        "event_id": 14,
+        "name": "No-Box",
+        "buyin_fee": 150
+      },
+      {
+        "id": 67,
+        "event_id": 14,
+        "name": "Duck Race",
+        "buyin_fee": 80
+      },
+      {
+        "id": 68,
+        "event_id": 14,
+        "name": "Jr. Dragsters Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 69,
+        "event_id": 14,
         "name": "Jr. Dragsters",
         "buyin_fee": 40
       }
