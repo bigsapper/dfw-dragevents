@@ -469,7 +469,33 @@
     "event_driver_fee": 150,
     "event_spectator_fee": 25,
     "url": "https://www.raceflickerpromotions.com/springstampede",
-    "description": "Bracket Series Spring Stampede"
+    "description": "Bracket Series Spring Stampede",
+    "classes": [
+      {
+        "id": 70,
+        "event_id": 20,
+        "name": "All Run Warmup (Friday)",
+        "buyin_fee": 150
+      },
+      {
+        "id": 71,
+        "event_id": 20,
+        "name": "Super Pro",
+        "buyin_fee": 250
+      },
+      {
+        "id": 72,
+        "event_id": 20,
+        "name": "No-Box",
+        "buyin_fee": 250
+      },
+      {
+        "id": 73,
+        "event_id": 20,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 80
+      }
+    ]
   },
   {
     "id": 21,
@@ -647,7 +673,33 @@
     "event_driver_fee": 150,
     "event_spectator_fee": 25,
     "url": "https://www.raceflickerpromotions.com/latexanlasso",
-    "description": "Bracket Series Fall LaTexan Lasso"
+    "description": "Bracket Series Fall LaTexan Lasso",
+    "classes": [
+      {
+        "id": 74,
+        "event_id": 23,
+        "name": "All Run Warmup (Friday)",
+        "buyin_fee": 150
+      },
+      {
+        "id": 75,
+        "event_id": 23,
+        "name": "Super Pro",
+        "buyin_fee": 250
+      },
+      {
+        "id": 76,
+        "event_id": 23,
+        "name": "No-Box",
+        "buyin_fee": 250
+      },
+      {
+        "id": 77,
+        "event_id": 23,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 80
+      }
+    ]
   },
   {
     "id": 24,
@@ -659,7 +711,39 @@
     "event_driver_fee": 100,
     "event_spectator_fee": 25,
     "url": "https://www.nhradiv4.com",
-    "description": "NHRA Divsion 4 Bracket Finals"
+    "description": "NHRA Divsion 4 Bracket Finals",
+    "classes": [
+      {
+        "id": 78,
+        "event_id": 24,
+        "name": "Super Pro",
+        "buyin_fee": 0
+      },
+      {
+        "id": 79,
+        "event_id": 24,
+        "name": "Pro ET",
+        "buyin_fee": 0
+      },
+      {
+        "id": 80,
+        "event_id": 24,
+        "name": "Sportsman",
+        "buyin_fee": 0
+      },
+      {
+        "id": 81,
+        "event_id": 24,
+        "name": "Motorcycle",
+        "buyin_fee": 0
+      },
+      {
+        "id": 82,
+        "event_id": 24,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 0
+      }
+    ]
   },
   {
     "id": 19,
@@ -683,7 +767,57 @@
     "event_driver_fee": 150,
     "event_spectator_fee": 25,
     "url": "https://racedoomsdayproductions.com",
-    "description": "Texas' Premier Radial Race"
+    "description": "Texas' Premier Radial Race",
+    "classes": [
+      {
+        "id": 83,
+        "event_id": 25,
+        "name": "Coach's Varsity N/T Small Tire Shootout",
+        "buyin_fee": 300
+      },
+      {
+        "id": 84,
+        "event_id": 25,
+        "name": "TBM Brakes Limited Drag Radial",
+        "buyin_fee": 250
+      },
+      {
+        "id": 85,
+        "event_id": 25,
+        "name": "Texas VS The World Ultra Street",
+        "buyin_fee": 250
+      },
+      {
+        "id": 86,
+        "event_id": 25,
+        "name": "Modern Muscle",
+        "buyin_fee": 150
+      },
+      {
+        "id": 87,
+        "event_id": 25,
+        "name": "Nitrous Express Cheap Street",
+        "buyin_fee": 120
+      },
+      {
+        "id": 88,
+        "event_id": 25,
+        "name": "The Great 128 Extreme Street",
+        "buyin_fee": 100
+      },
+      {
+        "id": 89,
+        "event_id": 25,
+        "name": "Junior Dragster",
+        "buyin_fee": 100
+      },
+      {
+        "id": 90,
+        "event_id": 25,
+        "name": "Power Wheels",
+        "buyin_fee": 0
+      }
+    ]
   },
   {
     "id": 14,
