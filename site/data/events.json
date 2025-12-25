@@ -499,6 +499,38 @@
     "description": "Home of the World's Quickest and Fastest Street Cars!"
   },
   {
+    "id": 35,
+    "title": "Bad Boys Mayhem",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-03-27T09:00:00Z",
+    "end_date": "2026-03-28T23:00:00Z",
+    "event_driver_fee": 0,
+    "event_spectator_fee": 0,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme 275 Bad Boys Mayhem",
+    "classes": [
+      {
+        "id": 159,
+        "event_id": 35,
+        "name": "Outlaw Street",
+        "buyin_fee": 0
+      },
+      {
+        "id": 160,
+        "event_id": 35,
+        "name": "ASAG/Weight",
+        "buyin_fee": 0
+      },
+      {
+        "id": 161,
+        "event_id": 35,
+        "name": "Xtreme 275",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
     "id": 28,
     "title": "IHRA Bracket Series",
     "track_id": 2,
@@ -958,7 +990,7 @@
     "event_driver_fee": 0,
     "event_spectator_fee": 0,
     "url": "https://www.facebook.com/groups/1193073251712918",
-    "description": "The Clash of the Titans 4.50�ish isn�t your average drag race�it�s a battle of drivers and tuners."
+    "description": "The Clash of the Titans 4.50-ish isn't your average drag race-it's a battle of drivers and tuners."
   },
   {
     "id": 12,
@@ -1276,6 +1308,18 @@
     "event_spectator_fee": 25,
     "url": "https://www.nhradiv4.com",
     "description": "NHRA Lucas Oil Divisional - Division 4"
+  },
+  {
+    "id": 34,
+    "title": "NHRA Fall Natinals",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-10-16T09:00:00Z",
+    "end_date": "2026-10-18T23:00:00Z",
+    "event_driver_fee": 50,
+    "event_spectator_fee": 20,
+    "url": "https://texasmotorplex.com/events",
+    "description": "NHRA Fall National Event - NITRO!"
   },
   {
     "id": 25,
