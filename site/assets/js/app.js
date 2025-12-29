@@ -160,7 +160,7 @@ export function downloadCalendar(event) {
   URL.revokeObjectURL(url);
 }
 
-export async function loadEventsList(filter = 'upcoming') {
+export async function loadEventsList(filter = 'upcoming', trackFilter = 'all') {
   try {
     // Load data only once
     if (allEvents.length === 0) {
@@ -170,7 +170,7 @@ export async function loadEventsList(filter = 'upcoming') {
       ]);
     }
     
-    // Apply filter
+    // Apply date filter
     let filteredEvents = allEvents;
     switch(filter) {
       case 'upcoming':
@@ -189,6 +189,12 @@ export async function loadEventsList(filter = 'upcoming') {
       default:
         filteredEvents = allEvents;
         break;
+    }
+    
+    // Apply track filter
+    if (trackFilter !== 'all') {
+      const trackId = parseInt(trackFilter);
+      filteredEvents = filteredEvents.filter(event => event.track_id === trackId);
     }
     
     // Sort by date
@@ -391,9 +397,12 @@ export async function loadEventDetail() {
 
 export function initializeEventsList() {
   if (document.getElementById('events-list')) {
-    loadEventsList('upcoming'); // Default to upcoming events
+    let currentFilter = 'upcoming';
+    let currentTrackFilter = 'all';
     
-    // Add click handlers to filter buttons
+    loadEventsList(currentFilter, currentTrackFilter); // Default to upcoming events, all tracks
+    
+    // Add click handlers to date filter buttons
     const filterButtons = document.querySelectorAll('[data-filter]');
     filterButtons.forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -402,8 +411,22 @@ export function initializeEventsList() {
         e.target.classList.add('active');
         
         // Apply filter
-        const filter = e.target.getAttribute('data-filter');
-        loadEventsList(filter);
+        currentFilter = e.target.getAttribute('data-filter');
+        loadEventsList(currentFilter, currentTrackFilter);
+      });
+    });
+    
+    // Add click handlers to track filter buttons
+    const trackButtons = document.querySelectorAll('[data-track]');
+    trackButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // Update active button state
+        trackButtons.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        // Apply filter
+        currentTrackFilter = e.target.getAttribute('data-track');
+        loadEventsList(currentFilter, currentTrackFilter);
       });
     });
   }
