@@ -29,6 +29,7 @@ func usage() {
 	fmt.Println("    go run ./cmd event import <csv> # import events from CSV")
 	fmt.Println("    go run ./cmd event import-classes <csv> # import event classes from CSV")
 	fmt.Println("    go run ./cmd event import-rules <csv>   # import class rules from CSV")
+	fmt.Println("    go run ./cmd event list-classes   # list all event classes")
 	fmt.Println("  Export:")
 	fmt.Println("    go run ./cmd export            # write JSON to ../site/data/")
 }
@@ -41,27 +42,44 @@ func main() {
 	}
 	switch os.Args[1] {
 	case "db":
-		if len(os.Args) < 3 { usage(); os.Exit(2) }
+		if len(os.Args) < 3 {
+			usage()
+			os.Exit(2)
+		}
 		switch os.Args[2] {
 		case "init":
 			db, err := dbpkg.Open()
-			if err != nil { log.Fatal(err) }
+			if err != nil {
+				log.Fatal(err)
+			}
 			defer db.Close()
-			if err := dbpkg.Migrate(db); err != nil { log.Fatal(err) }
+			if err := dbpkg.Migrate(db); err != nil {
+				log.Fatal(err)
+			}
 			fmt.Println("Migrations applied.")
 		case "seed":
 			db, err := dbpkg.Open()
-			if err != nil { log.Fatal(err) }
+			if err != nil {
+				log.Fatal(err)
+			}
 			defer db.Close()
-			if err := dbpkg.Seed(db); err != nil { log.Fatal(err) }
+			if err := dbpkg.Seed(db); err != nil {
+				log.Fatal(err)
+			}
 			fmt.Println("Seed data inserted.")
 		default:
-			usage(); os.Exit(2)
+			usage()
+			os.Exit(2)
 		}
 	case "track":
-		if len(os.Args) < 3 { usage(); os.Exit(2) }
+		if len(os.Args) < 3 {
+			usage()
+			os.Exit(2)
+		}
 		db, err := dbpkg.Open()
-		if err != nil { log.Fatal(err) }
+		if err != nil {
+			log.Fatal(err)
+		}
 		defer db.Close()
 		switch os.Args[2] {
 		case "add":
@@ -69,12 +87,18 @@ func main() {
 		case "list":
 			listTracks(db)
 		default:
-			usage(); os.Exit(2)
+			usage()
+			os.Exit(2)
 		}
 	case "event":
-		if len(os.Args) < 3 { usage(); os.Exit(2) }
+		if len(os.Args) < 3 {
+			usage()
+			os.Exit(2)
+		}
 		db, err := dbpkg.Open()
-		if err != nil { log.Fatal(err) }
+		if err != nil {
+			log.Fatal(err)
+		}
 		defer db.Close()
 		switch os.Args[2] {
 		case "add":
@@ -113,21 +137,34 @@ func main() {
 				os.Exit(2)
 			}
 			importEventClassRulesFromCSV(db, os.Args[3])
+		case "list-classes":
+			listEventClasses(db)
 		default:
-			usage(); os.Exit(2)
+			usage()
+			os.Exit(2)
 		}
 	case "export":
 		db, err := dbpkg.Open()
-		if err != nil { log.Fatal(err) }
+		if err != nil {
+			log.Fatal(err)
+		}
 		defer db.Close()
 		tracks, err := dbpkg.ListTracks(db)
-		if err != nil { log.Fatal(err) }
+		if err != nil {
+			log.Fatal(err)
+		}
 		events, err := dbpkg.ListEvents(db)
-		if err != nil { log.Fatal(err) }
+		if err != nil {
+			log.Fatal(err)
+		}
 		classes, err := dbpkg.ListEventClasses(db)
-		if err != nil { log.Fatal(err) }
+		if err != nil {
+			log.Fatal(err)
+		}
 		rules, err := dbpkg.ListEventClassRules(db)
-		if err != nil { log.Fatal(err) }
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		// Nest rules into classes
 		rulesByClass := make(map[int64][]dbpkg.EventClassRule)
@@ -148,18 +185,21 @@ func main() {
 		}
 
 		dataDir := filepath.Clean(filepath.Join("..", "site", "data"))
-		if err := exportpkg.All(dataDir, tracks, events); err != nil { log.Fatal(err) }
+		if err := exportpkg.All(dataDir, tracks, events); err != nil {
+			log.Fatal(err)
+		}
 		fmt.Println("Exported JSON to", dataDir)
 	default:
-		usage(); os.Exit(2)
+		usage()
+		os.Exit(2)
 	}
 }
 
 func addTrackInteractive(db *sql.DB) {
 	scanner := bufio.NewScanner(os.Stdin)
-	
+
 	fmt.Println("\n=== Add New Track ===")
-	
+
 	// Name
 	fmt.Print("Name: ")
 	scanner.Scan()
@@ -167,7 +207,7 @@ func addTrackInteractive(db *sql.DB) {
 	if name == "" {
 		log.Fatal("Name is required")
 	}
-	
+
 	// City
 	fmt.Print("City: ")
 	scanner.Scan()
@@ -175,7 +215,7 @@ func addTrackInteractive(db *sql.DB) {
 	if city == "" {
 		log.Fatal("City is required")
 	}
-	
+
 	// Address
 	fmt.Print("Address: ")
 	scanner.Scan()
@@ -183,18 +223,18 @@ func addTrackInteractive(db *sql.DB) {
 	if address == "" {
 		log.Fatal("Address is required")
 	}
-	
+
 	// URL
 	fmt.Print("URL: ")
 	scanner.Scan()
 	url := strings.TrimSpace(scanner.Text())
-	
+
 	// Create track
 	id, err := dbpkg.CreateTrack(db, name, city, address, url)
 	if err != nil {
 		log.Fatalf("Failed to create track: %v", err)
 	}
-	
+
 	fmt.Printf("\n✓ Track created successfully! ID: %d\n", id)
 	fmt.Println("\nNext steps:")
 	fmt.Println("  1. Run 'make export' to generate JSON files")
@@ -206,12 +246,12 @@ func listTracks(db *sql.DB) {
 	if err != nil {
 		log.Fatalf("Failed to list tracks: %v", err)
 	}
-	
+
 	if len(tracks) == 0 {
 		fmt.Println("No tracks found.")
 		return
 	}
-	
+
 	fmt.Println("\n=== Tracks ===")
 	fmt.Println()
 	for _, t := range tracks {
@@ -229,9 +269,9 @@ func listTracks(db *sql.DB) {
 
 func addEventInteractive(db *sql.DB) {
 	scanner := bufio.NewScanner(os.Stdin)
-	
+
 	fmt.Println("\n=== Add New Event ===")
-	
+
 	// Title
 	fmt.Print("Title: ")
 	scanner.Scan()
@@ -239,7 +279,7 @@ func addEventInteractive(db *sql.DB) {
 	if title == "" {
 		log.Fatal("Title is required")
 	}
-	
+
 	// Track ID
 	fmt.Print("Track ID: ")
 	scanner.Scan()
@@ -247,7 +287,7 @@ func addEventInteractive(db *sql.DB) {
 	if err != nil {
 		log.Fatalf("Invalid track ID: %v", err)
 	}
-	
+
 	// Start Date
 	fmt.Print("Start Date (YYYY-MM-DD HH:MM:SS): ")
 	scanner.Scan()
@@ -255,12 +295,12 @@ func addEventInteractive(db *sql.DB) {
 	if startDate == "" {
 		log.Fatal("Start date is required")
 	}
-	
+
 	// End Date
 	fmt.Print("End Date (YYYY-MM-DD HH:MM:SS) [optional, press Enter to skip]: ")
 	scanner.Scan()
 	endDate := strings.TrimSpace(scanner.Text())
-	
+
 	// Driver Fee
 	fmt.Print("Driver Fee [optional, press Enter to skip]: ")
 	scanner.Scan()
@@ -272,7 +312,7 @@ func addEventInteractive(db *sql.DB) {
 		}
 		driverFee = &val
 	}
-	
+
 	// Spectator Fee
 	fmt.Print("Spectator Fee [optional, press Enter to skip]: ")
 	scanner.Scan()
@@ -284,23 +324,23 @@ func addEventInteractive(db *sql.DB) {
 		}
 		spectatorFee = &val
 	}
-	
+
 	// URL
 	fmt.Print("URL: ")
 	scanner.Scan()
 	url := strings.TrimSpace(scanner.Text())
-	
+
 	// Description
 	fmt.Print("Description: ")
 	scanner.Scan()
 	description := strings.TrimSpace(scanner.Text())
-	
+
 	// Create event
 	id, err := dbpkg.CreateEvent(db, title, trackID, startDate, endDate, driverFee, spectatorFee, url, description)
 	if err != nil {
 		log.Fatalf("Failed to create event: %v", err)
 	}
-	
+
 	fmt.Printf("\n✓ Event created successfully! ID: %d\n", id)
 	fmt.Println("\nNext steps:")
 	fmt.Println("  1. Run 'make export' to generate JSON files")
@@ -312,12 +352,12 @@ func listEvents(db *sql.DB) {
 	if err != nil {
 		log.Fatalf("Failed to list events: %v", err)
 	}
-	
+
 	if len(events) == 0 {
 		fmt.Println("No events found.")
 		return
 	}
-	
+
 	fmt.Println("\n=== Events ===")
 	fmt.Println()
 	for _, e := range events {
@@ -385,4 +425,29 @@ func importEventClassRulesFromCSV(db *sql.DB, filename string) {
 	fmt.Println("\nNext steps:")
 	fmt.Println("  1. Run 'make export' to generate JSON files")
 	fmt.Println("  2. Test locally with 'python -m http.server 8000' in the site/ directory")
+}
+
+func listEventClasses(db *sql.DB) {
+	classes, err := dbpkg.ListEventClasses(db)
+	if err != nil {
+		log.Fatalf("Failed to list event classes: %v", err)
+	}
+
+	if len(classes) == 0 {
+		fmt.Println("No event classes found.")
+		return
+	}
+
+	fmt.Println("\n=== Event Classes ===")
+	fmt.Println()
+	for _, c := range classes {
+		fmt.Printf("ID: %d\n", c.ID)
+		fmt.Printf("Event ID: %d\n", c.EventID)
+		fmt.Printf("Name: %s\n", c.Name)
+		if c.BuyinFee != nil {
+			fmt.Printf("Buy-in Fee: $%.2f\n", *c.BuyinFee)
+		}
+		fmt.Println()
+	}
+	fmt.Printf("Total: %d event classes\n", len(classes))
 }

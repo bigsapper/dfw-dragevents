@@ -9,6 +9,11 @@ Easy ways to add and manage drag racing events without a web interface.
 make event-list
 ```
 
+### View All Event Classes
+```powershell
+make event-list-classes
+```
+
 ### Add a Single Event (Interactive)
 ```powershell
 make event-add
@@ -27,6 +32,9 @@ make event-import-classes FILE=examples/event_classes_template.csv
 
 # Import rules for classes
 make event-import-rules FILE=examples/event_class_rules_template.csv
+
+# List all event classes
+make event-list-classes
 ```
 
 ### Delete an Event
@@ -162,33 +170,38 @@ make event-import-rules FILE=examples/event_class_rules_template.csv
    # Note the event IDs (e.g., 1, 2, 3)
    ```
 
-3. **Create classes CSV** with those event IDs:
+3. **Check existing classes (optional):**
+   ```powershell
+   make event-list-classes
+   ```
+
+4. **Create classes CSV** with those event IDs:
    ```csv
    event_id,name,buyin_fee
    1,Pro Street,100.0
    1,Street,50.0
    ```
 
-4. **Import classes:**
+5. **Import classes:**
    ```powershell
    make event-import-classes FILE=my_classes.csv
    ```
 
-5. **Check class IDs** (you'll need to query the database or check after export)
+6. **Check class IDs** (you'll need to query the database or check after export)
 
-6. **Create rules CSV** with class IDs:
+7. **Create rules CSV** with class IDs:
    ```csv
    event_class_id,rule
    1,DOT street tires only
    1,Maximum 10.5" tire width
    ```
 
-7. **Import rules:**
+8. **Import rules:**
    ```powershell
    make event-import-rules FILE=my_rules.csv
    ```
 
-8. **Export to website:**
+9. **Export to website:**
    ```powershell
    make export
    ```
@@ -237,6 +250,11 @@ go run ./cmd event add
 ### List events
 ```powershell
 go run ./cmd event list
+```
+
+### List event classes
+```powershell
+go run ./cmd event list-classes
 ```
 
 ### Delete event

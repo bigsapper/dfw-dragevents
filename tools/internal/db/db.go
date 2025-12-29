@@ -17,8 +17,8 @@ import (
 )
 
 const (
-	DBPath      = "db/db.sqlite"
-	MigrateDir  = "db/migrate"
+	DBPath     = "db/db.sqlite"
+	MigrateDir = "db/migrate"
 )
 
 type Track struct {
@@ -30,17 +30,17 @@ type Track struct {
 }
 
 type Event struct {
-	ID              int64     `json:"id"`
-	Title           string    `json:"title"`
-	TrackID         int64     `json:"track_id"`
-	TrackName       string    `json:"track_name"`
-	StartDate       time.Time `json:"start_date"` // DB column: event_datetime
-	EndDate         *time.Time `json:"end_date,omitempty"`
-	DriverFee       *float64  `json:"event_driver_fee,omitempty"`
-	SpectatorFee    *float64  `json:"event_spectator_fee,omitempty"`
-	URL             string    `json:"url"`
-	Description     string    `json:"description"`
-	Classes         []EventClass `json:"classes,omitempty"`
+	ID           int64        `json:"id"`
+	Title        string       `json:"title"`
+	TrackID      int64        `json:"track_id"`
+	TrackName    string       `json:"track_name"`
+	StartDate    time.Time    `json:"start_date"` // DB column: event_datetime
+	EndDate      *time.Time   `json:"end_date,omitempty"`
+	DriverFee    *float64     `json:"event_driver_fee,omitempty"`
+	SpectatorFee *float64     `json:"event_spectator_fee,omitempty"`
+	URL          string       `json:"url"`
+	Description  string       `json:"description"`
+	Classes      []EventClass `json:"classes,omitempty"`
 }
 
 type EventClass struct {
@@ -52,32 +52,42 @@ type EventClass struct {
 }
 
 type EventClassRule struct {
-	ID             int64  `json:"id"`
-	EventClassID   int64  `json:"event_class_id"`
-	Rule           string `json:"rule"`
+	ID           int64  `json:"id"`
+	EventClassID int64  `json:"event_class_id"`
+	Rule         string `json:"rule"`
 }
 
 func Open() (*sql.DB, error) {
 	db, err := sql.Open("sqlite", DBPath)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 	if _, err := os.Stat(filepath.Dir(DBPath)); errors.Is(err, os.ErrNotExist) {
-		if mkErr := os.MkdirAll(filepath.Dir(DBPath), 0o755); mkErr != nil { return nil, mkErr }
+		if mkErr := os.MkdirAll(filepath.Dir(DBPath), 0o755); mkErr != nil {
+			return nil, mkErr
+		}
 	}
 	return db, nil
 }
 
 func Migrate(db *sql.DB) error {
 	entries, err := os.ReadDir(MigrateDir)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	var files []fs.DirEntry
 	for _, e := range entries {
-		if !e.IsDir() && strings.HasSuffix(e.Name(), ".sql") { files = append(files, e) }
+		if !e.IsDir() && strings.HasSuffix(e.Name(), ".sql") {
+			files = append(files, e)
+		}
 	}
 	// simple lexicographic order ensures sequence (001_, 002_, ...)
 	for _, f := range files {
 		p := filepath.Join(MigrateDir, f.Name())
 		b, err := os.ReadFile(p)
-		if err != nil { return err }
+		if err != nil {
+			return err
+		}
 		if _, err := db.Exec(string(b)); err != nil {
 			return fmt.Errorf("migrate %s: %w", f.Name(), err)
 		}
@@ -93,30 +103,42 @@ func Seed(db *sql.DB) error {
 	}
 	for _, t := range tracks {
 		_, err := db.Exec(`INSERT INTO tracks(name, city, address, url) VALUES(?, ?, ?, ?)`, t.Name, t.City, t.Address, t.URL)
-		if err != nil { return err }
+		if err != nil {
+			return err
+		}
 	}
 	// Insert sample events
 	res1, err := db.Exec(`INSERT INTO events(title, track_id, event_datetime, end_date, event_driver_fee, event_spectator_fee, url, description)
 		VALUES('Fall Nationals', 1, '2025-10-03 08:00:00', '2025-10-12 18:00:00', 50.0, 20.0, 'https://texasmotorplex.com/events', 'NHRA fall event')`)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	event1ID, _ := res1.LastInsertId()
 
 	res2, err := db.Exec(`INSERT INTO events(title, track_id, event_datetime, end_date, event_driver_fee, event_spectator_fee, url, description)
 		VALUES('Friday Night Drags', 2, '2025-10-24 18:00:00', '2025-10-24 23:00:00', 30.0, 10.0, 'https://www.xtremeracewaypark.com', 'Test and tune night')`)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	event2ID, _ := res2.LastInsertId()
 
 	// Insert sample event classes
 	class1Res, err := db.Exec(`INSERT INTO event_classes(event_id, name, buyin_fee) VALUES(?, 'Pro Street', 100.0)`, event1ID)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	class1ID, _ := class1Res.LastInsertId()
 
 	class2Res, err := db.Exec(`INSERT INTO event_classes(event_id, name, buyin_fee) VALUES(?, 'Street', 50.0)`, event1ID)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	class2ID, _ := class2Res.LastInsertId()
 
 	class3Res, err := db.Exec(`INSERT INTO event_classes(event_id, name, buyin_fee) VALUES(?, 'Test & Tune', NULL)`, event2ID)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	class3ID, _ := class3Res.LastInsertId()
 
 	// Insert sample rules
@@ -124,12 +146,16 @@ func Seed(db *sql.DB) error {
 		(?, 'DOT street tires only'),
 		(?, 'Maximum 10.5" tire width'),
 		(?, 'Full interior required')`, class1ID, class1ID, class1ID)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 
 	_, err = db.Exec(`INSERT INTO event_class_rules(event_class_id, rule) VALUES
 		(?, 'Street legal vehicle'),
 		(?, 'Valid registration and insurance')`, class2ID, class2ID)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 
 	_, err = db.Exec(`INSERT INTO event_class_rules(event_class_id, rule) VALUES
 		(?, 'All vehicles welcome'),
@@ -148,12 +174,16 @@ func CreateTrack(db *sql.DB, name, city, address, url string) (int64, error) {
 
 func ListTracks(db *sql.DB) ([]Track, error) {
 	rows, err := db.Query(`SELECT id, name, city, address, url FROM tracks ORDER BY name`)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 	defer rows.Close()
 	var out []Track
 	for rows.Next() {
 		var t Track
-		if err := rows.Scan(&t.ID, &t.Name, &t.City, &t.Address, &t.URL); err != nil { return nil, err }
+		if err := rows.Scan(&t.ID, &t.Name, &t.City, &t.Address, &t.URL); err != nil {
+			return nil, err
+		}
 		out = append(out, t)
 	}
 	return out, rows.Err()
@@ -164,14 +194,18 @@ func ListEvents(dbx *sql.DB) ([]Event, error) {
 		FROM events e JOIN tracks t ON e.track_id = t.id
 		ORDER BY e.event_datetime`
 	rows, err := dbx.Query(q)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 	defer rows.Close()
 	var out []Event
 	for rows.Next() {
 		var ev Event
 		var eventDateStr, endDateStr sql.NullString
 		var driverFee, spectatorFee sql.NullFloat64
-		if err := rows.Scan(&ev.ID, &ev.Title, &ev.TrackID, &ev.TrackName, &eventDateStr, &endDateStr, &driverFee, &spectatorFee, &ev.URL, &ev.Description); err != nil { return nil, err }
+		if err := rows.Scan(&ev.ID, &ev.Title, &ev.TrackID, &ev.TrackName, &eventDateStr, &endDateStr, &driverFee, &spectatorFee, &ev.URL, &ev.Description); err != nil {
+			return nil, err
+		}
 		if eventDateStr.Valid {
 			// Try multiple datetime formats that SQLite might return
 			formats := []string{
@@ -213,8 +247,14 @@ func ListEvents(dbx *sql.DB) ([]Event, error) {
 				}
 			}
 		}
-		if driverFee.Valid { v := driverFee.Float64; ev.DriverFee = &v }
-		if spectatorFee.Valid { v := spectatorFee.Float64; ev.SpectatorFee = &v }
+		if driverFee.Valid {
+			v := driverFee.Float64
+			ev.DriverFee = &v
+		}
+		if spectatorFee.Valid {
+			v := spectatorFee.Float64
+			ev.SpectatorFee = &v
+		}
 		out = append(out, ev)
 	}
 	return out, rows.Err()
@@ -223,14 +263,21 @@ func ListEvents(dbx *sql.DB) ([]Event, error) {
 func ListEventClasses(dbx *sql.DB) ([]EventClass, error) {
 	q := `SELECT id, event_id, name, buyin_fee FROM event_classes ORDER BY event_id, id`
 	rows, err := dbx.Query(q)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 	defer rows.Close()
 	var out []EventClass
 	for rows.Next() {
 		var ec EventClass
 		var buyinFee sql.NullFloat64
-		if err := rows.Scan(&ec.ID, &ec.EventID, &ec.Name, &buyinFee); err != nil { return nil, err }
-		if buyinFee.Valid { v := buyinFee.Float64; ec.BuyinFee = &v }
+		if err := rows.Scan(&ec.ID, &ec.EventID, &ec.Name, &buyinFee); err != nil {
+			return nil, err
+		}
+		if buyinFee.Valid {
+			v := buyinFee.Float64
+			ec.BuyinFee = &v
+		}
 		out = append(out, ec)
 	}
 	return out, rows.Err()
@@ -239,12 +286,16 @@ func ListEventClasses(dbx *sql.DB) ([]EventClass, error) {
 func ListEventClassRules(dbx *sql.DB) ([]EventClassRule, error) {
 	q := `SELECT id, event_class_id, rule FROM event_class_rules ORDER BY event_class_id, id`
 	rows, err := dbx.Query(q)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 	defer rows.Close()
 	var out []EventClassRule
 	for rows.Next() {
 		var r EventClassRule
-		if err := rows.Scan(&r.ID, &r.EventClassID, &r.Rule); err != nil { return nil, err }
+		if err := rows.Scan(&r.ID, &r.EventClassID, &r.Rule); err != nil {
+			return nil, err
+		}
 		out = append(out, r)
 	}
 	return out, rows.Err()
@@ -263,7 +314,7 @@ func CreateEvent(db *sql.DB, title string, trackID int64, startDate, endDate str
 	if spectatorFee != nil {
 		spectatorFeeVal = *spectatorFee
 	}
-	
+
 	result, err := db.Exec(`INSERT INTO events(title, track_id, event_datetime, end_date, event_driver_fee, event_spectator_fee, url, description)
 		VALUES(?, ?, ?, ?, ?, ?, ?, ?)`,
 		title, trackID, startDate, endDateVal, driverFeeVal, spectatorFeeVal, url, description)
@@ -303,7 +354,7 @@ func ImportEventsFromCSV(db *sql.DB, filename string) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("read CSV header: %w", err)
 	}
-	
+
 	// Validate header
 	expectedHeaders := []string{"title", "track_id", "start_date", "end_date", "driver_fee", "spectator_fee", "url", "description"}
 	if len(header) != len(expectedHeaders) {
@@ -334,7 +385,7 @@ func ImportEventsFromCSV(db *sql.DB, filename string) (int, error) {
 		}
 		startDate := strings.TrimSpace(record[2])
 		endDate := strings.TrimSpace(record[3])
-		
+
 		var driverFee, spectatorFee *float64
 		if df := strings.TrimSpace(record[4]); df != "" {
 			val, err := strconv.ParseFloat(df, 64)
@@ -350,7 +401,7 @@ func ImportEventsFromCSV(db *sql.DB, filename string) (int, error) {
 			}
 			spectatorFee = &val
 		}
-		
+
 		url := strings.TrimSpace(record[6])
 		description := strings.TrimSpace(record[7])
 
@@ -380,7 +431,7 @@ func ImportEventClassesFromCSV(db *sql.DB, filename string) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("read CSV header: %w", err)
 	}
-	
+
 	// Validate header
 	expectedHeaders := []string{"event_id", "name", "buyin_fee"}
 	if len(header) != len(expectedHeaders) {
@@ -409,7 +460,7 @@ func ImportEventClassesFromCSV(db *sql.DB, filename string) (int, error) {
 			return count, fmt.Errorf("line %d: invalid event_id: %w", lineNum, err)
 		}
 		name := strings.TrimSpace(record[1])
-		
+
 		var buyinFee *float64
 		if bf := strings.TrimSpace(record[2]); bf != "" {
 			val, err := strconv.ParseFloat(bf, 64)
@@ -450,7 +501,7 @@ func ImportEventClassRulesFromCSV(db *sql.DB, filename string) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("read CSV header: %w", err)
 	}
-	
+
 	// Validate header
 	expectedHeaders := []string{"event_class_id", "rule"}
 	if len(header) != len(expectedHeaders) {

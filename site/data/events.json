@@ -499,6 +499,180 @@
     "description": "Home of the World's Quickest and Fastest Street Cars!"
   },
   {
+    "id": 36,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-03-22T08:00:00Z",
+    "end_date": "2026-03-22T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 162,
+        "event_id": 36,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 16,
+            "event_class_id": 162,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 17,
+            "event_class_id": 162,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 163,
+        "event_id": 36,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 18,
+            "event_class_id": 163,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 19,
+            "event_class_id": 163,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 164,
+        "event_id": 36,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 20,
+            "event_class_id": 164,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 21,
+            "event_class_id": 164,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 165,
+        "event_id": 36,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 22,
+            "event_class_id": 165,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 166,
+        "event_id": 36,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 23,
+            "event_class_id": 166,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 167,
+        "event_id": 36,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 24,
+            "event_class_id": 167,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 168,
+        "event_id": 36,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 25,
+            "event_class_id": 168,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 169,
+        "event_id": 36,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 26,
+            "event_class_id": 169,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 170,
+        "event_id": 36,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 27,
+            "event_class_id": 170,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 28,
+            "event_class_id": 170,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 29,
+            "event_class_id": 170,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 30,
+            "event_class_id": 170,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 171,
+        "event_id": 36,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 31,
+            "event_class_id": 171,
+            "rule": "TBD"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": 35,
     "title": "Bad Boys Mayhem",
     "track_id": 2,
@@ -913,6 +1087,180 @@
     ]
   },
   {
+    "id": 37,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-06-28T08:00:00Z",
+    "end_date": "2026-06-28T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 172,
+        "event_id": 37,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 32,
+            "event_class_id": 172,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 33,
+            "event_class_id": 172,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 173,
+        "event_id": 37,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 34,
+            "event_class_id": 173,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 35,
+            "event_class_id": 173,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 174,
+        "event_id": 37,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 36,
+            "event_class_id": 174,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 37,
+            "event_class_id": 174,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 175,
+        "event_id": 37,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 38,
+            "event_class_id": 175,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 176,
+        "event_id": 37,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 39,
+            "event_class_id": 176,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 177,
+        "event_id": 37,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 40,
+            "event_class_id": 177,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 178,
+        "event_id": 37,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 41,
+            "event_class_id": 178,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 179,
+        "event_id": 37,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 42,
+            "event_class_id": 179,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 180,
+        "event_id": 37,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 43,
+            "event_class_id": 180,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 44,
+            "event_class_id": 180,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 45,
+            "event_class_id": 180,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 46,
+            "event_class_id": 180,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 181,
+        "event_id": 37,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 47,
+            "event_class_id": 181,
+            "rule": "TBD"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": 30,
     "title": "IHRA Bracket Series",
     "track_id": 2,
@@ -1104,6 +1452,180 @@
     ]
   },
   {
+    "id": 38,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-08-30T08:00:00Z",
+    "end_date": "2026-08-30T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 182,
+        "event_id": 38,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 48,
+            "event_class_id": 182,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 49,
+            "event_class_id": 182,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 183,
+        "event_id": 38,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 50,
+            "event_class_id": 183,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 51,
+            "event_class_id": 183,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 184,
+        "event_id": 38,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 52,
+            "event_class_id": 184,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 53,
+            "event_class_id": 184,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 185,
+        "event_id": 38,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 54,
+            "event_class_id": 185,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 186,
+        "event_id": 38,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 55,
+            "event_class_id": 186,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 187,
+        "event_id": 38,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 56,
+            "event_class_id": 187,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 188,
+        "event_id": 38,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 57,
+            "event_class_id": 188,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 189,
+        "event_id": 38,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 58,
+            "event_class_id": 189,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 190,
+        "event_id": 38,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 59,
+            "event_class_id": 190,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 60,
+            "event_class_id": 190,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 61,
+            "event_class_id": 190,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 62,
+            "event_class_id": 190,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 191,
+        "event_id": 38,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 63,
+            "event_class_id": 191,
+            "rule": "TBD"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": 23,
     "title": "Flicker Promotions LaTexan Lasso",
     "track_id": 1,
@@ -1182,6 +1704,180 @@
         "event_id": 24,
         "name": "Jr. Dragsters",
         "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-09-13T08:00:00Z",
+    "end_date": "2026-09-13T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 192,
+        "event_id": 39,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 64,
+            "event_class_id": 192,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 65,
+            "event_class_id": 192,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 193,
+        "event_id": 39,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 66,
+            "event_class_id": 193,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 67,
+            "event_class_id": 193,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 194,
+        "event_id": 39,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 68,
+            "event_class_id": 194,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 69,
+            "event_class_id": 194,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 195,
+        "event_id": 39,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 70,
+            "event_class_id": 195,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 196,
+        "event_id": 39,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 71,
+            "event_class_id": 196,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 197,
+        "event_id": 39,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 72,
+            "event_class_id": 197,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 198,
+        "event_id": 39,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 73,
+            "event_class_id": 198,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 199,
+        "event_id": 39,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 74,
+            "event_class_id": 199,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 200,
+        "event_id": 39,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 75,
+            "event_class_id": 200,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 76,
+            "event_class_id": 200,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 77,
+            "event_class_id": 200,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 78,
+            "event_class_id": 200,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 201,
+        "event_id": 39,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 79,
+            "event_class_id": 201,
+            "rule": "TBD"
+          }
+        ]
       }
     ]
   },
@@ -1436,6 +2132,180 @@
         "event_id": 14,
         "name": "Jr. Dragsters",
         "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-11-08T08:00:00Z",
+    "end_date": "2026-11-08T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 202,
+        "event_id": 40,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 80,
+            "event_class_id": 202,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 81,
+            "event_class_id": 202,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 203,
+        "event_id": 40,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 82,
+            "event_class_id": 203,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 83,
+            "event_class_id": 203,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 204,
+        "event_id": 40,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 84,
+            "event_class_id": 204,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 85,
+            "event_class_id": 204,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 205,
+        "event_id": 40,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 86,
+            "event_class_id": 205,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 206,
+        "event_id": 40,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 87,
+            "event_class_id": 206,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 207,
+        "event_id": 40,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 88,
+            "event_class_id": 207,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 208,
+        "event_id": 40,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 89,
+            "event_class_id": 208,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 209,
+        "event_id": 40,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 90,
+            "event_class_id": 209,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 210,
+        "event_id": 40,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 91,
+            "event_class_id": 210,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 92,
+            "event_class_id": 210,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 93,
+            "event_class_id": 210,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 94,
+            "event_class_id": 210,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 211,
+        "event_id": 40,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 95,
+            "event_class_id": 211,
+            "rule": "TBD"
+          }
+        ]
       }
     ]
   }

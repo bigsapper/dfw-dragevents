@@ -1,4 +1,4 @@
-.PHONY: all build test clean init seed export deploy deploy-full help
+.PHONY: all build test clean init seed export deploy deploy-full help event-list-classes
 
 # Default target
 all: test build
@@ -90,6 +90,10 @@ event-import-classes:
 	@echo "Importing event classes from $(FILE)..."
 	go run ./cmd event import-classes $(FILE)
 
+event-list-classes:
+	@echo "Listing event classes..."
+	go run ./cmd event list-classes
+
 event-import-rules:
 	@if "$(FILE)" == "" (echo Error: FILE parameter required. Usage: make event-import-rules FILE=rules.csv & exit /b 1)
 	@echo "Importing event class rules from $(FILE)..."
@@ -144,6 +148,7 @@ help:
 	@echo "  make event-import FILE=<file> - Import events from CSV"
 	@echo "  make event-import-classes FILE=<file> - Import event classes from CSV"
 	@echo "  make event-import-rules FILE=<file> - Import class rules from CSV"
+	@echo "  make event-list-classes - List all event classes"
 	@echo ""
 	@echo "  make export         - Export data to JSON"
 	@echo "  make full-workflow  - Run complete workflow (clean, init, seed, export)"

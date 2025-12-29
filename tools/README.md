@@ -16,6 +16,9 @@ make event-add                        # Add single event interactively
 make event-list                       # List all events
 make event-delete ID=5                # Delete event by ID
 make event-import FILE=events.csv     # Bulk import from CSV
+make event-import-classes FILE=classes.csv  # Import event classes from CSV
+make event-import-rules FILE=rules.csv      # Import class rules from CSV
+make event-list-classes               # List all event classes
 ```
 
 ### Database & Deployment
