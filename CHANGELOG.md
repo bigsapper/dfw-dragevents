@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-02-11] - Replace Python with Native Node.js Dev Server
+
+### Added
+- **`site/server.js`** - Native Node.js static file server (zero dependencies)
+  - Serves static files from site directory on port 8000
+  - Proper MIME type handling for HTML, CSS, JS, JSON, images, SVG
+  - 404 handling for missing files
+- **`npm start`** script in `site/package.json` to launch local dev server
+
+### Removed
+- **Python prerequisite** - No longer needed for local development
+  - Replaced `python -m http.server 8000` with `npm start` across all documentation
+
+### Changed
+- **`README.md`** - Updated prerequisites and all local server references
+  - Removed Python from prerequisites (was item #3)
+  - Updated Node.js description to include local server usage
+  - Renumbered prerequisites (Make → #3, AWS CLI → #4, Git → #5)
+  - Replaced all `python -m http.server` commands with `npm start`
+
+---
+
 ## [2025-12-03] - Texas Eliminator Bracket Series Events
 
 ### Added

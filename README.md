@@ -16,26 +16,19 @@ Static website for Dallas-Fort Worth drag racing events. Data is managed locally
 - **Verify:** `go version`
 - **Used for:** Database CLI, data management, backend tests
 
-#### **2. Node.js & npm (Frontend Testing)**
+#### **2. Node.js & npm (Frontend Testing & Local Server)**
 - **Version:** Node.js 18+ (includes npm)
 - **Download:** https://nodejs.org/
 - **Verify:** `node --version` and `npm --version`
-- **Used for:** Frontend unit tests, test coverage reports
+- **Used for:** Frontend unit tests, test coverage reports, local development server
 
-#### **3. Python (Local Development Server)**
-- **Version:** Python 3.7 or later
-- **Download:** https://www.python.org/downloads/
-- **Verify:** `python --version`
-- **Used for:** Local HTTP server for testing (`python -m http.server`)
-- **Alternative:** VS Code Live Server extension
-
-#### **4. Make (Build Automation)**
+#### **3. Make (Build Automation)**
 - **Windows:** Included with Git for Windows, or install via Chocolatey: `choco install make`
 - **macOS/Linux:** Usually pre-installed
 - **Verify:** `make --version`
 - **Used for:** Running build commands (`make test`, `make build`, etc.)
 
-#### **5. AWS CLI (Deployment - Optional)**
+#### **4. AWS CLI (Deployment - Optional)**
 - **Version:** AWS CLI v2
 - **Download:** https://aws.amazon.com/cli/
 - **Verify:** `aws --version`
@@ -43,7 +36,7 @@ Static website for Dallas-Fort Worth drag racing events. Data is managed locally
 - **Used for:** Deploying to AWS S3 and CloudFront
 - **Required only if:** You're deploying to production
 
-#### **6. Git**
+#### **5. Git**
 - **Version:** Git 2.0 or later
 - **Download:** https://git-scm.com/downloads
 - **Verify:** `git --version`
@@ -95,12 +88,8 @@ npm run test:coverage
 
 ### **4. Start Local Development Server**
 ```powershell
-# Option 1: Python HTTP server
 cd site
-python -m http.server 8000
-
-# Option 2: VS Code Live Server
-# Right-click index.html → "Open with Live Server"
+npm start
 ```
 
 Open http://localhost:8000 in your browser.
@@ -177,7 +166,7 @@ make export        # Export to JSON
 Then start a local server to test:
 ```powershell
 cd ../site
-python -m http.server 8000
+npm start
 ```
 Open http://localhost:8000
 
@@ -234,8 +223,7 @@ make export
 ### 3. Test Locally
 ```powershell
 cd site
-python -m http.server 8000
-# Or use VS Code Live Server extension
+npm start
 ```
 Open http://localhost:8000 and verify your changes
 
