@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -52,12 +53,15 @@ def run(
     check: bool = True,
     cwd: Path | None = None,
 ) -> subprocess.CompletedProcess[str]:
+    env = os.environ.copy()
+    env["AWS_PAGER"] = ""
     return subprocess.run(
         cmd,
         cwd=cwd,
         check=check,
         text=True,
         capture_output=capture_output,
+        env=env,
     )
 
 
@@ -113,4 +117,3 @@ def sync_site(bucket: str, *, region: str | None = None, dry_run: bool = False) 
     for pattern in SYNC_EXCLUDES:
         cmd.extend(["--exclude", pattern])
     run(cmd)
-

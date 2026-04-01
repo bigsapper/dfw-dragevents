@@ -72,7 +72,8 @@ aws cloudfront list-distributions
 ```text
 dfw-dragevents/
 ├── site/              # Static website (HTML, CSS, JS, JSON data)
-├── tools/aws/         # AWS deployment and infrastructure scripts
+├── tools/             # Validation, test, coverage, and deploy entry points
+│   └── aws/           # AWS deployment and infrastructure scripts
 ├── docs/              # Active deployment and infrastructure docs
 ├── _archive/          # Archived local data-processing workflow and docs
 ├── CHANGELOG.md
@@ -92,11 +93,13 @@ npm test
 
 ### Deploy to Production
 ```bash
-cd tools/aws
-python3 deploy.py --skip-bucket-creation
+cd tools
+make build
+make test
+make deploy
 ```
 
-Use `python3 deploy.py` without `--skip-bucket-creation` if you need full bucket setup.
+The `deploy` target runs the active AWS Python deployment script with `--skip-bucket-creation`. Use `python3 tools/aws/deploy.py` directly if you need full bucket setup or other script options.
 
 ## Frontend Testing
 
@@ -115,6 +118,7 @@ Active deployment documentation:
 - [AWS Deployment Guide](docs/AWS_DEPLOYMENT.md)
 - [AWS Console Guide](docs/AWS_CONSOLE_GUIDE.md)
 - [Deployment Info](docs/DEPLOYMENT_INFO.md)
+- [Tools README](tools/README.md)
 - [AWS Scripts README](tools/aws/README.md)
 
 ## Contributing

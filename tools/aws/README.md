@@ -57,6 +57,13 @@ python3 configure_cloudfront_simple.py
 
 ### Deploy
 ```bash
+cd tools
+make deploy
+```
+
+To run the deployment script directly:
+
+```bash
 cd tools/aws
 python3 deploy.py --skip-bucket-creation
 ```

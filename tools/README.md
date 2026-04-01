@@ -1,6 +1,8 @@
 # Tools
 
-This directory now documents the active AWS deployment tooling for the site.
+This directory contains the active tooling entry points for the site.
+
+It also includes the active [`Makefile`](Makefile) for lightweight site validation, frontend testing, coverage, and deployment entry points.
 
 ## Active Tooling
 
@@ -14,11 +16,25 @@ This directory now documents the active AWS deployment tooling for the site.
 
 ## Common Usage
 
+### Validate the Site
+```bash
+make build
+```
+
+This performs a lightweight validation that the required static site files are present before deployment.
+
+### Run Frontend Tests
+```bash
+make test
+make coverage
+```
+
 ### Deploy
 ```bash
-cd aws
-python3 deploy.py --skip-bucket-creation
+make deploy
 ```
+
+This runs `python3 aws/deploy.py --skip-bucket-creation`.
 
 ### Configure DNS
 ```bash
