@@ -1,5 +1,19 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { formatDateTime, formatDateRange, fetchJSON, loadEventsList, loadEventDetail, resetCache, initializeEventsList, initializeEventDetail, isSafeUrl } from './app.js';
+import { formatDateTime, formatDateRange, fetchJSON, loadEventsList, loadEventDetail, resetCache, initializeEventsList, initializeEventDetail, isSafeUrl, renderTrackFilters, generateICS, downloadCalendar } from './app.js';
+
+function createMockFetch({ events = [], trackFilters = [] } = {}) {
+  const resolvedTrackFilters = trackFilters;
+
+  return vi.fn((path) => {
+    if (path === 'data/events.json') {
+      return Promise.resolve({ ok: true, json: async () => events });
+    }
+    if (path === 'data/tracks-filter.json') {
+      return Promise.resolve({ ok: true, json: async () => resolvedTrackFilters });
+    }
+    return Promise.reject(new Error('Not found'));
+  });
+}
 
 describe('formatDateTime', () => {
   it('should format valid ISO date string', () => {
@@ -181,31 +195,74 @@ describe('isSafeUrl', () => {
   });
 });
 
+describe('calendar helpers', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('should return null ICS content when start date is missing', () => {
+    expect(generateICS({ title: 'No Date' })).toBeNull();
+  });
+
+  it('should generate ICS content with fees and classes', () => {
+    const ics = generateICS({
+      id: 'event-1',
+      title: 'Bracket Bash',
+      track_name: 'Test Track',
+      start_date: '2026-05-01T10:00:00Z',
+      end_date: '2026-05-02T18:00:00Z',
+      description: 'Race day',
+      event_driver_fee: 50,
+      event_spectator_fee: 20,
+      classes: [{ name: 'Super Pro', buyin_fee: 100 }],
+      url: 'https://example.com'
+    });
+
+    expect(ics).toContain('BEGIN:VCALENDAR');
+    expect(ics).toContain('SUMMARY:Bracket Bash');
+    expect(ics).toContain('Driver: $50');
+    expect(ics).toContain('Super Pro - Buy-in: $100');
+  });
+
+  it('should alert when downloadCalendar receives an invalid event date', () => {
+    const alertSpy = vi.fn();
+    globalThis.alert = alertSpy;
+
+    downloadCalendar({ title: 'Bad Event' });
+
+    expect(alertSpy).toHaveBeenCalledWith('Unable to generate calendar file: Invalid event date');
+  });
+});
+
 describe('loadEventsList', () => {
   let container;
   const mockEvents = [
     {
-      id: 1,
+      id: 'event-1',
       title: 'Test Event 1',
-      track_id: 1,
+      track_id: 'test-track',
       track_name: 'Test Track',
+      track_city: 'Dallas',
+      track_state: 'TX',
       start_date: '2026-10-15T10:00:00Z',
       end_date: '2026-10-15T18:00:00Z',
       description: 'Test description'
     },
     {
-      id: 2,
+      id: 'event-2',
       title: 'Test Event 2',
-      track_id: 2,
+      track_id: 'another-track',
       track_name: 'Another Track',
+      track_city: 'Fort Worth',
+      track_state: 'TX',
       start_date: '2026-11-20T10:00:00Z',
       end_date: null,
       description: ''
     }
   ];
-  const mockTracks = [
-    { id: 1, name: 'Test Track', city: 'Dallas' },
-    { id: 2, name: 'Another Track', city: 'Fort Worth' }
+  const mockTrackFilters = [
+    { canonical: 'Test Track', aliases: [] },
+    { canonical: 'Another Track', aliases: [] }
   ];
 
   beforeEach(() => {
@@ -213,31 +270,26 @@ describe('loadEventsList', () => {
     resetCache();
     
     // Create DOM container
+    document.body.innerHTML = '';
+    const trackFilterContainer = document.createElement('div');
+    trackFilterContainer.id = 'track-filters';
+    document.body.appendChild(trackFilterContainer);
+
     container = document.createElement('div');
     container.id = 'events-list';
     document.body.appendChild(container);
 
     // Mock fetch
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockEvents
-        });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockTracks
-        });
-      }
-      return Promise.reject(new Error('Not found'));
-    });
+    global.fetch = createMockFetch({ events: mockEvents, trackFilters: mockTrackFilters });
   });
 
   afterEach(() => {
     if (container && container.parentNode) {
       document.body.removeChild(container);
+    }
+    const trackFilters = document.getElementById('track-filters');
+    if (trackFilters && trackFilters.parentNode) {
+      document.body.removeChild(trackFilters);
     }
     vi.restoreAllMocks();
   });
@@ -259,7 +311,7 @@ describe('loadEventsList', () => {
     expect(firstCard.querySelector('.card-title').textContent).toBe('Test Event 1');
     expect(firstCard.querySelector('.card-subtitle').textContent).toBe('Test Track');
     expect(firstCard.querySelector('.card-text').textContent).toBe('Test description');
-    expect(firstCard.querySelector('.card-link').getAttribute('href')).toBe('event.html?id=1');
+    expect(firstCard.querySelector('.card-link').getAttribute('href')).toBe('event.html?id=event-1');
   });
 
   it('should handle empty description', async () => {
@@ -281,22 +333,15 @@ describe('loadEventsList', () => {
   it('should fallback to track_name when track not in map', async () => {
     resetCache();
     const eventsWithUnknownTrack = [{
-      id: 3,
+      id: 'event-3',
       title: 'Event',
-      track_id: 999,
+      track_id: 'missing-track',
       track_name: 'Unknown Track',
       start_date: '2025-10-15T10:00:00Z',
       description: ''
     }];
 
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => eventsWithUnknownTrack });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => mockTracks });
-      }
-    });
+    global.fetch = createMockFetch({ events: eventsWithUnknownTrack, trackFilters: mockTrackFilters });
 
     await loadEventsList('all');
     
@@ -306,14 +351,7 @@ describe('loadEventsList', () => {
 
   it('should display "No events found" message when filter returns empty', async () => {
     resetCache();
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => [] });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => mockTracks });
-      }
-    });
+    global.fetch = createMockFetch({ events: [], trackFilters: mockTrackFilters });
 
     await loadEventsList('upcoming');
     
@@ -362,32 +400,51 @@ describe('loadEventsList', () => {
     expect(consoleSpy).toHaveBeenCalled();
     consoleSpy.mockRestore();
   });
+
+  it('should resolve canonical track filters using aliases', async () => {
+    resetCache();
+    global.fetch = createMockFetch({
+      events: mockEvents,
+      trackFilters: [
+        { canonical: 'Thunder Valley Raceway Park', aliases: ['Thunder Valley'] }
+      ]
+    });
+
+    await loadEventsList('all');
+
+    const buttons = document.querySelectorAll('#track-filters [data-track]');
+    expect(buttons).toHaveLength(2);
+    expect(buttons[1].textContent).toBe('Thunder Valley Raceway Park');
+    expect(buttons[1].getAttribute('data-track')).toBe('Thunder Valley Raceway Park');
+  });
 });
 
 describe('loadEventDetail', () => {
   const mockEvent = {
-    id: 1,
+    id: 'event-1',
     title: 'Test Event',
-    track_id: 1,
+    track_id: 'test-track',
     track_name: 'Test Track',
+    track_city: 'Dallas',
+    track_state: 'TX',
     start_date: '2025-10-15T10:00:00Z',
     end_date: '2025-10-17T18:00:00Z',
     description: 'Test description',
     event_driver_fee: 50,
     event_spectator_fee: 20,
+    raw_driver_fee: '$50',
+    raw_spectator_fee: '$20',
     url: 'https://example.com',
     classes: [
       {
-        id: 1,
         name: 'Pro Street',
         buyin_fee: 100,
         rules: [
-          { id: 1, rule: 'DOT tires only' },
-          { id: 2, rule: 'Full interior required' }
+          { rule: 'DOT tires only' },
+          { rule: 'Full interior required' }
         ]
       },
       {
-        id: 2,
         name: 'Street',
         buyin_fee: null,
         rules: []
@@ -395,9 +452,7 @@ describe('loadEventDetail', () => {
     ]
   };
 
-  const mockTracks = [
-    { id: 1, name: 'Test Track', city: 'Dallas' }
-  ];
+  const mockTrackFilters = [{ canonical: 'Test Track', aliases: [] }];
 
   beforeEach(() => {
     // Create DOM elements
@@ -415,25 +470,12 @@ describe('loadEventDetail', () => {
 
     // Mock location.search
     Object.defineProperty(window, 'location', {
-      value: { search: '?id=1' },
+      value: { search: '?id=event-1' },
       writable: true
     });
 
     // Mock fetch
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({
-          ok: true,
-          json: async () => [mockEvent]
-        });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockTracks
-        });
-      }
-    });
+    global.fetch = createMockFetch({ events: [mockEvent], trackFilters: mockTrackFilters });
   });
 
   afterEach(() => {
@@ -457,15 +499,14 @@ describe('loadEventDetail', () => {
   });
 
   it('should display default message when no fees', async () => {
-    const eventNoFees = { ...mockEvent, event_driver_fee: null, event_spectator_fee: null };
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => [eventNoFees] });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => mockTracks });
-      }
-    });
+    const eventNoFees = {
+      ...mockEvent,
+      event_driver_fee: null,
+      event_spectator_fee: null,
+      raw_driver_fee: null,
+      raw_spectator_fee: null
+    };
+    global.fetch = createMockFetch({ events: [eventNoFees], trackFilters: mockTrackFilters });
 
     await loadEventDetail();
     
@@ -499,14 +540,7 @@ describe('loadEventDetail', () => {
 
   it('should display message when no classes', async () => {
     const eventNoClasses = { ...mockEvent, classes: [] };
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => [eventNoClasses] });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => mockTracks });
-      }
-    });
+    global.fetch = createMockFetch({ events: [eventNoClasses], trackFilters: mockTrackFilters });
 
     await loadEventDetail();
     
@@ -550,14 +584,7 @@ describe('loadEventDetail', () => {
 
   it('should handle event without URL in schema', async () => {
     const eventNoUrl = { ...mockEvent, url: null };
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => [eventNoUrl] });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => mockTracks });
-      }
-    });
+    global.fetch = createMockFetch({ events: [eventNoUrl], trackFilters: mockTrackFilters });
 
     await loadEventDetail();
     
@@ -576,14 +603,7 @@ describe('loadEventDetail', () => {
   });
 
   it('should return early when event not found', async () => {
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => [] });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => mockTracks });
-      }
-    });
+    global.fetch = createMockFetch({ events: [], trackFilters: mockTrackFilters });
 
     await loadEventDetail();
     
@@ -592,46 +612,55 @@ describe('loadEventDetail', () => {
   });
 
   it('should use fallback city when track not found', async () => {
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => [mockEvent] });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => [] });
-      }
-    });
+    global.fetch = createMockFetch({ events: [mockEvent], trackFilters: mockTrackFilters });
 
     await loadEventDetail();
     
     const schemaScript = document.getElementById('event-schema');
     const schemaData = JSON.parse(schemaScript.textContent);
-    expect(schemaData.location.address.addressLocality).toBe('Dallas-Fort Worth');
+    expect(schemaData.location.address.addressLocality).toBe('Dallas');
+  });
+
+  it('should hide calendar button when event has no start date', async () => {
+    const eventNoStartDate = { ...mockEvent, start_date: null };
+    document.body.innerHTML = `
+      <div id="ev-title"></div>
+      <div id="ev-track"></div>
+      <div id="ev-time"></div>
+      <div id="ev-desc"></div>
+      <div id="ev-fees"></div>
+      <div id="ev-classes"></div>
+      <a id="ev-link" class="disabled"></a>
+      <button id="download-calendar"></button>
+      <meta name="description" content="">
+      <script id="event-schema" type="application/ld+json"></script>
+    `;
+    global.fetch = createMockFetch({ events: [eventNoStartDate], trackFilters: mockTrackFilters });
+
+    await loadEventDetail();
+
+    expect(document.getElementById('download-calendar').style.display).toBe('none');
   });
 });
 
 describe('initializeEventsList', () => {
   const mockEvents = [
     {
-      id: 1,
+      id: 'event-1',
       title: 'Test Event',
-      track_id: 1,
+      track_id: 'test-track',
       track_name: 'Test Track',
+      track_city: 'Dallas',
+      track_state: 'TX',
       start_date: '2025-10-15T10:00:00Z',
       description: 'Test'
     }
   ];
-  const mockTracks = [{ id: 1, name: 'Test Track' }];
+  const mockTrackFilters = [{ canonical: 'Test Track', aliases: [] }];
 
   beforeEach(() => {
     resetCache();
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => mockEvents });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => mockTracks });
-      }
-    });
+    global.fetch = createMockFetch({ events: mockEvents, trackFilters: mockTrackFilters });
   });
 
   afterEach(() => {
@@ -641,6 +670,7 @@ describe('initializeEventsList', () => {
   it('should initialize events list when container exists', async () => {
     document.body.innerHTML = `
       <div id="events-list"></div>
+      <div id="track-filters"></div>
       <button data-filter="upcoming" class="active">Upcoming</button>
       <button data-filter="all">All</button>
     `;
@@ -657,6 +687,7 @@ describe('initializeEventsList', () => {
   it('should add click handlers to filter buttons', async () => {
     document.body.innerHTML = `
       <div id="events-list"></div>
+      <div id="track-filters"></div>
       <button data-filter="upcoming" class="active">Upcoming</button>
       <button data-filter="all">All</button>
     `;
@@ -680,6 +711,7 @@ describe('initializeEventsList', () => {
   it('should update active button state on click', async () => {
     document.body.innerHTML = `
       <div id="events-list"></div>
+      <div id="track-filters"></div>
       <button data-filter="upcoming" class="active">Upcoming</button>
       <button data-filter="this-month">This Month</button>
       <button data-filter="all">All</button>
@@ -701,6 +733,7 @@ describe('initializeEventsList', () => {
   it('should call loadEventsList with correct filter on button click', async () => {
     document.body.innerHTML = `
       <div id="events-list"></div>
+      <div id="track-filters"></div>
       <button data-filter="upcoming" class="active">Upcoming</button>
       <button data-filter="past">Past</button>
     `;
@@ -719,6 +752,28 @@ describe('initializeEventsList', () => {
     expect(global.fetch).toHaveBeenCalled();
   });
 
+  it('should apply track filter when a generated track button is clicked', async () => {
+    document.body.innerHTML = `
+      <div id="events-list"></div>
+      <div id="track-filters"></div>
+      <button data-filter="upcoming" class="active">Upcoming</button>
+      <button data-filter="all">All</button>
+    `;
+
+    await initializeEventsList();
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    document.querySelector('[data-filter="all"]').click();
+    await new Promise(resolve => setTimeout(resolve, 10));
+
+    const trackButton = document.querySelector('#track-filters [data-track="test-track"]');
+    trackButton.click();
+    await new Promise(resolve => setTimeout(resolve, 10));
+
+    expect(trackButton.classList.contains('active')).toBe(true);
+    expect(document.querySelectorAll('#events-list .card')).toHaveLength(1);
+  });
+
   it('should do nothing when events-list container does not exist', async () => {
     document.body.innerHTML = '<div></div>';
 
@@ -731,28 +786,23 @@ describe('initializeEventsList', () => {
 
 describe('initializeEventDetail', () => {
   const mockEvent = {
-    id: 1,
+    id: 'event-1',
     title: 'Test Event',
-    track_id: 1,
+    track_id: 'test-track',
     track_name: 'Test Track',
+    track_city: 'Dallas',
+    track_state: 'TX',
     start_date: '2025-10-15T10:00:00Z',
     description: 'Test',
     classes: []
   };
-  const mockTracks = [{ id: 1, name: 'Test Track', city: 'Dallas' }];
+  const mockTrackFilters = [{ canonical: 'Test Track', aliases: [] }];
 
   beforeEach(() => {
-    global.fetch = vi.fn((path) => {
-      if (path === 'data/events.json') {
-        return Promise.resolve({ ok: true, json: async () => [mockEvent] });
-      }
-      if (path === 'data/tracks.json') {
-        return Promise.resolve({ ok: true, json: async () => mockTracks });
-      }
-    });
+    global.fetch = createMockFetch({ events: [mockEvent], trackFilters: mockTrackFilters });
 
     Object.defineProperty(window, 'location', {
-      value: { search: '?id=1' },
+      value: { search: '?id=event-1' },
       writable: true
     });
   });
@@ -790,5 +840,22 @@ describe('initializeEventDetail', () => {
 
     // Should not throw and should not call fetch
     expect(global.fetch).not.toHaveBeenCalled();
+  });
+});
+
+describe('renderTrackFilters', () => {
+  it('should render all tracks plus the default all button', () => {
+    document.body.innerHTML = '<div id="track-filters"></div>';
+
+    renderTrackFilters([
+      { id: 'track-a', label: 'Track A' },
+      { id: 'track-b', label: 'Track B' }
+    ]);
+
+    const buttons = document.querySelectorAll('#track-filters [data-track]');
+    expect(buttons).toHaveLength(3);
+    expect(buttons[0].getAttribute('data-track')).toBe('all');
+    expect(buttons[1].textContent).toBe('Track A');
+    expect(buttons[2].textContent).toBe('Track B');
   });
 });

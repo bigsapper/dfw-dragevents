@@ -62,12 +62,89 @@ export function formatDateRange(startDate, endDate) {
 
 // Store events data globally for filtering
 let allEvents = [];
-let allTracks = [];
+let allTrackFilters = [];
+
+function toTrackKey(value) {
+  return value == null ? '' : String(value);
+}
+
+function normalizeTrackName(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
+}
+
+function getTrackName(trackMap, event) {
+  return trackMap.get(toTrackKey(event.track_id)) || event.track_name || 'Unknown Track';
+}
+
+function resolveTrackFilters(filterDefinitions, tracks) {
+  return filterDefinitions.reduce((resolved, filterDef) => {
+    const candidates = [filterDef.canonical, ...(filterDef.aliases || [])]
+      .map(normalizeTrackName)
+      .filter(Boolean);
+
+    const matchedTrack = tracks.find((track) => {
+      const trackName = normalizeTrackName(track.name);
+      return candidates.some((candidate) =>
+        trackName === candidate || trackName.includes(candidate) || candidate.includes(trackName)
+      );
+    });
+
+    resolved.push({
+      id: matchedTrack ? matchedTrack.id : filterDef.canonical,
+      label: filterDef.canonical
+    });
+
+    return resolved;
+  }, []);
+}
+
+function getAvailableTracks(events) {
+  const tracksById = new Map();
+
+  events.forEach((event) => {
+    const trackId = toTrackKey(event.track_id);
+    if (!trackId || tracksById.has(trackId)) return;
+
+    tracksById.set(trackId, {
+      id: event.track_id,
+      name: event.track_name,
+      city: event.track_city || null,
+      state: event.track_state || null
+    });
+  });
+
+  return [...tracksById.values()].sort((a, b) => a.name.localeCompare(b.name));
+}
 
 // Reset function for testing
 export function resetCache() {
   allEvents = [];
-  allTracks = [];
+  allTrackFilters = [];
+}
+
+export function renderTrackFilters(trackFilters) {
+  const container = document.getElementById('track-filters');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  const allButton = document.createElement('button');
+  allButton.type = 'button';
+  allButton.className = 'btn btn-outline-info active';
+  allButton.setAttribute('data-track', 'all');
+  allButton.textContent = 'All Tracks';
+  container.appendChild(allButton);
+
+  trackFilters.forEach((track) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn btn-outline-info';
+    button.setAttribute('data-track', toTrackKey(track.id));
+    button.textContent = track.label;
+    container.appendChild(button);
+  });
 }
 
 // URL validation to prevent javascript: and other malicious schemes
@@ -164,10 +241,11 @@ export async function loadEventsList(filter = 'upcoming', trackFilter = 'all') {
   try {
     // Load data only once
     if (allEvents.length === 0) {
-      [allEvents, allTracks] = await Promise.all([
+      [allEvents, allTrackFilters] = await Promise.all([
         fetchJSON('data/events.json'),
-        fetchJSON('data/tracks.json')
+        fetchJSON('data/tracks-filter.json')
       ]);
+      renderTrackFilters(resolveTrackFilters(allTrackFilters, getAvailableTracks(allEvents)));
     }
     
     // Apply date filter
@@ -193,15 +271,14 @@ export async function loadEventsList(filter = 'upcoming', trackFilter = 'all') {
     
     // Apply track filter
     if (trackFilter !== 'all') {
-      const trackId = parseInt(trackFilter);
-      filteredEvents = filteredEvents.filter(event => event.track_id === trackId);
+      filteredEvents = filteredEvents.filter(event => toTrackKey(event.track_id) === toTrackKey(trackFilter));
     }
     
     // Sort by date
     const ascending = filter !== 'past';
     filteredEvents = sortEventsByDate(filteredEvents, ascending);
     
-    const mapTrack = new Map(allTracks.map(t => [t.id, t.name]));
+    const mapTrack = new Map(getAvailableTracks(allEvents).map(t => [toTrackKey(t.id), t.name]));
     const container = document.getElementById('events-list');
     if (!container) return;
     container.innerHTML = '';
@@ -224,7 +301,7 @@ export async function loadEventsList(filter = 'upcoming', trackFilter = 'all') {
       
       const subtitle = document.createElement('h6');
       subtitle.className = 'card-subtitle mb-2 text-body-secondary';
-      subtitle.textContent = mapTrack.get(ev.track_id) || ev.track_name;
+      subtitle.textContent = getTrackName(mapTrack, ev);
       
       const description = document.createElement('p');
       description.className = 'card-text';
@@ -238,7 +315,7 @@ export async function loadEventsList(filter = 'upcoming', trackFilter = 'all') {
       dateText.appendChild(dateSmall);
       
       const link = document.createElement('a');
-      link.href = `event.html?id=${ev.id}`;
+      link.href = `event.html?id=${encodeURIComponent(ev.id)}`;
       link.className = 'card-link';
       link.textContent = 'Details';
       
@@ -257,25 +334,23 @@ export async function loadEventsList(filter = 'upcoming', trackFilter = 'all') {
 
 export async function loadEventDetail() {
   const params = new URLSearchParams(location.search);
-  const id = Number(params.get('id'));
+  const id = params.get('id');
   if (!id) return;
-  const [events, tracks] = await Promise.all([
-    fetchJSON('data/events.json'),
-    fetchJSON('data/tracks.json')
-  ]);
-  const ev = events.find(e => e.id === id);
+  const events = await fetchJSON('data/events.json');
+  const ev = events.find(e => String(e.id) === id);
   if (!ev) return;
-  const mapTrack = new Map(tracks.map(t => [t.id, t.name]));
+  const availableTracks = getAvailableTracks(events);
+  const mapTrack = new Map(availableTracks.map(t => [toTrackKey(t.id), t.name]));
   document.getElementById('ev-title').textContent = ev.title;
-  document.getElementById('ev-track').textContent = mapTrack.get(ev.track_id) || ev.track_name;
+  document.getElementById('ev-track').textContent = getTrackName(mapTrack, ev);
   document.getElementById('ev-time').textContent = formatDateRange(ev.start_date, ev.end_date);
   document.getElementById('ev-desc').textContent = ev.description || '';
   
   // Display fees
   const feesEl = document.getElementById('ev-fees');
   const fees = [];
-  if (ev.event_driver_fee) fees.push(`Driver: $${ev.event_driver_fee}`);
-  if (ev.event_spectator_fee) fees.push(`Spectator: $${ev.event_spectator_fee}`);
+  if (ev.raw_driver_fee || ev.event_driver_fee) fees.push(`Driver: ${ev.raw_driver_fee || `$${ev.event_driver_fee}`}`);
+  if (ev.raw_spectator_fee || ev.event_spectator_fee) fees.push(`Spectator: ${ev.raw_spectator_fee || `$${ev.event_spectator_fee}`}`);
   feesEl.textContent = fees.length ? fees.join(' | ') : 'Contact track for pricing';
   
   // Display classes
@@ -344,7 +419,7 @@ export async function loadEventDetail() {
   }
   
   // Inject Schema.org structured data for SEO
-  const track = tracks.find(t => t.id === ev.track_id);
+  const track = availableTracks.find(t => toTrackKey(t.id) === toTrackKey(ev.track_id));
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "SportsEvent",
@@ -359,8 +434,8 @@ export async function loadEventDetail() {
       "name": ev.track_name,
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": track ? track.city : "Dallas-Fort Worth",
-        "addressRegion": "TX",
+        "addressLocality": track ? track.city : (ev.track_city || "Dallas-Fort Worth"),
+        "addressRegion": track && track.state ? track.state : (ev.track_state || "TX"),
         "addressCountry": "US"
       }
     },
@@ -417,18 +492,20 @@ export function initializeEventsList() {
     });
     
     // Add click handlers to track filter buttons
-    const trackButtons = document.querySelectorAll('[data-track]');
-    trackButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        // Update active button state
+    const trackFilters = document.getElementById('track-filters');
+    if (trackFilters) {
+      trackFilters.addEventListener('click', (e) => {
+        const button = e.target.closest('[data-track]');
+        if (!button) return;
+
+        const trackButtons = trackFilters.querySelectorAll('[data-track]');
         trackButtons.forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        
-        // Apply filter
-        currentTrackFilter = e.target.getAttribute('data-track');
+        button.classList.add('active');
+
+        currentTrackFilter = button.getAttribute('data-track');
         loadEventsList(currentFilter, currentTrackFilter);
       });
-    });
+    }
   }
 }
 

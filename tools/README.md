@@ -21,13 +21,18 @@ It also includes the active [`Makefile`](Makefile) for lightweight site validati
 make build
 ```
 
-This performs a lightweight validation that the required static site files are present before deployment.
+This refreshes the upstream dataset, writes `site/data/events.json` and `site/data/events.schema.json`, and then validates that the required site files are present before deployment. The manual `site/data/tracks-filter.json` file is preserved as-is.
 
 ### Run Frontend Tests
 ```bash
 make test
 make coverage
 ```
+
+Current measured frontend coverage:
+
+- `app.js` - 93.59% statements, 81.25% branches, 95.12% functions, 94.46% lines
+- Overall frontend - 93.69% statements, 82.51% branches, 96.07% functions, 95.07% lines
 
 ### Start the Site Locally
 ```bash

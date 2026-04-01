@@ -1,0 +1,2312 @@
+[
+  {
+    "id": 1,
+    "title": "Fall Nationals",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2025-10-03T08:00:00Z",
+    "end_date": "2025-10-12T18:00:00Z",
+    "event_driver_fee": 50,
+    "event_spectator_fee": 20,
+    "url": "https://texasmotorplex.com/events",
+    "description": "NHRA fall event",
+    "classes": [
+      {
+        "id": 1,
+        "event_id": 1,
+        "name": "Pro Street",
+        "buyin_fee": 100,
+        "rules": [
+          {
+            "id": 1,
+            "event_class_id": 1,
+            "rule": "DOT street tires only"
+          },
+          {
+            "id": 2,
+            "event_class_id": 1,
+            "rule": "Maximum 10.5\" tire width"
+          },
+          {
+            "id": 3,
+            "event_class_id": 1,
+            "rule": "Full interior required"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "event_id": 1,
+        "name": "Street",
+        "buyin_fee": 50,
+        "rules": [
+          {
+            "id": 4,
+            "event_class_id": 2,
+            "rule": "Street legal vehicle"
+          },
+          {
+            "id": 5,
+            "event_class_id": 2,
+            "rule": "Valid registration and insurance"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "event_id": 1,
+        "name": "Pro Street",
+        "buyin_fee": 100
+      },
+      {
+        "id": 5,
+        "event_id": 1,
+        "name": "Street",
+        "buyin_fee": 50
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Sunday TNT",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2025-10-05T14:00:00Z",
+    "end_date": "2025-10-05T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.xtremeracewaypark.com",
+    "description": "Test \u0026 Tune. All tires allowed. Every Sunday.",
+    "classes": [
+      {
+        "id": 3,
+        "event_id": 2,
+        "name": "Test \u0026 Tune",
+        "rules": [
+          {
+            "id": 6,
+            "event_class_id": 3,
+            "rule": "All vehicles welcome"
+          },
+          {
+            "id": 7,
+            "event_class_id": 3,
+            "rule": "Helmet required for sub-14 second runs"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "GT-R Festival",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2025-11-14T09:00:00Z",
+    "end_date": "2025-11-16T17:00:00Z",
+    "event_driver_fee": 190,
+    "event_spectator_fee": 80,
+    "url": "https://gtrfestival.com/home-usa",
+    "description": "The Ultimate Celebration of All Things GT-R and Nissan IS RETURNING  TO TEXAS MOTORPLEX"
+  },
+  {
+    "id": 6,
+    "title": "Left Over Nationals",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2025-11-28T09:00:00Z",
+    "end_date": "2025-11-29T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark/posts/1166273152294352?ref=embed_post",
+    "description": "Bracket \u0026 Index event. Saturday Ironman to All Classes!",
+    "classes": [
+      {
+        "id": 7,
+        "event_id": 6,
+        "name": "Super Pro",
+        "buyin_fee": 100
+      },
+      {
+        "id": 8,
+        "event_id": 6,
+        "name": "Pro ET",
+        "buyin_fee": 60
+      },
+      {
+        "id": 9,
+        "event_id": 6,
+        "name": "7.00 Index",
+        "buyin_fee": 75
+      },
+      {
+        "id": 10,
+        "event_id": 6,
+        "name": "5.80 Index",
+        "buyin_fee": 100
+      },
+      {
+        "id": 11,
+        "event_id": 6,
+        "name": "Jr All Run",
+        "buyin_fee": 40
+      },
+      {
+        "id": 12,
+        "event_id": 6,
+        "name": "Divas Daily Driver",
+        "buyin_fee": 20
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "T\u0026E Promotions Streetcar Showdown",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2025-12-05T09:00:00Z",
+    "end_date": "2025-12-06T23:00:00Z",
+    "event_driver_fee": 25,
+    "event_spectator_fee": 25,
+    "url": "https://www.tandepromotions.com",
+    "description": "Get ready for the fastest street cars in the nation all in one spot. You don't want to miss it!",
+    "classes": [
+      {
+        "id": 13,
+        "event_id": 7,
+        "name": "Lil Gangsters",
+        "buyin_fee": 0
+      },
+      {
+        "id": 14,
+        "event_id": 7,
+        "name": "Cheap Street",
+        "buyin_fee": 0
+      },
+      {
+        "id": 15,
+        "event_id": 7,
+        "name": "Five Star Ford — Boosted Street",
+        "buyin_fee": 0
+      },
+      {
+        "id": 16,
+        "event_id": 7,
+        "name": "True Street",
+        "buyin_fee": 0
+      },
+      {
+        "id": 17,
+        "event_id": 7,
+        "name": "Bracket Racket (Dial Your Own)",
+        "buyin_fee": 0
+      },
+      {
+        "id": 18,
+        "event_id": 7,
+        "name": "Cowboys Snow Cones — Jr Shootout",
+        "buyin_fee": 0
+      },
+      {
+        "id": 19,
+        "event_id": 7,
+        "name": "Magnuson — Heavyweights",
+        "buyin_fee": 0
+      },
+      {
+        "id": 20,
+        "event_id": 7,
+        "name": "Baileys Hyperformance — 10.00 Index",
+        "buyin_fee": 0
+      },
+      {
+        "id": 21,
+        "event_id": 7,
+        "name": "11.00 Index",
+        "buyin_fee": 0
+      },
+      {
+        "id": 22,
+        "event_id": 7,
+        "name": "Jotech Motorsports — GTR vs the World",
+        "buyin_fee": 0
+      },
+      {
+        "id": 23,
+        "event_id": 7,
+        "name": "Nitrous Outlet — Clash of Titans 4.50",
+        "buyin_fee": 0
+      },
+      {
+        "id": 24,
+        "event_id": 7,
+        "name": "Nitrous Outlet — 420",
+        "buyin_fee": 0
+      },
+      {
+        "id": 25,
+        "event_id": 7,
+        "name": "Open Test \u0026 Tune",
+        "buyin_fee": 0
+      },
+      {
+        "id": 26,
+        "event_id": 7,
+        "name": "Motorcycle Meet \u0026 TNT (Saturday)",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Southern Street WARZ",
+    "track_id": 7,
+    "track_name": "WesTX Abilene Raceway",
+    "start_date": "2026-01-03T10:00:00Z",
+    "end_date": "2026-01-03T23:00:00Z",
+    "event_driver_fee": 35,
+    "event_spectator_fee": 25,
+    "url": "https://www.facebook.com/events/1799190031481533",
+    "description": "No Prep + Flashlight Start + 1/8 Mile Heads Up",
+    "classes": [
+      {
+        "id": 27,
+        "event_id": 8,
+        "name": "Daily Driver",
+        "buyin_fee": 200
+      },
+      {
+        "id": 28,
+        "event_id": 8,
+        "name": "True Street",
+        "buyin_fee": 200
+      },
+      {
+        "id": 29,
+        "event_id": 8,
+        "name": "Small Tire (28s)",
+        "buyin_fee": 300
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "title": "IHRA Bracket Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-02-20T09:00:00Z",
+    "end_date": "2026-02-21T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme IHRA Bracket Series",
+    "classes": [
+      {
+        "id": 91,
+        "event_id": 26,
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": 75
+      },
+      {
+        "id": 92,
+        "event_id": 26,
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 93,
+        "event_id": 26,
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 94,
+        "event_id": 26,
+        "name": "Pro (w/Blue)",
+        "buyin_fee": 60
+      },
+      {
+        "id": 95,
+        "event_id": 26,
+        "name": "Sportsman",
+        "buyin_fee": 30
+      },
+      {
+        "id": 96,
+        "event_id": 26,
+        "name": "Jr. Modified",
+        "buyin_fee": 50
+      },
+      {
+        "id": 97,
+        "event_id": 26,
+        "name": "Jr. Sportsman",
+        "buyin_fee": 40
+      },
+      {
+        "id": 98,
+        "event_id": 26,
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 99,
+        "event_id": 26,
+        "name": "Daily Drivers",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Lynn Gleghorn Memorial Season Kick-Off",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-02-27T16:00:00Z",
+    "end_date": "2026-03-01T18:00:00Z",
+    "event_spectator_fee": 15,
+    "url": "https://www.facebook.com/groups/1660549267572522",
+    "description": "Texas Eliminator Bracket Series - Season opener with multiple bracket classes",
+    "classes": [
+      {
+        "id": 30,
+        "event_id": 9,
+        "name": "All Run Gamblers (Friday)",
+        "buyin_fee": 80
+      },
+      {
+        "id": 31,
+        "event_id": 9,
+        "name": "Jr. Dragsters Gamblers (Friday)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 32,
+        "event_id": 9,
+        "name": "Test N Tune (Friday)",
+        "buyin_fee": 25
+      },
+      {
+        "id": 33,
+        "event_id": 9,
+        "name": "Super Pro",
+        "buyin_fee": 125
+      },
+      {
+        "id": 34,
+        "event_id": 9,
+        "name": "No-Box",
+        "buyin_fee": 75
+      },
+      {
+        "id": 35,
+        "event_id": 9,
+        "name": "Sportsman",
+        "buyin_fee": 35
+      },
+      {
+        "id": 36,
+        "event_id": 9,
+        "name": "Jr. Street",
+        "buyin_fee": 30
+      },
+      {
+        "id": 37,
+        "event_id": 9,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "title": "IHRA Bracket Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-03-13T09:00:00Z",
+    "end_date": "2026-03-14T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme IHRA Bracket Series",
+    "classes": [
+      {
+        "id": 100,
+        "event_id": 27,
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": 75
+      },
+      {
+        "id": 101,
+        "event_id": 27,
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 102,
+        "event_id": 27,
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 103,
+        "event_id": 27,
+        "name": "Pro (w/Blue)",
+        "buyin_fee": 60
+      },
+      {
+        "id": 104,
+        "event_id": 27,
+        "name": "Sportsman",
+        "buyin_fee": 30
+      },
+      {
+        "id": 105,
+        "event_id": 27,
+        "name": "Jr. Modified",
+        "buyin_fee": 50
+      },
+      {
+        "id": 106,
+        "event_id": 27,
+        "name": "Jr. Sportsman",
+        "buyin_fee": 40
+      },
+      {
+        "id": 107,
+        "event_id": 27,
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 108,
+        "event_id": 27,
+        "name": "Daily Drivers",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "TX2K26 Presented By Summit",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-03-17T09:00:00Z",
+    "end_date": "2026-03-22T23:00:00Z",
+    "event_driver_fee": 500,
+    "event_spectator_fee": 40,
+    "url": "https://tx2k.com",
+    "description": "Home of the World's Quickest and Fastest Street Cars!"
+  },
+  {
+    "id": 36,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-03-22T08:00:00Z",
+    "end_date": "2026-03-22T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 162,
+        "event_id": 36,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 16,
+            "event_class_id": 162,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 17,
+            "event_class_id": 162,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 163,
+        "event_id": 36,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 18,
+            "event_class_id": 163,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 19,
+            "event_class_id": 163,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 164,
+        "event_id": 36,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 20,
+            "event_class_id": 164,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 21,
+            "event_class_id": 164,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 165,
+        "event_id": 36,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 22,
+            "event_class_id": 165,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 166,
+        "event_id": 36,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 23,
+            "event_class_id": 166,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 167,
+        "event_id": 36,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 24,
+            "event_class_id": 167,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 168,
+        "event_id": 36,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 25,
+            "event_class_id": 168,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 169,
+        "event_id": 36,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 26,
+            "event_class_id": 169,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 170,
+        "event_id": 36,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 27,
+            "event_class_id": 170,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 28,
+            "event_class_id": 170,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 29,
+            "event_class_id": 170,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 30,
+            "event_class_id": 170,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 171,
+        "event_id": 36,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 31,
+            "event_class_id": 171,
+            "rule": "TBD"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "Bad Boys Mayhem",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-03-27T09:00:00Z",
+    "end_date": "2026-03-28T23:00:00Z",
+    "event_driver_fee": 0,
+    "event_spectator_fee": 0,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme 275 Bad Boys Mayhem",
+    "classes": [
+      {
+        "id": 159,
+        "event_id": 35,
+        "name": "Outlaw Street",
+        "buyin_fee": 0
+      },
+      {
+        "id": 160,
+        "event_id": 35,
+        "name": "ASAG/Weight",
+        "buyin_fee": 0
+      },
+      {
+        "id": 161,
+        "event_id": 35,
+        "name": "Xtreme 275",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "title": "IHRA Bracket Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-04-03T09:00:00Z",
+    "end_date": "2026-04-04T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme IHRA Bracket Series",
+    "classes": [
+      {
+        "id": 109,
+        "event_id": 28,
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": 75
+      },
+      {
+        "id": 110,
+        "event_id": 28,
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 111,
+        "event_id": 28,
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 112,
+        "event_id": 28,
+        "name": "Pro (w/Blue)",
+        "buyin_fee": 60
+      },
+      {
+        "id": 113,
+        "event_id": 28,
+        "name": "Sportsman",
+        "buyin_fee": 30
+      },
+      {
+        "id": 114,
+        "event_id": 28,
+        "name": "Jr. Modified",
+        "buyin_fee": 50
+      },
+      {
+        "id": 115,
+        "event_id": 28,
+        "name": "Jr. Sportsman",
+        "buyin_fee": 40
+      },
+      {
+        "id": 116,
+        "event_id": 28,
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 117,
+        "event_id": 28,
+        "name": "Daily Drivers",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Popeye Sailorman Street Car Rise Of The Beast",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-04-17T09:00:00Z",
+    "end_date": "2026-04-18T23:00:00Z",
+    "event_driver_fee": 0,
+    "event_spectator_fee": 0,
+    "url": "https://www.facebook.com/groups/617638237206890/",
+    "description": "N/T Street Car Rise Of The Beasts"
+  },
+  {
+    "id": 17,
+    "title": "RaceWars",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-04-19T09:00:00Z",
+    "end_date": "2026-04-19T23:00:00Z",
+    "event_driver_fee": 0,
+    "event_spectator_fee": 0,
+    "url": "https://racewarsusa.com",
+    "description": "742 RaceWars Just|Vibes"
+  },
+  {
+    "id": 10,
+    "title": "Texas Eliminator Bracket Series",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-04-24T08:00:00Z",
+    "end_date": "2026-04-26T18:00:00Z",
+    "event_spectator_fee": 15,
+    "url": "https://www.facebook.com/groups/1660549267572522",
+    "description": "Texas Eliminator Bracket Series event",
+    "classes": [
+      {
+        "id": 38,
+        "event_id": 10,
+        "name": "All Run Gamblers (Friday)",
+        "buyin_fee": 80
+      },
+      {
+        "id": 39,
+        "event_id": 10,
+        "name": "Jr. Dragsters Gamblers (Friday)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 40,
+        "event_id": 10,
+        "name": "Test N Tune (Friday)",
+        "buyin_fee": 25
+      },
+      {
+        "id": 41,
+        "event_id": 10,
+        "name": "Super Pro",
+        "buyin_fee": 125
+      },
+      {
+        "id": 42,
+        "event_id": 10,
+        "name": "No-Box",
+        "buyin_fee": 75
+      },
+      {
+        "id": 43,
+        "event_id": 10,
+        "name": "Sportsman",
+        "buyin_fee": 35
+      },
+      {
+        "id": 44,
+        "event_id": 10,
+        "name": "Jr. Street",
+        "buyin_fee": 30
+      },
+      {
+        "id": 45,
+        "event_id": 10,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "title": "NHRA Lucas Oil Double Divisional",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-05-14T09:00:00Z",
+    "end_date": "2026-05-17T23:00:00Z",
+    "event_driver_fee": 100,
+    "event_spectator_fee": 25,
+    "url": "https://www.nhradiv4.com",
+    "description": "NHRA Lucas Oil Double Divisional - Division 4"
+  },
+  {
+    "id": 29,
+    "title": "IHRA Bracket Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-05-15T09:00:00Z",
+    "end_date": "2026-05-16T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme IHRA Bracket Series",
+    "classes": [
+      {
+        "id": 118,
+        "event_id": 29,
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": 75
+      },
+      {
+        "id": 119,
+        "event_id": 29,
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 120,
+        "event_id": 29,
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 121,
+        "event_id": 29,
+        "name": "Pro (w/Blue)",
+        "buyin_fee": 60
+      },
+      {
+        "id": 122,
+        "event_id": 29,
+        "name": "Sportsman",
+        "buyin_fee": 30
+      },
+      {
+        "id": 123,
+        "event_id": 29,
+        "name": "Jr. Modified",
+        "buyin_fee": 50
+      },
+      {
+        "id": 124,
+        "event_id": 29,
+        "name": "Jr. Sportsman",
+        "buyin_fee": 40
+      },
+      {
+        "id": 125,
+        "event_id": 29,
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 126,
+        "event_id": 29,
+        "name": "Daily Drivers",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Flicker Promotions Spring Stampede",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-05-22T09:00:00Z",
+    "end_date": "2026-05-24T23:00:00Z",
+    "event_driver_fee": 150,
+    "event_spectator_fee": 25,
+    "url": "https://www.raceflickerpromotions.com/springstampede",
+    "description": "Bracket Series Spring Stampede",
+    "classes": [
+      {
+        "id": 70,
+        "event_id": 20,
+        "name": "All Run Warmup (Friday)",
+        "buyin_fee": 150
+      },
+      {
+        "id": 71,
+        "event_id": 20,
+        "name": "Super Pro",
+        "buyin_fee": 250
+      },
+      {
+        "id": 72,
+        "event_id": 20,
+        "name": "No-Box",
+        "buyin_fee": 250
+      },
+      {
+        "id": 73,
+        "event_id": 20,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 80
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "title": "Street Car Takeover",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-05-29T09:00:00Z",
+    "end_date": "2026-05-30T23:00:00Z",
+    "event_driver_fee": 0,
+    "event_spectator_fee": 0,
+    "url": "https://streetcar-takeover.com",
+    "description": "Where Street Car Go To Party!"
+  },
+  {
+    "id": 13,
+    "title": "Pennington Bros. SuperBuck$ Showdown",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-06-04T09:00:00Z",
+    "end_date": "2026-06-06T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 15,
+    "url": "https://www.facebook.com/profile.php?id=61558222352304",
+    "description": "Pennington Bros. 3rd Annual Summer SuperBuck$",
+    "classes": [
+      {
+        "id": 56,
+        "event_id": 13,
+        "name": "All Run Warmup (Thursday)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 57,
+        "event_id": 13,
+        "name": "Test N Tune (Thursday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 58,
+        "event_id": 13,
+        "name": "Super Pro",
+        "buyin_fee": 450
+      },
+      {
+        "id": 59,
+        "event_id": 13,
+        "name": "No-Box",
+        "buyin_fee": 150
+      },
+      {
+        "id": 60,
+        "event_id": 13,
+        "name": "Duck Race",
+        "buyin_fee": 80
+      },
+      {
+        "id": 61,
+        "event_id": 13,
+        "name": "Jr. Dragsters Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 62,
+        "event_id": 13,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Texas Eliminator Bracket Series",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-06-27T08:00:00Z",
+    "end_date": "2026-06-28T18:00:00Z",
+    "event_spectator_fee": 15,
+    "url": "https://www.facebook.com/groups/1660549267572522",
+    "description": "Texas Eliminator Bracket Series event",
+    "classes": [
+      {
+        "id": 46,
+        "event_id": 11,
+        "name": "Super Pro",
+        "buyin_fee": 125
+      },
+      {
+        "id": 47,
+        "event_id": 11,
+        "name": "No-Box",
+        "buyin_fee": 75
+      },
+      {
+        "id": 48,
+        "event_id": 11,
+        "name": "Sportsman",
+        "buyin_fee": 35
+      },
+      {
+        "id": 49,
+        "event_id": 11,
+        "name": "Jr. Street",
+        "buyin_fee": 30
+      },
+      {
+        "id": 50,
+        "event_id": 11,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-06-28T08:00:00Z",
+    "end_date": "2026-06-28T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 172,
+        "event_id": 37,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 32,
+            "event_class_id": 172,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 33,
+            "event_class_id": 172,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 173,
+        "event_id": 37,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 34,
+            "event_class_id": 173,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 35,
+            "event_class_id": 173,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 174,
+        "event_id": 37,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 36,
+            "event_class_id": 174,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 37,
+            "event_class_id": 174,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 175,
+        "event_id": 37,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 38,
+            "event_class_id": 175,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 176,
+        "event_id": 37,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 39,
+            "event_class_id": 176,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 177,
+        "event_id": 37,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 40,
+            "event_class_id": 177,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 178,
+        "event_id": 37,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 41,
+            "event_class_id": 178,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 179,
+        "event_id": 37,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 42,
+            "event_class_id": 179,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 180,
+        "event_id": 37,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 43,
+            "event_class_id": 180,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 44,
+            "event_class_id": 180,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 45,
+            "event_class_id": 180,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 46,
+            "event_class_id": 180,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 181,
+        "event_id": 37,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 47,
+            "event_class_id": 181,
+            "rule": "TBD"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "title": "IHRA Bracket Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-07-10T09:00:00Z",
+    "end_date": "2026-07-11T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme IHRA Bracket Series",
+    "classes": [
+      {
+        "id": 127,
+        "event_id": 30,
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": 75
+      },
+      {
+        "id": 128,
+        "event_id": 30,
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 129,
+        "event_id": 30,
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 130,
+        "event_id": 30,
+        "name": "Pro (w/Blue)",
+        "buyin_fee": 60
+      },
+      {
+        "id": 131,
+        "event_id": 30,
+        "name": "Sportsman",
+        "buyin_fee": 30
+      },
+      {
+        "id": 132,
+        "event_id": 30,
+        "name": "Jr. Modified",
+        "buyin_fee": 50
+      },
+      {
+        "id": 133,
+        "event_id": 30,
+        "name": "Jr. Sportsman",
+        "buyin_fee": 40
+      },
+      {
+        "id": 134,
+        "event_id": 30,
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 135,
+        "event_id": 30,
+        "name": "Daily Drivers",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "title": "Nitro Dave's Clash of the Titans",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-07-17T09:00:00Z",
+    "end_date": "2026-07-18T23:00:00Z",
+    "event_driver_fee": 0,
+    "event_spectator_fee": 0,
+    "url": "https://www.facebook.com/groups/1193073251712918",
+    "description": "The Clash of the Titans 4.50-ish isn't your average drag race-it's a battle of drivers and tuners."
+  },
+  {
+    "id": 12,
+    "title": "Eli Lopez Memorial Season Finale",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-07-24T08:00:00Z",
+    "end_date": "2026-07-25T18:00:00Z",
+    "event_spectator_fee": 15,
+    "url": "https://www.facebook.com/groups/1660549267572522",
+    "description": "Texas Eliminator Bracket Series - Season finale",
+    "classes": [
+      {
+        "id": 51,
+        "event_id": 12,
+        "name": "Super Pro",
+        "buyin_fee": 125
+      },
+      {
+        "id": 52,
+        "event_id": 12,
+        "name": "No-Box",
+        "buyin_fee": 75
+      },
+      {
+        "id": 53,
+        "event_id": 12,
+        "name": "Sportsman",
+        "buyin_fee": 35
+      },
+      {
+        "id": 54,
+        "event_id": 12,
+        "name": "Jr. Street",
+        "buyin_fee": 30
+      },
+      {
+        "id": 55,
+        "event_id": 12,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "title": "IHRA Bracket Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-08-07T09:00:00Z",
+    "end_date": "2026-08-08T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme IHRA Bracket Series",
+    "classes": [
+      {
+        "id": 136,
+        "event_id": 31,
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": 75
+      },
+      {
+        "id": 137,
+        "event_id": 31,
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 138,
+        "event_id": 31,
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 139,
+        "event_id": 31,
+        "name": "Pro (w/Blue)",
+        "buyin_fee": 60
+      },
+      {
+        "id": 140,
+        "event_id": 31,
+        "name": "Sportsman",
+        "buyin_fee": 30
+      },
+      {
+        "id": 141,
+        "event_id": 31,
+        "name": "Jr. Modified",
+        "buyin_fee": 50
+      },
+      {
+        "id": 142,
+        "event_id": 31,
+        "name": "Jr. Sportsman",
+        "buyin_fee": 40
+      },
+      {
+        "id": 143,
+        "event_id": 31,
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 144,
+        "event_id": 31,
+        "name": "Daily Drivers",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-08-30T08:00:00Z",
+    "end_date": "2026-08-30T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 182,
+        "event_id": 38,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 48,
+            "event_class_id": 182,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 49,
+            "event_class_id": 182,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 183,
+        "event_id": 38,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 50,
+            "event_class_id": 183,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 51,
+            "event_class_id": 183,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 184,
+        "event_id": 38,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 52,
+            "event_class_id": 184,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 53,
+            "event_class_id": 184,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 185,
+        "event_id": 38,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 54,
+            "event_class_id": 185,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 186,
+        "event_id": 38,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 55,
+            "event_class_id": 186,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 187,
+        "event_id": 38,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 56,
+            "event_class_id": 187,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 188,
+        "event_id": 38,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 57,
+            "event_class_id": 188,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 189,
+        "event_id": 38,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 58,
+            "event_class_id": 189,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 190,
+        "event_id": 38,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 59,
+            "event_class_id": 190,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 60,
+            "event_class_id": 190,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 61,
+            "event_class_id": 190,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 62,
+            "event_class_id": 190,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 191,
+        "event_id": 38,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 63,
+            "event_class_id": 191,
+            "rule": "TBD"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "title": "Flicker Promotions LaTexan Lasso",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-09-04T09:00:00Z",
+    "end_date": "2026-09-06T23:00:00Z",
+    "event_driver_fee": 150,
+    "event_spectator_fee": 25,
+    "url": "https://www.raceflickerpromotions.com/latexanlasso",
+    "description": "Bracket Series Fall LaTexan Lasso",
+    "classes": [
+      {
+        "id": 74,
+        "event_id": 23,
+        "name": "All Run Warmup (Friday)",
+        "buyin_fee": 150
+      },
+      {
+        "id": 75,
+        "event_id": 23,
+        "name": "Super Pro",
+        "buyin_fee": 250
+      },
+      {
+        "id": 76,
+        "event_id": 23,
+        "name": "No-Box",
+        "buyin_fee": 250
+      },
+      {
+        "id": 77,
+        "event_id": 23,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 80
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "title": "NHRA Divsion 4 Bracket Finals",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-09-11T09:00:00Z",
+    "end_date": "2026-09-13T23:00:00Z",
+    "event_driver_fee": 100,
+    "event_spectator_fee": 25,
+    "url": "https://www.nhradiv4.com",
+    "description": "NHRA Divsion 4 Bracket Finals",
+    "classes": [
+      {
+        "id": 78,
+        "event_id": 24,
+        "name": "Super Pro",
+        "buyin_fee": 0
+      },
+      {
+        "id": 79,
+        "event_id": 24,
+        "name": "Pro ET",
+        "buyin_fee": 0
+      },
+      {
+        "id": 80,
+        "event_id": 24,
+        "name": "Sportsman",
+        "buyin_fee": 0
+      },
+      {
+        "id": 81,
+        "event_id": 24,
+        "name": "Motorcycle",
+        "buyin_fee": 0
+      },
+      {
+        "id": 82,
+        "event_id": 24,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-09-13T08:00:00Z",
+    "end_date": "2026-09-13T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 192,
+        "event_id": 39,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 64,
+            "event_class_id": 192,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 65,
+            "event_class_id": 192,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 193,
+        "event_id": 39,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 66,
+            "event_class_id": 193,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 67,
+            "event_class_id": 193,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 194,
+        "event_id": 39,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 68,
+            "event_class_id": 194,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 69,
+            "event_class_id": 194,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 195,
+        "event_id": 39,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 70,
+            "event_class_id": 195,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 196,
+        "event_id": 39,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 71,
+            "event_class_id": 196,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 197,
+        "event_id": 39,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 72,
+            "event_class_id": 197,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 198,
+        "event_id": 39,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 73,
+            "event_class_id": 198,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 199,
+        "event_id": 39,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 74,
+            "event_class_id": 199,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 200,
+        "event_id": 39,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 75,
+            "event_class_id": 200,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 76,
+            "event_class_id": 200,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 77,
+            "event_class_id": 200,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 78,
+            "event_class_id": 200,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 201,
+        "event_id": 39,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 79,
+            "event_class_id": 201,
+            "rule": "TBD"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "IHRA Bracket Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-09-18T09:00:00Z",
+    "end_date": "2026-09-19T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Xtreme IHRA Bracket Series",
+    "classes": [
+      {
+        "id": 145,
+        "event_id": 32,
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": 75
+      },
+      {
+        "id": 146,
+        "event_id": 32,
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 147,
+        "event_id": 32,
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 148,
+        "event_id": 32,
+        "name": "Pro (w/Blue)",
+        "buyin_fee": 60
+      },
+      {
+        "id": 149,
+        "event_id": 32,
+        "name": "Sportsman",
+        "buyin_fee": 30
+      },
+      {
+        "id": 150,
+        "event_id": 32,
+        "name": "Jr. Modified",
+        "buyin_fee": 50
+      },
+      {
+        "id": 151,
+        "event_id": 32,
+        "name": "Jr. Sportsman",
+        "buyin_fee": 40
+      },
+      {
+        "id": 152,
+        "event_id": 32,
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": 30
+      },
+      {
+        "id": 153,
+        "event_id": 32,
+        "name": "Daily Drivers",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "title": "Team Finals - IHRA Bracket Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-10-08T09:00:00Z",
+    "end_date": "2026-10-10T23:00:00Z",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "description": "Team Finals - Xtreme IHRA Bracket Series",
+    "classes": [
+      {
+        "id": 154,
+        "event_id": 33,
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 155,
+        "event_id": 33,
+        "name": "Pro",
+        "buyin_fee": 60
+      },
+      {
+        "id": 156,
+        "event_id": 33,
+        "name": "Sportsman",
+        "buyin_fee": 30
+      },
+      {
+        "id": 157,
+        "event_id": 33,
+        "name": "Jr. Modified",
+        "buyin_fee": 50
+      },
+      {
+        "id": 158,
+        "event_id": 33,
+        "name": "Jr. Sportsman",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "NHRA Lucas Oil Divisional",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-10-12T09:00:00Z",
+    "end_date": "2026-10-13T23:00:00Z",
+    "event_driver_fee": 100,
+    "event_spectator_fee": 25,
+    "url": "https://www.nhradiv4.com",
+    "description": "NHRA Lucas Oil Divisional - Division 4"
+  },
+  {
+    "id": 34,
+    "title": "NHRA Fall Natinals",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-10-16T09:00:00Z",
+    "end_date": "2026-10-18T23:00:00Z",
+    "event_driver_fee": 50,
+    "event_spectator_fee": 20,
+    "url": "https://texasmotorplex.com/events",
+    "description": "NHRA Fall National Event - NITRO!"
+  },
+  {
+    "id": 25,
+    "title": "Doomsday Productions Texas Radial Roundup",
+    "track_id": 1,
+    "track_name": "Texas Motorplex",
+    "start_date": "2026-10-29T09:00:00Z",
+    "end_date": "2026-10-31T23:00:00Z",
+    "event_driver_fee": 150,
+    "event_spectator_fee": 25,
+    "url": "https://racedoomsdayproductions.com",
+    "description": "Texas' Premier Radial Race",
+    "classes": [
+      {
+        "id": 83,
+        "event_id": 25,
+        "name": "Coach's Varsity N/T Small Tire Shootout",
+        "buyin_fee": 300
+      },
+      {
+        "id": 84,
+        "event_id": 25,
+        "name": "TBM Brakes Limited Drag Radial",
+        "buyin_fee": 250
+      },
+      {
+        "id": 85,
+        "event_id": 25,
+        "name": "Texas VS The World Ultra Street",
+        "buyin_fee": 250
+      },
+      {
+        "id": 86,
+        "event_id": 25,
+        "name": "Modern Muscle",
+        "buyin_fee": 150
+      },
+      {
+        "id": 87,
+        "event_id": 25,
+        "name": "Nitrous Express Cheap Street",
+        "buyin_fee": 120
+      },
+      {
+        "id": 88,
+        "event_id": 25,
+        "name": "The Great 128 Extreme Street",
+        "buyin_fee": 100
+      },
+      {
+        "id": 89,
+        "event_id": 25,
+        "name": "Junior Dragster",
+        "buyin_fee": 100
+      },
+      {
+        "id": 90,
+        "event_id": 25,
+        "name": "Power Wheels",
+        "buyin_fee": 0
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Pennington Bros. SuperBuck$ Showdown",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-10-29T09:00:00Z",
+    "end_date": "2026-10-31T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 15,
+    "url": "https://www.facebook.com/profile.php?id=61558222352304",
+    "description": "Pennington Bros. 3rd Annual Fall SuperBuck$",
+    "classes": [
+      {
+        "id": 63,
+        "event_id": 14,
+        "name": "All Run Warmup (Thursday)",
+        "buyin_fee": 100
+      },
+      {
+        "id": 64,
+        "event_id": 14,
+        "name": "Test N Tune (Thursday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 65,
+        "event_id": 14,
+        "name": "Super Pro",
+        "buyin_fee": 450
+      },
+      {
+        "id": 66,
+        "event_id": 14,
+        "name": "No-Box",
+        "buyin_fee": 150
+      },
+      {
+        "id": 67,
+        "event_id": 14,
+        "name": "Duck Race",
+        "buyin_fee": 80
+      },
+      {
+        "id": 68,
+        "event_id": 14,
+        "name": "Jr. Dragsters Gamblers (Friday)",
+        "buyin_fee": 40
+      },
+      {
+        "id": 69,
+        "event_id": 14,
+        "name": "Jr. Dragsters",
+        "buyin_fee": 40
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "title": "TMCCC Series",
+    "track_id": 2,
+    "track_name": "Xtreme Raceway Park",
+    "start_date": "2026-11-08T08:00:00Z",
+    "end_date": "2026-11-08T23:00:00Z",
+    "event_driver_fee": 40,
+    "event_spectator_fee": 20,
+    "url": "https://tmccc.org",
+    "description": "Texas Muscle Car Club Series",
+    "classes": [
+      {
+        "id": 202,
+        "event_id": 40,
+        "name": "Red River Muscle Club Stock Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 80,
+            "event_class_id": 202,
+            "rule": "1/8 mile- 9.40 \u0026 Slower"
+          },
+          {
+            "id": 81,
+            "event_class_id": 202,
+            "rule": "1/4 mile- 14.69 \u0026 Slower"
+          }
+        ]
+      },
+      {
+        "id": 203,
+        "event_id": 40,
+        "name": "Robinson Restoration Services Street Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 82,
+            "event_class_id": 203,
+            "rule": "1/8 mile- 8.50 - 9.39"
+          },
+          {
+            "id": 83,
+            "event_class_id": 203,
+            "rule": "1/4 mile- 13.31 - 14.68"
+          }
+        ]
+      },
+      {
+        "id": 204,
+        "event_id": 40,
+        "name": "Cowtown Mopars Performance Team King Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 84,
+            "event_class_id": 204,
+            "rule": "1/8 mile- 7.65 - 8.49"
+          },
+          {
+            "id": 85,
+            "event_class_id": 204,
+            "rule": "1/4 mile- 12.02 - 13.30"
+          }
+        ]
+      },
+      {
+        "id": 205,
+        "event_id": 40,
+        "name": "TG Motorsports Competition Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 86,
+            "event_class_id": 205,
+            "rule": "7.24 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 206,
+        "event_id": 40,
+        "name": "Men's Peak Performance Modified Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 87,
+            "event_class_id": 206,
+            "rule": "7.25 \u0026 Slower (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 207,
+        "event_id": 40,
+        "name": "SYK Rides Electronics",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 88,
+            "event_class_id": 207,
+            "rule": "8.00 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 208,
+        "event_id": 40,
+        "name": "J\u0026G's Welding Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 89,
+            "event_class_id": 208,
+            "rule": "7.64 - 7.00 (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 209,
+        "event_id": 40,
+        "name": "Corvette Corner Super Pro Muscle",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 90,
+            "event_class_id": 209,
+            "rule": "6.99 \u0026 Faster (1/8 mile only)"
+          }
+        ]
+      },
+      {
+        "id": 210,
+        "event_id": 40,
+        "name": "CA$H Bracket",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 91,
+            "event_class_id": 210,
+            "rule": "All ETs (1/8 mile only)"
+          },
+          {
+            "id": 92,
+            "event_class_id": 210,
+            "rule": "No Electronics, Transbrake OK"
+          },
+          {
+            "id": 93,
+            "event_class_id": 210,
+            "rule": "Will begin at the conclusion of 3rd Round of Eliminations"
+          },
+          {
+            "id": 94,
+            "event_class_id": 210,
+            "rule": "Will only be run if Track allows and there are more than 15 cars"
+          }
+        ]
+      },
+      {
+        "id": 211,
+        "event_id": 40,
+        "name": "EV Only - TBD",
+        "buyin_fee": 40,
+        "rules": [
+          {
+            "id": 95,
+            "event_class_id": 211,
+            "rule": "TBD"
+          }
+        ]
+      }
+    ]
+  }
+]

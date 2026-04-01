@@ -1,0 +1,22 @@
+[
+  {
+    "canonical": "Texas Motorplex",
+    "aliases": ["TMP", "Motorplex"]
+  },
+  {
+    "canonical": "Xtreme Raceway Park",
+    "aliases": ["XRP", "Xtreme Raceway"]
+  },
+  {
+    "canonical": "WesTX Abilene Raceway",
+    "aliases": ["WesTX", "Abilene Raceway", "WAR"]
+  },
+  {
+    "canonical": "Tulsa Raceway Park",
+    "aliases": ["TRP"]
+  },
+  {
+    "canonical": "Thunder Valley Raceway Park",
+    "aliases": ["TVRP", "Thunder Valley Raceway", "Thunder Valley"]
+  }
+]

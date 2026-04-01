@@ -4,6 +4,7 @@
   "description": "DFW Drag Racing Events - Static Website",
   "type": "module",
   "scripts": {
+    "sync:data": "node scripts/sync-data.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
