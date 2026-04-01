@@ -77,25 +77,8 @@ if ($DryRun) {
     Write-Host "[OK] Public read policy applied" -ForegroundColor Green
 }
 
-# Step 4: Export data from SQLite to JSON
-Write-Host "`n--- Step 4: Exporting data ---" -ForegroundColor Cyan
-$ToolsDir = Split-Path $PSScriptRoot -Parent
-Push-Location $ToolsDir
-if ($DryRun) {
-    Write-Host "[DRY RUN] Would run: go run ./cmd export"
-} else {
-    go run ./cmd export
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "[ERROR] Export failed" -ForegroundColor Red
-        Pop-Location
-        exit 1
-    }
-    Write-Host "[OK] Data exported to ../site/data/" -ForegroundColor Green
-}
-Pop-Location
-
-# Step 5: Upload site files to S3
-Write-Host "`n--- Step 5: Uploading site files ---" -ForegroundColor Cyan
+# Step 4: Upload site files to S3
+Write-Host "`n--- Step 4: Uploading site files ---" -ForegroundColor Cyan
 $SiteDir = Join-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) "site"
 if (-not (Test-Path $SiteDir)) {
     Write-Host "[ERROR] Site directory not found: $SiteDir" -ForegroundColor Red
@@ -123,8 +106,8 @@ if ($DryRun) {
     Write-Host "[OK] Site files uploaded" -ForegroundColor Green
 }
 
-# Step 6: Sync to secondary bucket (failover)
-Write-Host "`n--- Step 6: Syncing to secondary bucket (us-west-2) ---" -ForegroundColor Cyan
+# Step 5: Sync to secondary bucket (failover)
+Write-Host "`n--- Step 5: Syncing to secondary bucket (us-west-2) ---" -ForegroundColor Cyan
 $SecondaryBucket = "dfw-dragevents-backup"
 $SecondaryRegion = "us-west-2"
 if ($DryRun) {
@@ -149,8 +132,8 @@ if ($DryRun) {
     }
 }
 
-# Step 7: Invalidate CloudFront cache (if distribution exists)
-Write-Host "`n--- Step 7: Invalidating CloudFront cache ---" -ForegroundColor Cyan
+# Step 6: Invalidate CloudFront cache (if distribution exists)
+Write-Host "`n--- Step 6: Invalidating CloudFront cache ---" -ForegroundColor Cyan
 if ($DryRun) {
     Write-Host "[DRY RUN] Would invalidate CloudFront cache" -ForegroundColor Yellow
 } else {
@@ -168,7 +151,7 @@ if ($DryRun) {
     }
 }
 
-# Step 8: Display website URL
+# Step 7: Display website URL
 Write-Host "`n=== Deployment Complete ===" -ForegroundColor Green
 $WebsiteUrl = "http://$BucketName.s3-website-$Region.amazonaws.com"
 Write-Host "Website URL: $WebsiteUrl" -ForegroundColor Cyan
