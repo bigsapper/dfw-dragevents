@@ -29,6 +29,11 @@ make test
 make coverage
 ```
 
+### Start the Site Locally
+```bash
+make start
+```
+
 ### Deploy
 ```bash
 make deploy

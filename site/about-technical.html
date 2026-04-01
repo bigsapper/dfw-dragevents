@@ -9,7 +9,7 @@
   <!-- Primary Meta Tags -->
   <title>Technical Details | DFW Drag Events</title>
   <meta name="title" content="Technical Details | DFW Drag Events">
-  <meta name="description" content="Technical infrastructure and architecture details for DFW Drag Events - built with Go, AWS, and modern web technologies.">
+  <meta name="description" content="Technical infrastructure and architecture details for DFW Drag Events - built with a static frontend, Python AWS tooling, and modern web technologies.">
   <meta name="keywords" content="DFW drag racing tech stack, AWS infrastructure, open source racing site, static site architecture">
   <link rel="canonical" href="https://dfw-dragevents.com/about-technical.html">
   
@@ -68,14 +68,13 @@
 
         <section class="mb-5">
           <h2 class="h4">Technology Stack</h2>
-          <p>This site is built with simplicity, speed, and maintainability in mind:</p>
+          <p>This site is built with simplicity, speed, and maintainability in mind.</p>
           
-          <h3 class="h5 mt-4">Backend</h3>
+          <h3 class="h5 mt-4">Site Runtime</h3>
           <ul>
-            <li><strong>Go 1.20+</strong> — CLI tools for data management</li>
-            <li><strong>SQLite</strong> — Lightweight database for events, tracks, and classes</li>
-            <li><strong>CSV Import</strong> — Easy bulk event management without web forms</li>
-            <li><strong>JSON Export</strong> — Static data files for the frontend</li>
+            <li><strong>Static JSON Data</strong> — Event and track data is served as committed JSON files</li>
+            <li><strong>Fast Static Delivery</strong> — Pages and assets are served without a dynamic application server</li>
+            <li><strong>Open Source Repository</strong> — Source, documentation, and deployment tooling are maintained in GitHub</li>
           </ul>
 
           <h3 class="h5 mt-4">Frontend</h3>
@@ -83,27 +82,30 @@
             <li><strong>Vanilla JavaScript</strong> — No frameworks, just fast native code</li>
             <li><strong>Bootstrap 5</strong> — Responsive design and UI components</li>
             <li><strong>Static HTML</strong> — Pre-rendered pages for maximum performance</li>
-            <li><strong>Vitest</strong> — Unit testing with 98%+ code coverage</li>
+            <li><strong>Vitest</strong> — Frontend testing for application behavior and coverage</li>
           </ul>
 
           <h3 class="h5 mt-4">Development Tools</h3>
           <ul>
-            <li><strong>Make</strong> — Build automation and workflow commands</li>
+            <li><strong>Python 3</strong> — AWS deployment and infrastructure scripts</li>
+            <li><strong>Make</strong> — Lightweight validation, test, coverage, and deploy entry points</li>
+            <li><strong>AWS CLI</strong> — CloudFront, Route 53, S3, and ACM operations</li>
             <li><strong>Git</strong> — Version control and collaboration</li>
-            <li><strong>GitHub Actions</strong> — CI/CD pipeline (planned)</li>
           </ul>
+
+          <p class="text-muted small mt-3">The retired local Go/SQLite/CSV data workflow has been archived from the active architecture and documentation.</p>
         </section>
 
         <section class="mb-5">
           <h2 class="h4">Infrastructure & Hosting</h2>
-          <p>We take site availability seriously. Our infrastructure is designed for high availability and performance:</p>
+          <p>We take site availability seriously. The site is deployed as static content on AWS with CloudFront caching and regional failover support.</p>
           
           <h3 class="h5 mt-4">AWS Services</h3>
           <ul>
             <li><strong>S3 (Primary):</strong> Static website hosting in US East (N. Virginia)</li>
             <li><strong>S3 (Failover):</strong> Backup bucket in US West (Oregon) for redundancy</li>
             <li><strong>CloudFront:</strong> Global CDN with 450+ edge locations worldwide</li>
-            <li><strong>Route 53:</strong> DNS with health checks and automatic failover</li>
+            <li><strong>Route 53:</strong> DNS and domain management</li>
             <li><strong>Certificate Manager:</strong> Free SSL/TLS certificates with auto-renewal</li>
           </ul>
 
@@ -113,7 +115,7 @@
             <li><strong>99.9% Uptime SLA:</strong> If one AWS region goes down, the site automatically switches to the backup region in seconds</li>
             <li><strong>HTTPS Everywhere:</strong> Secure connections with auto-renewing SSL certificates</li>
             <li><strong>Edge Caching:</strong> Content served from the nearest CloudFront edge location for sub-100ms load times</li>
-            <li><strong>Health Monitoring:</strong> Route 53 health checks ensure traffic only goes to healthy endpoints</li>
+            <li><strong>Deployment Automation:</strong> Python scripts and Make targets keep the release workflow repeatable</li>
           </ul>
 
           <p class="text-muted small mt-3">Built with enterprise-grade AWS infrastructure to ensure you can always access event information when you need it.</p>
@@ -147,7 +149,7 @@
           <h2 class="h4">Performance Metrics</h2>
           <ul class="list-unstyled">
             <li class="mb-2">⚡ <strong>Load Time:</strong> &lt;100ms (CloudFront edge cache)</li>
-            <li class="mb-2">📊 <strong>Test Coverage:</strong> 98%+ (frontend unit tests)</li>
+            <li class="mb-2">📊 <strong>Frontend Test Coverage:</strong> Verified with Vitest coverage reports</li>
             <li class="mb-2">🌍 <strong>Global CDN:</strong> 450+ edge locations</li>
             <li class="mb-2">🔒 <strong>Security:</strong> HTTPS only, CSP headers, HSTS enabled</li>
             <li class="mb-2">♿ <strong>Accessibility:</strong> Semantic HTML, ARIA labels, keyboard navigation</li>
@@ -162,7 +164,7 @@
             <li>💡 Suggest new features or improvements</li>
             <li>📝 Improve documentation</li>
             <li>🔧 Submit pull requests with fixes or enhancements</li>
-            <li>🏁 Add events for your local track</li>
+            <li>🏁 Submit fixes, content updates, or tooling improvements</li>
           </ul>
           <p>Check out the <a href="https://github.com/bigsapper/dfw-dragevents" target="_blank">GitHub repository</a> for contribution guidelines and setup instructions.</p>
         </section>

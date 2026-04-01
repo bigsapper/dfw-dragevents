@@ -1,4 +1,4 @@
-.PHONY: build test coverage deploy help
+.PHONY: build test coverage start deploy help
 
 PYTHON ?= python3
 NPM ?= npm
@@ -37,6 +37,10 @@ coverage:
 	@echo "Running frontend coverage..."
 	@cd $(SITE_DIR) && $(NPM) run test:coverage
 
+start:
+	@echo "Starting local site server..."
+	@cd $(SITE_DIR) && $(NPM) start
+
 deploy:
 	@echo "Deploying site to AWS..."
 	@cd $(AWS_DIR) && $(PYTHON) deploy.py --skip-bucket-creation
@@ -46,4 +50,5 @@ help:
 	@echo "  make build     - Validate required site files"
 	@echo "  make test      - Run frontend tests"
 	@echo "  make coverage  - Run frontend coverage"
+	@echo "  make start     - Start the local site server"
 	@echo "  make deploy    - Deploy the site to AWS"
