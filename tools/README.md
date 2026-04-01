@@ -5,30 +5,31 @@ This directory now documents the active AWS deployment tooling for the site.
 ## Active Tooling
 
 ### AWS Scripts
-- `aws/deploy.ps1` - Deploy the current site contents to S3 and invalidate CloudFront
-- `aws/configure-dns.ps1` - Configure Route 53 DNS records
-- `aws/monitor-cert.ps1` - Monitor ACM certificate validation
-- `aws/cleanup-s3.ps1` - Remove unwanted files from S3
-- `aws/setup-cloudfront-failover.ps1` - Configure secondary-region failover support
+- `aws/deploy.py` - Deploy the current site contents to S3 and invalidate CloudFront
+- `aws/configure_dns.py` - Configure Route 53 DNS records
+- `aws/monitor_cert.py` - Monitor ACM certificate validation
+- `aws/cleanup_s3.py` - Remove unwanted files from S3
+- `aws/configure_cloudfront_simple.py` - Print the manual CloudFront setup checklist
+- `aws/setup_cloudfront_failover.py` - Configure secondary-region failover support
 
 ## Common Usage
 
 ### Deploy
-```powershell
+```bash
 cd aws
-.\deploy.ps1 -SkipBucketCreation
+python3 deploy.py --skip-bucket-creation
 ```
 
 ### Configure DNS
-```powershell
+```bash
 cd aws
-.\configure-dns.ps1 -IncludeWWW
+python3 configure_dns.py --include-www
 ```
 
 ### Monitor Certificate Validation
-```powershell
+```bash
 cd aws
-.\monitor-cert.ps1
+python3 monitor_cert.py
 ```
 
 ## Documentation

@@ -16,14 +16,19 @@ The previous local Go/SQLite/CSV data-processing workflow has been archived unde
 - Verify: `node --version` and `npm --version`
 - Used for: local development server and frontend tests
 
-#### 2. AWS CLI
+#### 2. Python
+- Version: Python 3.10 or later
+- Verify: `python3 --version`
+- Used for: AWS deployment and infrastructure scripts
+
+#### 3. AWS CLI
 - Version: AWS CLI v2
 - Download: https://aws.amazon.com/cli/
 - Verify: `aws --version`
 - Configure: `aws configure`
 - Used for: production deployment and infrastructure management
 
-#### 3. Git
+#### 4. Git
 - Version: Git 2.0 or later
 - Download: https://git-scm.com/downloads
 - Verify: `git --version`
@@ -31,32 +36,32 @@ The previous local Go/SQLite/CSV data-processing workflow has been archived unde
 ## Local Setup
 
 ### 1. Clone the Repository
-```powershell
+```bash
 git clone https://github.com/bigsapper/dfw-dragevents.git
 cd dfw-dragevents
 ```
 
 ### 2. Install Frontend Dependencies
-```powershell
+```bash
 cd site
 npm install
 ```
 
 ### 3. Run the Site Locally
-```powershell
+```bash
 npm start
 ```
 
 Open http://localhost:8000 in your browser.
 
 ### 4. Run Frontend Tests
-```powershell
+```bash
 npm test
 npm run test:coverage
 ```
 
 ### 5. Configure AWS for Deployment
-```powershell
+```bash
 aws configure
 aws s3 ls
 aws cloudfront list-distributions
@@ -80,18 +85,18 @@ dfw-dragevents/
 Edit the files in `site/` and verify the changes locally.
 
 ### Test Before Deploying
-```powershell
+```bash
 cd site
 npm test
 ```
 
 ### Deploy to Production
-```powershell
-cd tools\aws
-.\deploy.ps1 -SkipBucketCreation
+```bash
+cd tools/aws
+python3 deploy.py --skip-bucket-creation
 ```
 
-Use `.\deploy.ps1` without `-SkipBucketCreation` if you need full bucket setup.
+Use `python3 deploy.py` without `--skip-bucket-creation` if you need full bucket setup.
 
 ## Frontend Testing
 

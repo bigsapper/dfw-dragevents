@@ -80,9 +80,9 @@ Visual guide for deploying dfw-dragevents.com with the AWS Console.
 3. If CloudFront is enabled, create an invalidation for `/*`
 
 ### Scripted Alternative
-```powershell
-cd tools\aws
-.\deploy.ps1 -SkipBucketCreation
+```bash
+cd tools/aws
+python3 deploy.py --skip-bucket-creation
 ```
 
 See [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md) for the CLI-focused version.

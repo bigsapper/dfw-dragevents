@@ -1,64 +1,73 @@
 # AWS Deployment Scripts
 
-PowerShell scripts for deploying dfw-dragevents.com to AWS.
+Python scripts for deploying dfw-dragevents.com to AWS.
 
 ## Scripts
 
-### `deploy.ps1`
+These scripts require Python 3 and the AWS CLI.
+
+### `deploy.py`
 Deploys the current site contents to S3, syncs the failover bucket, and invalidates CloudFront when a matching distribution is found.
 
-```powershell
-.\deploy.ps1
-.\deploy.ps1 -SkipBucketCreation
-.\deploy.ps1 -DryRun
+```bash
+python3 deploy.py
+python3 deploy.py --skip-bucket-creation
+python3 deploy.py --dry-run
 ```
 
-### `configure-dns.ps1`
+### `configure_dns.py`
 Configures Route 53 DNS records for the site.
 
-```powershell
-.\configure-dns.ps1
-.\configure-dns.ps1 -IncludeWWW
-.\configure-dns.ps1 -DryRun
+```bash
+python3 configure_dns.py
+python3 configure_dns.py --include-www
+python3 configure_dns.py --dry-run
 ```
 
-### `monitor-cert.ps1`
+### `monitor_cert.py`
 Monitors ACM certificate validation.
 
-```powershell
-.\monitor-cert.ps1
+```bash
+python3 monitor_cert.py
 ```
 
-### `cleanup-s3.ps1`
+### `cleanup_s3.py`
 Removes unwanted files from the S3 bucket.
 
-```powershell
-.\cleanup-s3.ps1 -DryRun
-.\cleanup-s3.ps1
+```bash
+python3 cleanup_s3.py --dry-run
+python3 cleanup_s3.py
 ```
 
-### `setup-cloudfront-failover.ps1`
+### `setup_cloudfront_failover.py`
 Helps configure a secondary-region S3 origin for CloudFront failover.
 
-```powershell
-.\setup-cloudfront-failover.ps1
+```bash
+python3 setup_cloudfront_failover.py
+```
+
+### `configure_cloudfront_simple.py`
+Prints the manual CloudFront setup checklist.
+
+```bash
+python3 configure_cloudfront_simple.py
 ```
 
 ## Common Workflow
 
 ### Deploy
-```powershell
-cd tools\aws
-.\deploy.ps1 -SkipBucketCreation
+```bash
+cd tools/aws
+python3 deploy.py --skip-bucket-creation
 ```
 
 ### Invalidate CloudFront Manually
-```powershell
+```bash
 aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
 ```
 
 ### Find the Distribution ID
-```powershell
+```bash
 aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@,'dfw-dragevents.com')]].Id" --output text
 ```
 

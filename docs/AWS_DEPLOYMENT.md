@@ -6,10 +6,11 @@ Guide for deploying dfw-dragevents.com to AWS S3 with optional CloudFront and HT
 
 - AWS account with access to S3, CloudFront, ACM, and Route 53
 - Domain: `dfw-dragevents.com`
+- Python 3 installed
 - AWS CLI installed and configured
 
 ### Configure AWS CLI
-```powershell
+```bash
 aws configure
 ```
 
@@ -20,21 +21,21 @@ Recommended values:
 ## Option 1: Automated Deployment Script
 
 ### Quick Start
-```powershell
-cd tools\aws
-.\deploy.ps1 -SkipBucketCreation
+```bash
+cd tools/aws
+python3 deploy.py --skip-bucket-creation
 ```
 
 Use the full setup mode if the bucket does not exist yet:
-```powershell
-.\deploy.ps1
+```bash
+python3 deploy.py
 ```
 
 ### Script Options
-```powershell
-.\deploy.ps1 -DryRun
-.\deploy.ps1 -SkipBucketCreation
-.\deploy.ps1 -BucketName "my-bucket" -Region "us-west-2"
+```bash
+python3 deploy.py --dry-run
+python3 deploy.py --skip-bucket-creation
+python3 deploy.py --bucket-name my-bucket --region us-west-2
 ```
 
 ### What the Script Handles
@@ -48,27 +49,27 @@ Use the full setup mode if the bucket does not exist yet:
 ## Option 2: Manual Deployment with AWS CLI
 
 ### Step 1: Create the Bucket
-```powershell
+```bash
 aws s3 mb s3://dfw-dragevents.com --region us-east-1
 ```
 
 ### Step 2: Enable Website Hosting
-```powershell
+```bash
 aws s3 website s3://dfw-dragevents.com --index-document index.html --error-document 404.html
 ```
 
 ### Step 3: Apply the Bucket Policy
-```powershell
+```bash
 aws s3api put-bucket-policy --bucket dfw-dragevents.com --policy file://tools/aws/s3/bucket-policy.json
 ```
 
 ### Step 4: Upload the Site
-```powershell
+```bash
 aws s3 sync site/ s3://dfw-dragevents.com/ --delete
 ```
 
 ### Step 5: Invalidate CloudFront
-```powershell
+```bash
 aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
 ```
 
@@ -122,13 +123,13 @@ S3 static website hosting does not provide HTTPS for a custom domain. Use CloudF
 ## Updating the Site
 
 ### Deploy with the Script
-```powershell
-cd tools\aws
-.\deploy.ps1 -SkipBucketCreation
+```bash
+cd tools/aws
+python3 deploy.py --skip-bucket-creation
 ```
 
 ### Deploy Manually
-```powershell
+```bash
 aws s3 sync site/ s3://dfw-dragevents.com/ --delete
 aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
 ```

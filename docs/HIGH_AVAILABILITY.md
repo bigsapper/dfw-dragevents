@@ -30,9 +30,9 @@ This document outlines the high availability strategy for dfw-dragevents.com to 
 
 ### 1. Create Secondary Bucket and Sync Content
 
-```powershell
-cd tools\aws
-.\setup-cloudfront-failover.ps1
+```bash
+cd tools/aws
+python3 setup_cloudfront_failover.py
 ```
 
 This will:
@@ -65,7 +65,7 @@ This will:
 
 **Via AWS CLI:**
 
-```powershell
+```bash
 # Get current config
 aws cloudfront get-distribution-config --id YOUR_DISTRIBUTION_ID > dist-config.json
 
@@ -80,28 +80,20 @@ aws cloudfront update-distribution --id YOUR_DISTRIBUTION_ID --distribution-conf
 
 ### 3. Update Deploy Script
 
-Modify `deploy.ps1` to sync to both buckets:
-
-```powershell
-# Add after primary sync
-Write-Host "`n--- Syncing to secondary bucket ---" -ForegroundColor Cyan
-aws s3 sync $SiteDir "s3://dfw-dragevents-backup/" --delete --region us-west-2
-Write-Host "[OK] Secondary bucket synced" -ForegroundColor Green
-```
+The active `deploy.py` script already syncs both buckets.
 
 ## Testing Failover
 
 ### Test Secondary Bucket
 
-```powershell
-# Verify secondary bucket works
-Start-Process "http://dfw-dragevents-backup.s3-website-us-west-2.amazonaws.com"
-```
+Open this URL in your browser to verify the secondary bucket works:
+
+`http://dfw-dragevents-backup.s3-website-us-west-2.amazonaws.com`
 
 ### Simulate Primary Failure
 
 1. **Temporarily disable primary bucket:**
-   ```powershell
+   ```bash
    aws s3api put-bucket-website --bucket dfw-dragevents.com --website-configuration '{}' --region us-east-1
    ```
 
@@ -110,7 +102,7 @@ Start-Process "http://dfw-dragevents-backup.s3-website-us-west-2.amazonaws.com"
    - May take 30-60 seconds for CloudFront to detect failure
 
 3. **Re-enable primary:**
-   ```powershell
+   ```bash
    aws s3 website s3://dfw-dragevents.com/ --index-document index.html --error-document 404.html --region us-east-1
    ```
 
@@ -120,30 +112,30 @@ Start-Process "http://dfw-dragevents-backup.s3-website-us-west-2.amazonaws.com"
 
 Set up alarms for origin failures:
 
-```powershell
-aws cloudwatch put-metric-alarm `
-  --alarm-name "CloudFront-Origin-Errors" `
-  --alarm-description "Alert on CloudFront 5xx errors" `
-  --metric-name 5xxErrorRate `
-  --namespace AWS/CloudFront `
-  --statistic Average `
-  --period 300 `
-  --threshold 5 `
-  --comparison-operator GreaterThanThreshold `
+```bash
+aws cloudwatch put-metric-alarm \
+  --alarm-name "CloudFront-Origin-Errors" \
+  --alarm-description "Alert on CloudFront 5xx errors" \
+  --metric-name 5xxErrorRate \
+  --namespace AWS/CloudFront \
+  --statistic Average \
+  --period 300 \
+  --threshold 5 \
+  --comparison-operator GreaterThanThreshold \
   --evaluation-periods 2
 ```
 
 ### Check Origin Health
 
-```powershell
+```bash
 # View CloudFront metrics
-aws cloudwatch get-metric-statistics `
-  --namespace AWS/CloudFront `
-  --metric-name Requests `
-  --dimensions Name=DistributionId,Value=YOUR_DISTRIBUTION_ID `
-  --start-time 2024-01-01T00:00:00Z `
-  --end-time 2024-01-02T00:00:00Z `
-  --period 3600 `
+aws cloudwatch get-metric-statistics \
+  --namespace AWS/CloudFront \
+  --metric-name Requests \
+  --dimensions Name=DistributionId,Value=YOUR_DISTRIBUTION_ID \
+  --start-time 2024-01-01T00:00:00Z \
+  --end-time 2024-01-02T00:00:00Z \
+  --period 3600 \
   --statistics Sum
 ```
 
@@ -208,7 +200,7 @@ aws cloudwatch get-metric-statistics `
 
 ## Implementation Checklist
 
-- [ ] Run `setup-cloudfront-failover.ps1`
+- [ ] Run `setup_cloudfront_failover.py`
 - [ ] Test secondary bucket URL works
 - [ ] Configure CloudFront origin group (manual step)
 - [ ] Update deploy script to sync both buckets
@@ -229,7 +221,7 @@ aws cloudwatch get-metric-statistics `
 
 **Manual (without failover):**
 1. Update CloudFront origin to point to us-west-2:
-   ```powershell
+   ```bash
    # Update CloudFront distribution origin
    aws cloudfront update-distribution --id YOUR_DISTRIBUTION_ID ...
    ```
