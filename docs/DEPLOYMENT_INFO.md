@@ -86,7 +86,7 @@ aws s3 sync site/ s3://dfw-dragevents.com/ --delete
 
 ## Deployment Workflow
 
-See [README.md](../README.md#updating-site-content) for the complete update workflow.
+See [README.md](../README.md), [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md), and [../tools/aws/README.md](../tools/aws/README.md) for the active deployment workflow.
 
 ## Cost Monitoring
 

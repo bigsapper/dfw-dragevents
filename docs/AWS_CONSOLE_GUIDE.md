@@ -1,128 +1,88 @@
 # AWS Console Step-by-Step Guide
 
-Visual guide for deploying dfw-dragevents.com using AWS Console (no CLI required).
+Visual guide for deploying dfw-dragevents.com with the AWS Console.
 
 ## Part 1: S3 Bucket Setup
 
-### Create S3 Bucket
-1. Sign in to AWS Console: https://console.aws.amazon.com/
-2. Search "S3" → Click S3
-3. Click **Create bucket**
-4. **Bucket name:** `dfw-dragevents.com`
-5. **Region:** US East (N. Virginia) us-east-1
-6. **UNCHECK** "Block all public access"
-7. Acknowledge the warning
-8. Click **Create bucket**
+### Create the Bucket
+1. Sign in to AWS Console
+2. Open S3
+3. Create a bucket named `dfw-dragevents.com`
+4. Choose region `us-east-1`
+5. Disable `Block all public access`
 
 ### Enable Static Website Hosting
-1. Click on bucket `dfw-dragevents.com`
-2. Go to **Properties** tab
-3. Scroll to **Static website hosting** → Click **Edit**
-4. Select **Enable**
-5. **Index document:** `index.html`
-6. **Error document:** `404.html`
-7. Click **Save changes**
-8. Note the **Bucket website endpoint** URL
+1. Open the bucket
+2. Go to `Properties`
+3. Edit `Static website hosting`
+4. Set:
+   - Index document: `index.html`
+   - Error document: `404.html`
 
-### Set Bucket Policy
-1. Go to **Permissions** tab
-2. Scroll to **Bucket policy** → Click **Edit**
-3. Paste:
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [{
-    "Sid": "PublicReadGetObject",
-    "Effect": "Allow",
-    "Principal": "*",
-    "Action": "s3:GetObject",
-    "Resource": "arn:aws:s3:::dfw-dragevents.com/*"
-  }]
-}
-```
-4. Click **Save changes**
+### Apply the Bucket Policy
+1. Go to `Permissions`
+2. Open `Bucket policy`
+3. Apply the policy from [`tools/aws/s3/bucket-policy.json`](../tools/aws/s3/bucket-policy.json)
 
-### Upload Files
-1. Go to **Objects** tab
-2. Click **Upload** → **Add folder**
-3. Select your `site` folder
-4. Click **Upload**
-
-### Test
-Open the bucket website endpoint URL from Properties tab.
+### Upload the Site
+1. Go to `Objects`
+2. Choose `Upload`
+3. Upload the contents of the `site/` directory
 
 ## Part 2: Route 53 DNS
 
-### Create Hosted Zone
-1. Navigate to Route 53
-2. Click **Hosted zones** → **Create hosted zone**
-3. **Domain name:** `dfw-dragevents.com`
-4. **Type:** Public
-5. Click **Create**
-6. Copy the 4 nameservers
+### Create a Hosted Zone
+1. Open Route 53
+2. Create a hosted zone for `dfw-dragevents.com`
+3. Copy the generated nameservers
 
-### Update Domain Registrar
-1. Log in to your domain registrar
-2. Update nameservers to the 4 Route 53 nameservers
-3. Wait for propagation (1-48 hours)
+### Update Your Domain Registrar
+1. Sign in to your registrar
+2. Replace the current nameservers with the Route 53 nameservers
+3. Wait for propagation
 
-### Create A Record
-1. In Route 53 hosted zone, click **Create record**
-2. **Record name:** Leave blank
-3. **Record type:** A
-4. **Alias:** ON
-5. **Route traffic to:** Alias to S3 website endpoint
-6. **Region:** US East (N. Virginia)
-7. Select your S3 endpoint
-8. Click **Create records**
+### Create the Alias Record
+1. In Route 53, create an `A` record
+2. Enable `Alias`
+3. Point it to the S3 website endpoint
 
-## Part 3: CloudFront + HTTPS (Optional)
+## Part 3: CloudFront and HTTPS
 
-### Request SSL Certificate
-1. Switch to **us-east-1** region
-2. Navigate to Certificate Manager
-3. Click **Request certificate** → **Public certificate**
-4. Add domains: `dfw-dragevents.com`, `*.dfw-dragevents.com`
-5. **Validation:** DNS
-6. Click **Create records in Route 53**
-7. Wait for "Issued" status
+### Request a Certificate
+1. Switch to `us-east-1`
+2. Open ACM
+3. Request a public certificate
+4. Add:
+   - `dfw-dragevents.com`
+   - `*.dfw-dragevents.com` if needed
+5. Use DNS validation
 
-### Create CloudFront Distribution
-1. Navigate to CloudFront
-2. Click **Create distribution**
-3. **Origin domain:** Type `dfw-dragevents.com.s3-website-us-east-1.amazonaws.com`
-4. **Protocol:** HTTP only
-5. **Viewer protocol:** Redirect HTTP to HTTPS
-6. **CNAMEs:** `dfw-dragevents.com`, `www.dfw-dragevents.com`
-7. **SSL certificate:** Select your ACM certificate
-8. **Default root object:** `index.html`
-9. Click **Create**
-10. Wait for "Enabled" status
+### Create the Distribution
+1. Open CloudFront
+2. Create a distribution
+3. Use `dfw-dragevents.com.s3-website-us-east-1.amazonaws.com` as the origin
+4. Redirect HTTP to HTTPS
+5. Add CNAMEs:
+   - `dfw-dragevents.com`
+   - `www.dfw-dragevents.com`
+6. Attach the ACM certificate
+7. Set `index.html` as the default root object
 
 ### Update Route 53
-1. Edit the A record
-2. **Route traffic to:** CloudFront distribution
-3. Select your distribution
-4. Click **Save**
-
-### Test
-Visit https://dfw-dragevents.com
+1. Edit the `A` record
+2. Point it to the CloudFront distribution
 
 ## Updating the Site
 
-```powershell
-cd tools
-make export
-make deploy   # runs export + upload + invalidation
+### Console Upload
+1. Open the S3 bucket
+2. Upload the latest `site/` contents
+3. If CloudFront is enabled, create an invalidation for `/*`
 
-# Or, if you must run the script directly:
-cd aws
+### Scripted Alternative
+```powershell
+cd tools\aws
 .\deploy.ps1 -SkipBucketCreation
 ```
 
-If using CloudFront, invalidate cache:
-```powershell
-aws cloudfront create-invalidation --distribution-id YOUR_ID --paths "/*"
-```
-
-See AWS_DEPLOYMENT.md for complete details.
+See [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md) for the CLI-focused version.

@@ -1,55 +1,39 @@
-# Tools - Backend CLI
+# Tools
 
-Go-based CLI for database management and event operations.
+This directory now documents the active AWS deployment tooling for the site.
 
-## Quick Commands
+## Active Tooling
 
-### Track Management
+### AWS Scripts
+- `aws/deploy.ps1` - Deploy the current site contents to S3 and invalidate CloudFront
+- `aws/configure-dns.ps1` - Configure Route 53 DNS records
+- `aws/monitor-cert.ps1` - Monitor ACM certificate validation
+- `aws/cleanup-s3.ps1` - Remove unwanted files from S3
+- `aws/setup-cloudfront-failover.ps1` - Configure secondary-region failover support
+
+## Common Usage
+
+### Deploy
 ```powershell
-make track-add                        # Add single track interactively
-make track-list                       # List all tracks
+cd aws
+.\deploy.ps1 -SkipBucketCreation
 ```
 
-### Event Management
+### Configure DNS
 ```powershell
-make event-add                        # Add single event interactively
-make event-list                       # List all events
-make event-delete ID=5                # Delete event by ID
-make event-import FILE=events.csv     # Bulk import from CSV
-make event-import-classes FILE=classes.csv  # Import event classes from CSV
-make event-import-rules FILE=rules.csv      # Import class rules from CSV
-make event-list-classes               # List all event classes
+cd aws
+.\configure-dns.ps1 -IncludeWWW
 ```
 
-### Database & Deployment
+### Monitor Certificate Validation
 ```powershell
-make init                             # Initialize database
-make seed                             # Add sample data
-make export                           # Export to JSON
-make deploy                           # Deploy to AWS
+cd aws
+.\monitor-cert.ps1
 ```
-
-### Testing & Build
-```powershell
-make test                             # Run tests (54 tests)
-make test-coverage                    # Run tests with coverage (83.5% db, 91.7% export)
-make build                            # Build CLI executable
-make help                             # Show all commands
-```
-
-## CSV Template
-
-Use `examples/events_template.csv` as a starting point for bulk imports.
 
 ## Documentation
 
-- **[Event Management Guide](../docs/EVENT_MANAGEMENT.md)** - Complete guide for adding/managing events
-- **[Main README](../README.md)** - Full project documentation
-- **[AWS Deployment](../docs/AWS_DEPLOYMENT.md)** - Deployment instructions
-
-## Workflow
-
-1. Add/edit events (CSV or interactive CLI)
-2. `make export` - Generate JSON
-3. Test locally in `../site/`
-4. `make deploy` - Deploy to AWS
+- [Main README](../README.md)
+- [AWS Deployment Guide](../docs/AWS_DEPLOYMENT.md)
+- [AWS Console Guide](../docs/AWS_CONSOLE_GUIDE.md)
+- [Deployment Info](../docs/DEPLOYMENT_INFO.md)
