@@ -302,10 +302,10 @@ export async function loadEventsList(filter = 'upcoming', trackFilter = 'all') {
       const subtitle = document.createElement('h6');
       subtitle.className = 'card-subtitle mb-2 text-body-secondary';
       subtitle.textContent = getTrackName(mapTrack, ev);
-      
-      const description = document.createElement('p');
-      description.className = 'card-text';
-      description.textContent = ev.description || '';
+
+      const series = document.createElement('p');
+      series.className = 'card-text text-body-secondary';
+      series.textContent = ev.series || '';
       
       const dateText = document.createElement('p');
       dateText.className = 'card-text';
@@ -319,9 +319,11 @@ export async function loadEventsList(filter = 'upcoming', trackFilter = 'all') {
       link.className = 'card-link';
       link.textContent = 'Details';
       
+      if (ev.series) {
+        cardBody.appendChild(series);
+      }
       cardBody.appendChild(title);
       cardBody.appendChild(subtitle);
-      cardBody.appendChild(description);
       cardBody.appendChild(dateText);
       cardBody.appendChild(link);
       card.appendChild(cardBody);
@@ -342,6 +344,17 @@ export async function loadEventDetail() {
   const availableTracks = getAvailableTracks(events);
   const mapTrack = new Map(availableTracks.map(t => [toTrackKey(t.id), t.name]));
   document.getElementById('ev-title').textContent = ev.title;
+  const seriesEl = document.getElementById('ev-series');
+  const seriesRowEl = document.getElementById('ev-series-row');
+  if (seriesEl && seriesRowEl) {
+    if (ev.series) {
+      seriesEl.textContent = ev.series;
+      seriesRowEl.style.display = '';
+    } else {
+      seriesEl.textContent = '';
+      seriesRowEl.style.display = 'none';
+    }
+  }
   document.getElementById('ev-track').textContent = getTrackName(mapTrack, ev);
   document.getElementById('ev-time').textContent = formatDateRange(ev.start_date, ev.end_date);
   document.getElementById('ev-desc').textContent = ev.description || '';

@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := help
+
 .PHONY: build sync-data test test-watch coverage start deploy deploy-dry-run help
 
 PYTHON ?= python3

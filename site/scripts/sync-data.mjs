@@ -1,5 +1,7 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { execFile as execFileCallback } from 'node:child_process';
 import path from 'node:path';
+import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -13,9 +15,65 @@ const EVENTS_URL =
 const SCHEMA_URL =
   process.env.DRAG_EVENTS_SCHEMA_URL ||
   'https://raw.githubusercontent.com/bigsapper/drag-events-aggregator/main/dist/events.schema.json';
+const EVENTS_CDN_URL =
+  process.env.DRAG_EVENTS_DATA_CDN_URL ||
+  'https://cdn.jsdelivr.net/gh/bigsapper/drag-events-aggregator@main/dist/events.json';
+const SCHEMA_CDN_URL =
+  process.env.DRAG_EVENTS_SCHEMA_CDN_URL ||
+  'https://cdn.jsdelivr.net/gh/bigsapper/drag-events-aggregator@main/dist/events.schema.json';
+const EVENTS_CURL_URL =
+  process.env.DRAG_EVENTS_DATA_CURL_URL ||
+  'https://github.com/bigsapper/drag-events-aggregator/raw/main/dist/events.json';
+const SCHEMA_CURL_URL =
+  process.env.DRAG_EVENTS_SCHEMA_CURL_URL ||
+  'https://github.com/bigsapper/drag-events-aggregator/raw/main/dist/events.schema.json';
+const FETCH_RETRIES = Number.parseInt(process.env.DRAG_EVENTS_FETCH_RETRIES || '3', 10);
+const FETCH_RETRY_DELAY_MS = Number.parseInt(process.env.DRAG_EVENTS_FETCH_RETRY_DELAY_MS || '750', 10);
+const EVENTS_FILE = path.join(dataDir, 'events.json');
+const SCHEMA_FILE = path.join(dataDir, 'events.schema.json');
+const execFile = promisify(execFileCallback);
 
 function fail(message) {
   throw new Error(message);
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function formatErrorDetails(error) {
+  if (!error) {
+    return 'Unknown error';
+  }
+
+  const parts = [];
+  const queue = [error];
+  const seen = new Set();
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (!current || seen.has(current)) {
+      continue;
+    }
+
+    seen.add(current);
+
+    if (current.message) {
+      parts.push(current.message);
+    }
+
+    for (const key of ['code', 'syscall', 'hostname']) {
+      if (current[key]) {
+        parts.push(`${key}=${current[key]}`);
+      }
+    }
+
+    if (current.cause) {
+      queue.push(current.cause);
+    }
+  }
+
+  return parts.join(' | ');
 }
 
 function isPlainObject(value) {
@@ -213,31 +271,139 @@ function transformEvents(events) {
 }
 
 async function fetchJSON(url) {
-  const response = await fetch(url, { cache: 'no-store' });
-  if (!response.ok) {
-    fail(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+  let lastError;
+
+  for (let attempt = 1; attempt <= FETCH_RETRIES; attempt += 1) {
+    try {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) {
+        fail(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      lastError = error;
+
+      if (attempt === FETCH_RETRIES) {
+        break;
+      }
+
+      const delayMs = FETCH_RETRY_DELAY_MS * attempt;
+      console.warn(
+        `Fetch attempt ${attempt}/${FETCH_RETRIES} failed for ${url}: ${formatErrorDetails(error)}. Retrying in ${delayMs}ms...`
+      );
+      await sleep(delayMs);
+    }
   }
-  return response.json();
+
+  fail(`Failed to fetch ${url} after ${FETCH_RETRIES} attempts: ${formatErrorDetails(lastError)}`);
+}
+
+async function readCachedJSON(filePath) {
+  let raw;
+
+  try {
+    raw = await readFile(filePath, 'utf8');
+  } catch (error) {
+    fail(`Failed to read cached data file ${filePath}: ${formatErrorDetails(error)}`);
+  }
+
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    fail(`Cached data file ${filePath} is not valid JSON: ${formatErrorDetails(error)}`);
+  }
+}
+
+async function fetchJSONWithCurl(url) {
+  let stdout;
+
+  try {
+    ({ stdout } = await execFile('curl', ['-L', '--fail', '--silent', '--show-error', url], {
+      maxBuffer: 10 * 1024 * 1024
+    }));
+  } catch (error) {
+    fail(`curl fallback failed for ${url}: ${formatErrorDetails(error)}`);
+  }
+
+  try {
+    return JSON.parse(stdout);
+  } catch (error) {
+    fail(`curl fallback returned invalid JSON for ${url}: ${formatErrorDetails(error)}`);
+  }
+}
+
+async function loadRemoteJSON({ primaryCurlUrl, fallbackCurlUrl, fallbackFetchUrl, label }) {
+  try {
+    return await fetchJSONWithCurl(primaryCurlUrl);
+  } catch (primaryCurlError) {
+    console.warn(`Primary curl download failed for ${label}: ${formatErrorDetails(primaryCurlError)}`);
+  }
+
+  try {
+    return await fetchJSONWithCurl(fallbackCurlUrl);
+  } catch (fallbackCurlError) {
+    console.warn(`Fallback curl download failed for ${label}: ${formatErrorDetails(fallbackCurlError)}`);
+  }
+
+  return fetchJSON(fallbackFetchUrl);
 }
 
 async function main() {
-  const [schema, upstreamEvents] = await Promise.all([
-    fetchJSON(SCHEMA_URL),
-    fetchJSON(EVENTS_URL)
-  ]);
+  let schema;
+  let upstreamEvents;
+
+  try {
+    [schema, upstreamEvents] = await Promise.all([
+      loadRemoteJSON({
+        primaryCurlUrl: SCHEMA_CURL_URL,
+        fallbackCurlUrl: SCHEMA_CDN_URL,
+        fallbackFetchUrl: SCHEMA_URL,
+        label: 'schema'
+      }),
+      loadRemoteJSON({
+        primaryCurlUrl: EVENTS_CURL_URL,
+        fallbackCurlUrl: EVENTS_CDN_URL,
+        fallbackFetchUrl: EVENTS_URL,
+        label: 'events'
+      })
+    ]);
+  } catch (error) {
+    if (
+      !String(error?.message || '').startsWith('Failed to fetch ') &&
+      !String(error?.message || '').startsWith('curl fallback failed ')
+    ) {
+      throw error;
+    }
+
+    const [cachedEvents] = await Promise.all([
+      readCachedJSON(EVENTS_FILE),
+      readCachedJSON(SCHEMA_FILE)
+    ]);
+
+    console.warn(
+      `Warning: upstream sync unavailable after alternate source attempts, continuing with cached site data. Details: ${formatErrorDetails(error)}`
+    );
+    console.log(
+      `Build is using the cached dataset with ${
+        Array.isArray(cachedEvents) ? cachedEvents.length : 'an unknown number of'
+      } events and the cached schema snapshot.`
+    );
+    return;
+  }
 
   validateAgainstSchema(upstreamEvents, schema, schema, 'events');
 
   const events = transformEvents(upstreamEvents);
 
   await mkdir(dataDir, { recursive: true });
-  await writeFile(path.join(dataDir, 'events.json'), `${JSON.stringify(events, null, 2)}\n`);
-  await writeFile(path.join(dataDir, 'events.schema.json'), `${JSON.stringify(schema, null, 2)}\n`);
+  await writeFile(EVENTS_FILE, `${JSON.stringify(events, null, 2)}\n`);
+  await writeFile(SCHEMA_FILE, `${JSON.stringify(schema, null, 2)}\n`);
 
   console.log(`Synced ${events.length} events from upstream dataset.`);
 }
 
 main().catch((error) => {
-  console.error(error.message);
+  console.error(formatErrorDetails(error));
   process.exitCode = 1;
 });

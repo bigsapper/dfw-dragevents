@@ -67,7 +67,7 @@ Refresh the website dataset from the upstream aggregator:
 npm run sync:data
 ```
 
-This updates `data/events.json` and `data/events.schema.json`. It does not overwrite `data/tracks-filter.json`.
+This updates `data/events.json` and `data/events.schema.json`. If the upstream source is temporarily unreachable, it falls back to the checked-in cached copies of those files. It does not overwrite `data/tracks-filter.json`.
 
 ## Test Files
 

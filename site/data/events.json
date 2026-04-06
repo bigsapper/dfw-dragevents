@@ -1,286 +1,1195 @@
 [
   {
-    "id": "f0fe51c3-c20a-4de3-9c25-beaedf08f1a8",
-    "title": "Fall Nationals",
+    "id": "57bc97b9-f865-436d-9d4f-190b56c92a25",
+    "title": "Race #2 Thunder Valley Raceway Park",
     "event_type": "points_race",
-    "series": null,
-    "track_id": "texas-motorplex-tx",
-    "track_name": "Texas Motorplex",
-    "track_city": "Ennis",
-    "track_state": "TX",
-    "start_date": "2025-10-03T08:00:00",
-    "end_date": "2025-10-12T23:59:59",
-    "description": "NHRA fall event",
-    "event_driver_fee": 50,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$50",
-    "raw_spectator_fee": "$20",
-    "url": "https://texasmotorplex.com/events",
+    "series": "TMCCC",
+    "track_id": "thunder-valley-ok",
+    "track_name": "Thunder Valley Raceway Park",
+    "track_city": "Lexington",
+    "track_state": "OK",
+    "start_date": "2026-04-12T00:00:00",
+    "end_date": "2026-04-12T23:59:59",
+    "description": "1/4 Mile track. 4 Points 1st Round event.\n1/4 Mile\n4 Points 1st Round\nhttps://www.thundervalleyracewaypark.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://www.thundervalleyracewaypark.com",
     "classes": [
       {
-        "name": "Pro Street",
+        "name": "Stock Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Street",
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
         "buyin_fee": null,
         "rules": []
       }
     ],
-    "confidence": 1,
+    "confidence": 0.95,
     "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:35.068595+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:35.068604+00:00",
+    "updated_at": "2026-04-02T05:07:35.068607+00:00"
   },
   {
-    "id": "48df00b6-38b2-4bea-93dc-1ddbe9841a85",
-    "title": "Sunday TNT",
-    "event_type": "test_n_tune",
-    "series": null,
+    "id": "1cd43162-290b-4a9a-bc1d-3f907b689a8b",
+    "title": "Race #3 Little River Dragway",
+    "event_type": "points_race",
+    "series": "TMCCC",
+    "track_id": "little-river-dragway-tx",
+    "track_name": "Little River Dragway",
+    "track_city": "Holland",
+    "track_state": "TX",
+    "start_date": "2026-04-25T15:00:00",
+    "end_date": "2026-04-25T23:59:59",
+    "description": "4 points 1st round. Event address: 13550 State Hwy 95, Holland, TX 76534\n4 points 1st round\nhttps://www.wichitaracewaypark.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://www.wichitaracewaypark.com",
+    "classes": [
+      {
+        "name": "Stock Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.95,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:37.634586+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:37.634601+00:00",
+    "updated_at": "2026-04-02T05:07:37.634605+00:00"
+  },
+  {
+    "id": "911fa952-2360-4ee1-8cf8-bb91612d5dee",
+    "title": "Race #4 Wichita Falls Raceway Park",
+    "event_type": "points_race",
+    "series": "TMCCC",
+    "track_id": "wichita-falls-tx",
+    "track_name": "Wichita Falls Raceway Park",
+    "track_city": "Iowa Park",
+    "track_state": "TX",
+    "start_date": "2026-05-10T08:00:00",
+    "end_date": "2026-05-10T23:59:59",
+    "description": "4 points awarded for 1st round finish. Address: 633 FM 369, Iowa Park TX 76367\n4 points 1st round\nhttps://www.wichitaracewaypark.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://www.wichitaracewaypark.com",
+    "classes": [
+      {
+        "name": "Stock Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.95,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:39.882453+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:39.882467+00:00",
+    "updated_at": "2026-04-02T05:07:39.882471+00:00"
+  },
+  {
+    "id": "bc7f9d53-34c7-4afd-a306-45cbcfc83c32",
+    "title": "Race #5 Texas Motorplex",
+    "event_type": "points_race",
+    "series": "TMCCC",
+    "track_id": "texas-motorplex-tx",
+    "track_name": "Texas Motorplex",
+    "track_city": "Ennis",
+    "track_state": "TX",
+    "start_date": "2026-05-31T08:00:00",
+    "end_date": "2026-05-31T23:59:59",
+    "description": "1/4 Mile track\n1/4 Mile\nhttp://www.texasmotorplex.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "http://www.texasmotorplex.com",
+    "classes": [
+      {
+        "name": "Stock Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.95,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:42.032611+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:42.032625+00:00",
+    "updated_at": "2026-04-02T05:07:42.032630+00:00"
+  },
+  {
+    "id": "8a629b90-ccd9-4401-81dd-94a7d89634fd",
+    "title": "Race #6 Thunder Valley Raceway Park",
+    "event_type": "points_race",
+    "series": "TMCCC",
+    "track_id": "thunder-valley-ok",
+    "track_name": "Thunder Valley Raceway Park",
+    "track_city": "Lexington",
+    "track_state": "OK",
+    "start_date": "2026-06-07T00:00:00",
+    "end_date": "2026-06-07T23:59:59",
+    "description": "1/4 Mile track. 4 points awarded for 1st round.\n1/4 Mile\n4 points 1st round\nhttps://www.thundervalleyracewaypark.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://www.thundervalleyracewaypark.com",
+    "classes": [
+      {
+        "name": "Stock Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.92,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:44.222796+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:44.222810+00:00",
+    "updated_at": "2026-04-02T05:07:44.222815+00:00"
+  },
+  {
+    "id": "911431bb-ca19-4803-90d5-64f6785ab62c",
+    "title": "Race #7 Xtreme Raceway Park",
+    "event_type": "points_race",
+    "series": "TMCCC",
     "track_id": "xtreme-tx",
     "track_name": "Xtreme Raceway Park",
     "track_city": "Ferris",
     "track_state": "TX",
-    "start_date": "2025-10-05T14:00:00",
-    "end_date": "2025-10-05T23:59:59",
-    "description": "Test & Tune. All tires allowed. Every Sunday.",
-    "event_driver_fee": 20,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$20",
-    "raw_spectator_fee": "$20",
+    "start_date": "2026-06-28T09:00:00",
+    "end_date": "2026-06-28T23:59:59",
+    "description": "Track location: 1800 S I45 Service road, Ferris TX 75125. Event is part of TMCCC series.\nhttps://www.xtremeracewaypark.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
     "url": "https://www.xtremeracewaypark.com",
     "classes": [
       {
-        "name": "Test & Tune",
+        "name": "Stock Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
         "buyin_fee": null,
         "rules": []
       }
     ],
-    "confidence": 1,
+    "confidence": 0.95,
     "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:46.542269+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:46.542286+00:00",
+    "updated_at": "2026-04-02T05:07:46.542291+00:00"
   },
   {
-    "id": "4668465a-a4cb-4407-8d77-9e92d1f7aacc",
-    "title": "GT-R Festival",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "texas-motorplex-tx",
-    "track_name": "Texas Motorplex",
-    "track_city": "Ennis",
-    "track_state": "TX",
-    "start_date": "2025-11-14T09:00:00",
-    "end_date": "2025-11-16T23:59:59",
-    "description": "The Ultimate Celebration of All Things GT-R and Nissan IS RETURNING  TO TEXAS MOTORPLEX",
-    "event_driver_fee": 190,
-    "event_spectator_fee": 80,
-    "raw_driver_fee": "$190",
-    "raw_spectator_fee": "$80",
-    "url": "https://gtrfestival.com/home-usa",
-    "classes": [],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "0c03fd4d-06c6-482d-8588-585263f98b97",
-    "title": "Left Over Nationals",
+    "id": "415bdd5b-4474-4bab-a180-02750e475aa8",
+    "title": "Race #8 Xtreme Raceway Park",
     "event_type": "bracket",
-    "series": null,
+    "series": "TMCCC",
     "track_id": "xtreme-tx",
     "track_name": "Xtreme Raceway Park",
     "track_city": "Ferris",
     "track_state": "TX",
-    "start_date": "2025-11-28T09:00:00",
-    "end_date": "2025-11-29T23:59:59",
-    "description": "Bracket & Index event. Saturday Ironman to All Classes!",
-    "event_driver_fee": 20,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$20",
-    "raw_spectator_fee": "$20",
-    "url": "https://www.facebook.com/xtremeracewaypark/posts/1166273152294352?ref=embed_post",
+    "start_date": "2026-08-30T09:00:00",
+    "end_date": "2026-08-30T23:59:59",
+    "description": "https://www.xtremeracewaypark.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://www.xtremeracewaypark.com",
     "classes": [
       {
-        "name": "Super Pro",
+        "name": "Stock Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Pro ET",
+        "name": "Street Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "7.00 Index",
+        "name": "King Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "5.80 Index",
+        "name": "EV Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Jr All Run",
+        "name": "Competition Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Divas Daily Driver",
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
         "buyin_fee": null,
         "rules": []
       }
     ],
-    "confidence": 1,
+    "confidence": 0.92,
     "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:51.696002+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:51.696011+00:00",
+    "updated_at": "2026-04-02T05:07:51.696013+00:00"
   },
   {
-    "id": "ffc3e956-51cf-40c3-824a-a62a0b0de9de",
-    "title": "T&E Promotions Streetcar Showdown",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "texas-motorplex-tx",
-    "track_name": "Texas Motorplex",
-    "track_city": "Ennis",
+    "id": "9c46bc76-249f-47a3-9cd2-30c06003ff45",
+    "title": "Race #9 Xtreme Raceway Park",
+    "event_type": "bracket",
+    "series": "TMCCC",
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
     "track_state": "TX",
-    "start_date": "2025-12-05T09:00:00",
-    "end_date": "2025-12-06T23:59:59",
-    "description": "Get ready for the fastest street cars in the nation all in one spot. You don't want to miss it!",
-    "event_driver_fee": 25,
-    "event_spectator_fee": 25,
-    "raw_driver_fee": "$25",
-    "raw_spectator_fee": "$25",
-    "url": "https://www.tandepromotions.com",
+    "start_date": "2026-09-13T09:00:00",
+    "end_date": "2026-09-13T23:59:59",
+    "description": "Does require engine diaper if running 6.50 or faster\nhttps://www.xtremeracewaypark.com/\nDOES REQUIRE ENGINE DIAPER IF RUNNING 6.50 OR FASTER",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://www.xtremeracewaypark.com/",
     "classes": [
       {
-        "name": "Lil Gangsters",
+        "name": "Stock Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Cheap Street",
+        "name": "Street Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Five Star Ford — Boosted Street",
+        "name": "King Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "True Street",
+        "name": "EV Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Bracket Racket (Dial Your Own)",
+        "name": "Competition Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Cowboys Snow Cones — Jr Shootout",
+        "name": "Modified Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Magnuson — Heavyweights",
+        "name": "Electronics",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Baileys Hyperformance — 10.00 Index",
+        "name": "Pro Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "11.00 Index",
+        "name": "Super Pro Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Jotech Motorsports — GTR vs the World",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Nitrous Outlet — Clash of Titans 4.50",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Nitrous Outlet — 420",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Open Test & Tune",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Motorcycle Meet & TNT (Saturday)",
+        "name": "CA$H Bracket",
         "buyin_fee": null,
         "rules": []
       }
     ],
-    "confidence": 1,
+    "confidence": 0.92,
     "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:53.807729+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:53.807742+00:00",
+    "updated_at": "2026-04-02T05:07:53.807745+00:00"
   },
   {
-    "id": "0a9c24c1-d5fb-408b-9dbf-616edcce2533",
-    "title": "Southern Street WARZ",
-    "event_type": "no_prep",
-    "series": null,
-    "track_id": "westx-abilene-tx",
-    "track_name": "WesTX Abilene Raceway",
-    "track_city": "Abilene",
+    "id": "6b0146c3-f703-4b82-977e-a248735aa375",
+    "title": "Race #10 Concho Valley Dragway",
+    "event_type": "points_race",
+    "series": "TMCCC",
+    "track_id": "concho-valley-dragway-tx",
+    "track_name": "Concho Valley Dragway",
+    "track_city": "San Angelo",
     "track_state": "TX",
-    "start_date": "2026-01-03T10:00:00",
-    "end_date": "2026-01-03T23:59:59",
-    "description": "No Prep + Flashlight Start + 1/8 Mile Heads Up",
-    "event_driver_fee": 35,
-    "event_spectator_fee": 25,
-    "raw_driver_fee": "$35",
-    "raw_spectator_fee": "$25",
-    "url": "https://www.facebook.com/events/1799190031481533",
+    "start_date": "2026-09-19T15:00:00",
+    "end_date": "2026-09-19T23:59:59",
+    "description": "4 Points 1st round",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://tmccc.org/events",
     "classes": [
       {
-        "name": "Daily Driver",
+        "name": "Stock Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "True Street",
+        "name": "Street Muscle",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Small Tire (28s)",
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
         "buyin_fee": null,
         "rules": []
       }
     ],
-    "confidence": 1,
+    "confidence": 0.95,
     "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:55.854217+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:55.854224+00:00",
+    "updated_at": "2026-04-02T05:07:55.854227+00:00"
+  },
+  {
+    "id": "185be79b-6b3a-4620-8c48-a59e8c7c91f8",
+    "title": "Race #11 Little River Dragway",
+    "event_type": "points_race",
+    "series": "TMCCC",
+    "track_id": "little-river-dragway-tx",
+    "track_name": "Little River Dragway",
+    "track_city": "Holland",
+    "track_state": "TX",
+    "start_date": "2026-10-11T00:00:00",
+    "end_date": "2026-10-11T23:59:59",
+    "description": "4 Points 1st Round. Date change indicated on flyer.\n4 Points 1st Round\nhttps://www.littleriverdragway.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://www.littleriverdragway.com",
+    "classes": [
+      {
+        "name": "Stock Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.95,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:07:58.006448+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:07:58.006461+00:00",
+    "updated_at": "2026-04-02T05:07:58.006465+00:00"
+  },
+  {
+    "id": "f1891348-c1fa-45a8-9610-4effff77df71",
+    "title": "Race #12  Thunder Valley Raceway Park",
+    "event_type": "points_race",
+    "series": "TMCCC",
+    "track_id": "thunder-valley-ok",
+    "track_name": "Thunder Valley Raceway Park",
+    "track_city": "Lexington",
+    "track_state": "OK",
+    "start_date": "2026-10-24T15:00:00",
+    "end_date": "2026-10-24T23:59:59",
+    "description": "1/4 Mile track. 4 Points 1st Round event.\n1/4 Mile\n4 Points 1st Round\nhttps://www.thundervalleyracewaypark.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://www.thundervalleyracewaypark.com",
+    "classes": [
+      {
+        "name": "Stock Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.92,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:08:00.258527+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:08:00.258537+00:00",
+    "updated_at": "2026-04-02T05:08:00.258539+00:00"
+  },
+  {
+    "id": "ba7d6741-2e39-448a-8b7a-104ab8c5e5e0",
+    "title": "Race #13 Xtreme Raceway Park",
+    "event_type": "points_race",
+    "series": "TMCCC",
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-11-08T00:00:00",
+    "end_date": "2026-11-08T23:59:59",
+    "description": "Big dog race to follow. Track address: 1800 S I45 service rd., Ferris TX 75125\nBIG DOG RACE TO FOLLOW\nhttps://xtremeracewaypark.com",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": "https://xtremeracewaypark.com",
+    "classes": [
+      {
+        "name": "Stock Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "King Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "EV Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Competition Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Modified Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Electronics",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro Muscle",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "CA$H Bracket",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.85,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "https://tmccc.org/events",
+        "phash": null,
+        "processed_at": "2026-04-02T05:08:02.308738+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:08:02.308748+00:00",
+    "updated_at": "2026-04-02T05:08:02.308751+00:00"
+  },
+  {
+    "id": "ec35cb61-f06f-4d29-a250-21016109850b",
+    "title": "Get M 125 Twin 10's - Cotton Co. Promotions",
+    "event_type": "bracket",
+    "series": "Cotton Co. Promotions",
+    "track_id": "thunder-valley-ok",
+    "track_name": "Thunder Valley Raceway Park",
+    "track_city": "Noble",
+    "track_state": "OK",
+    "start_date": "2026-06-12T16:00:00",
+    "end_date": "2026-06-14T23:59:59",
+    "description": "FULL SCHEDULE — THURSDAY: Parking 4:00PM–10:00PM. FRIDAY: Gates Open 8:00AM, Registration 10:00AM, Test & Tune ($40) 1:00PM, R1 Gamblers 4:00PM. SATURDAY: Gates Open 8:00AM, Time Run 9:00AM, R1 Eliminations to Follow. SUNDAY: Gates Open 7:00AM, RFC Service 8:00AM, R1 Eliminations 9:00AM. | PAYOUTS — Friday Gamblers: $2,000 to win, $1,000 runner-up, $400 semi-finals, $200 quarter-finals. Double entries allowed. | Saturday & Sunday Mains (each): $10,000 to win, $2,250 runner-up, $500 semi-finals, $250 quarter-finals, $150 5th Rd win, $100 4th Rd win, $50 3rd Rd win. $100 Buyback each day. Round money does NOT compound. | 32 Car Shootout (Saturday Night): $250 entry, $5,000 to win, 1,000 runner-up. | Bottom Bulb Elite 25 (Kingston, OK – EFT sponsor): Only 25 BOGO entries sold. $1,500 bonus Sat & Sun. Bottom Bulb winner joins next round with Top Bulb earning round money. | Only 125 pre-entries sold — every entry is doubled! Registration opens March 1, 2026. All registrations at www.raceccrp.com. $200 due at pre-entry to lock in spot, $149 balance due at facility. Gate entries (if not sold out) $449. No refunds if event canceled (entries can be sold by racers). | Sponsors: McLarren Electric, Laris Motorsports Insurance / Hydration Station, Porta-Tree Timing Systems, Sunset Performance Engines, Cook Motor Co. (Wichita Falls, TX), EFT (Kingston, OK). | General rules: All races run on 1/8 mile. Ladder at 16 cars or less with best previous reaction time getting lane choice. 8.00 and faster in SP. No deep staging. RPM Limit Down Track strictly prohibited. No gold cards. No refunds. 3.5% fee on credit card charges. Checks/cash accepted.",
+    "event_driver_fee": 349,
+    "event_spectator_fee": 10,
+    "raw_driver_fee": "$349 BOGO (Buy One Get One) for Saturday & Sunday mains; $75 entry / $45 buyback for Friday Gamblers; $250 entry for 32 Car Shootout (Sat Night); $15/day or $40 weekend crew fee",
+    "raw_spectator_fee": "Children Under 10 FREE",
+    "url": "https://www.raceccrp.com",
+    "classes": [
+      {
+        "name": "Super Pro (SP)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Bottom Bulb Elite 25",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.95,
+    "unclear_fields": [
+      "classes"
+    ],
+    "flyers": [
+      {
+        "file": "641290726_1790374705737094_7921227523330546735_n.jpg",
+        "phash": "a4632b73939d98e8",
+        "processed_at": "2026-04-02T05:10:27.315239+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:10:27.315431+00:00",
+    "updated_at": "2026-04-02T05:10:27.315439+00:00"
+  },
+  {
+    "id": "73163551-ecd6-401f-b4cf-d758f64969e8",
+    "title": "3rd Annual Pennington Bros. SuperBucks Showdown - Summer SuperBucks",
+    "event_type": "bracket",
+    "series": "Pennington Bros. SuperBucks Showdown",
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-06-04T00:00:00",
+    "end_date": "2026-06-06T23:59:59",
+    "description": "Two Great Events in 2026. This is Event 1 of 2: Summer SuperBucks. 3rd Annual edition of the series.",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": null,
+    "classes": [],
+    "confidence": 0.97,
+    "unclear_fields": [
+      "event_type",
+      "classes",
+      "fees",
+      "times"
+    ],
+    "flyers": [
+      {
+        "file": "penn.jpg",
+        "phash": "85a8e842af9dbae1",
+        "processed_at": "2026-04-02T05:13:43.204647+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:13:43.204784+00:00",
+    "updated_at": "2026-04-02T05:13:43.204788+00:00"
+  },
+  {
+    "id": "6213c0ba-b75d-49cc-b12b-359d96057b6b",
+    "title": "2026 Pro 1 Racing & Safety Products Xtreme Bracket Series - April 3-4 (Friday Night Under the Lights)",
+    "event_type": "bracket",
+    "series": "Pro 1 Racing & Safety Products Xtreme Bracket Series / NHRA South Central Division D4 / Summit NHRA E.T. Series",
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-04-03T19:30:00",
+    "end_date": "2026-04-03T23:59:59",
+    "description": "Friday Night Under the Lights. Open TNT: 6PM. Time Run (1): 7:30PM. Xtreme Bracket Gamblers pays $1,000 to win / $400 RU / $150 Semi. Xtreme Jr Gamblers pays $300 to win / $150 RU / $75 Semi. Address: 1800 S Interstate 45 Service Road, Ferris, Texas 75125.",
+    "event_driver_fee": 75,
+    "event_spectator_fee": null,
+    "raw_driver_fee": "Xtreme Bracket Gamblers: $75 entry / $30 buy back ($300 on top at 40 cars). Xtreme Jr Gamblers: $40 entry / $25 buy back.",
+    "raw_spectator_fee": null,
+    "url": "https://xtremeracewaypark.com",
+    "classes": [
+      {
+        "name": "Xtreme Bracket Gamblers",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Xtreme Jr Gamblers",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.97,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "xrp-bracket-43.jpg",
+        "phash": "81636ba6d423bcb9",
+        "processed_at": "2026-04-02T05:15:03.601868+00:00"
+      }
+    ],
+    "created_at": "2026-04-02T05:15:03.602001+00:00",
+    "updated_at": "2026-04-02T05:15:03.602004+00:00"
+  },
+  {
+    "id": "2a03593b-5c95-447a-99fc-656cf834c5df",
+    "title": "Alley Cat Racing Presents Texas Shootout's Grudge Racing",
+    "event_type": "grudge",
+    "series": "Alley Cat Racing",
+    "track_id": "houston-tx",
+    "track_name": "Houston Motorsports Park",
+    "track_city": "Houston",
+    "track_state": "TX",
+    "start_date": "2026-04-25T17:00:00",
+    "end_date": "2026-04-25T23:59:59",
+    "description": "ADDRESS: 11620 N. Lake Houston Parkway, 77044. | ALSO WELCOMES: Grudge Racing & Test n Tune. | LIVE MUSIC & CONCESSIONS. | Social TikTok: @just4welcome_ | CLASS DETAILS — 7.50 FULLSIZE: $3K to win, SUVs allowed, Sportsman tree, Foot brake/2step OK, No delay box, No wheelie bars, No street tires, 315 or smaller, 1st Rd. buy back. | 6.50 FULLSIZE: $3K to win, Pro tree, Trans brake/2step, Any power adder, No delay box, No street tires, No wheelie bars, 315 or smaller, 1st Rd. buy back. | 5.30 LIL DAWG: $2K guaranteed on top, No time slips, Must be door car, No wheelie bars, No throttle stops, Off-road tire, Any power adder, 315 or smaller. | DAILY DRIVER N/A: $2K to win, No street tires, No times shown, Overdrive transmission, Stock suspension location, Stock firewall, Foot brake/2step OK, Pro tree, Factory appearing in/out, 10 car minimum.",
+    "event_driver_fee": 7.5,
+    "event_spectator_fee": null,
+    "raw_driver_fee": "7.50 Fullsize: $150 | 6.50 Fullsize: $150 | 5.30 Lil Dawg: $150 | Daily Driver N/A: $200",
+    "raw_spectator_fee": null,
+    "url": null,
+    "classes": [
+      {
+        "name": "7.50 Fullsize",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "6.50 Fullsize",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "5.30 Lil Dawg",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Daily Driver N/A",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.97,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "20260404-4.jpg",
+        "phash": "9cc157514a8eb755",
+        "processed_at": "2026-04-06T18:46:27.753756+00:00"
+      }
+    ],
+    "created_at": "2026-04-06T18:46:27.754115+00:00",
+    "updated_at": "2026-04-06T18:46:27.754125+00:00"
+  },
+  {
+    "id": "bb173afd-1753-4cb3-ad33-a6c45e1338f3",
+    "title": "Texas Truck Throwdown 2026",
+    "event_type": "specialty",
+    "series": "Wamsley Performance / Summese (sponsors/sanctioning)",
+    "track_id": "concho-valley-dragway-tx",
+    "track_name": "Concho Valley Dragway",
+    "track_city": "San Angelo",
+    "track_state": "TX",
+    "start_date": "2026-05-08T00:00:00",
+    "end_date": "2026-05-09T23:59:59",
+    "description": "Rules visible on flyer: No Minimum Weight | Tires 28\", 275, 29\", 31\" | .400 Pro Tree | N/T No Slips | Must Have Proper Safety Equipment | Any Engine Combo | No Delay Boxes | No Throttle Stops. Social media caption: \"Can your truck run 6.3s?? If so this class is for you!\" — Truck-only specialty index race event. Est. 2024 noted on track logo.",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": null,
+    "classes": [
+      {
+        "name": "Big Baller Class",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "6.3X Index",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.82,
+    "unclear_fields": [
+      "fees",
+      "times",
+      "contact",
+      "series"
+    ],
+    "flyers": [
+      {
+        "file": "20260406-2.jpg",
+        "phash": "f68309741f5e615a",
+        "processed_at": "2026-04-06T18:47:15.888368+00:00"
+      }
+    ],
+    "created_at": "2026-04-06T18:47:15.888761+00:00",
+    "updated_at": "2026-04-06T18:47:15.888770+00:00"
   },
   {
     "id": "51f801d7-e53f-48f6-97c3-f980c0b0498d",
-    "title": "IHRA Bracket Series",
+    "title": "Xtreme NHRA Bracket Series",
     "event_type": "bracket",
     "series": null,
     "track_id": "xtreme-tx",
@@ -349,73 +1258,8 @@
     "updated_at": "2026-04-01T01:10:29.958824+00:00"
   },
   {
-    "id": "6b37d862-6b5a-464e-b312-f254e03e227f",
-    "title": "Lynn Gleghorn Memorial Season Kick-Off",
-    "event_type": "bracket",
-    "series": null,
-    "track_id": "texas-motorplex-tx",
-    "track_name": "Texas Motorplex",
-    "track_city": "Ennis",
-    "track_state": "TX",
-    "start_date": "2026-02-27T16:00:00",
-    "end_date": "2026-03-01T23:59:59",
-    "description": "Texas Eliminator Bracket Series - Season opener with multiple bracket classes",
-    "event_driver_fee": null,
-    "event_spectator_fee": 15,
-    "raw_driver_fee": null,
-    "raw_spectator_fee": "$15",
-    "url": "https://www.facebook.com/groups/1660549267572522",
-    "classes": [
-      {
-        "name": "All Run Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Dragsters Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Test N Tune (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Super Pro",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "No-Box",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Street",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Dragsters",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
     "id": "c094a84a-5360-4843-9e7c-e0ea584ee08d",
-    "title": "IHRA Bracket Series",
+    "title": "Xtreme NHRA Bracket Series",
     "event_type": "bracket",
     "series": null,
     "track_id": "xtreme-tx",
@@ -484,147 +1328,8 @@
     "updated_at": "2026-04-01T01:10:29.958824+00:00"
   },
   {
-    "id": "f8511330-4fe7-48a6-bc24-16229b4704ba",
-    "title": "TX2K26 Presented By Summit",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "texas-motorplex-tx",
-    "track_name": "Texas Motorplex",
-    "track_city": "Ennis",
-    "track_state": "TX",
-    "start_date": "2026-03-17T09:00:00",
-    "end_date": "2026-03-22T23:59:59",
-    "description": "Home of the World's Quickest and Fastest Street Cars!",
-    "event_driver_fee": 500,
-    "event_spectator_fee": 40,
-    "raw_driver_fee": "$500",
-    "raw_spectator_fee": "$40",
-    "url": "https://tx2k.com",
-    "classes": [],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "4d1b942a-38e3-4d9a-94f4-82ea4ba5de44",
-    "title": "TMCCC Series",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-03-22T08:00:00",
-    "end_date": "2026-03-22T23:59:59",
-    "description": "Texas Muscle Car Club Series",
-    "event_driver_fee": 40,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$40",
-    "raw_spectator_fee": "$20",
-    "url": "https://tmccc.org",
-    "classes": [
-      {
-        "name": "Red River Muscle Club Stock Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Robinson Restoration Services Street Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Cowtown Mopars Performance Team King Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "TG Motorsports Competition Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Men's Peak Performance Modified Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "SYK Rides Electronics",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "J&G's Welding Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Corvette Corner Super Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "CA$H Bracket",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "EV Only - TBD",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "2575a594-c766-4701-ac48-dda59c8daaec",
-    "title": "Bad Boys Mayhem",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-03-27T09:00:00",
-    "end_date": "2026-03-28T23:59:59",
-    "description": "Xtreme 275 Bad Boys Mayhem",
-    "event_driver_fee": 0,
-    "event_spectator_fee": 0,
-    "raw_driver_fee": "$0",
-    "raw_spectator_fee": "$0",
-    "url": "https://www.facebook.com/xtremeracewaypark",
-    "classes": [
-      {
-        "name": "Outlaw Street",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "ASAG/Weight",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Xtreme 275",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
     "id": "6f38fc8b-f5ca-496a-94da-058a5f0a8397",
-    "title": "IHRA Bracket Series",
+    "title": "Xtreme NHRA Bracket Series",
     "event_type": "bracket",
     "series": null,
     "track_id": "xtreme-tx",
@@ -682,6 +1387,336 @@
       },
       {
         "name": "Daily Drivers",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 1,
+    "unclear_fields": [],
+    "flyers": [],
+    "created_at": "2026-04-01T01:10:29.958824+00:00",
+    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+  },
+  {
+    "id": "72873708-ba46-4e60-8130-38b29f78b39a",
+    "title": "Xtreme NHRA Bracket Series",
+    "event_type": "bracket",
+    "series": null,
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-05-15T09:00:00",
+    "end_date": "2026-05-16T23:59:59",
+    "description": "Xtreme IHRA Bracket Series",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "raw_driver_fee": "$20",
+    "raw_spectator_fee": "$20",
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "classes": [
+      {
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro (w/Blue)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Modified",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Daily Drivers",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 1,
+    "unclear_fields": [],
+    "flyers": [],
+    "created_at": "2026-04-01T01:10:29.958824+00:00",
+    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+  },
+  {
+    "id": "3c65127c-91c0-4621-b449-f85065713f6a",
+    "title": "Xtreme NHRA Bracket Series",
+    "event_type": "bracket",
+    "series": null,
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-07-10T09:00:00",
+    "end_date": "2026-07-11T23:59:59",
+    "description": "Xtreme IHRA Bracket Series",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "raw_driver_fee": "$20",
+    "raw_spectator_fee": "$20",
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "classes": [
+      {
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro (w/Blue)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Modified",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Daily Drivers",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 1,
+    "unclear_fields": [],
+    "flyers": [],
+    "created_at": "2026-04-01T01:10:29.958824+00:00",
+    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+  },
+  {
+    "id": "3544bf67-c584-43d6-87a2-37bb189a8a32",
+    "title": "Xtreme NHRA Bracket Series",
+    "event_type": "bracket",
+    "series": null,
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-08-07T09:00:00",
+    "end_date": "2026-08-08T23:59:59",
+    "description": "Xtreme IHRA Bracket Series",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "raw_driver_fee": "$20",
+    "raw_spectator_fee": "$20",
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "classes": [
+      {
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro (w/Blue)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Modified",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Daily Drivers",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 1,
+    "unclear_fields": [],
+    "flyers": [],
+    "created_at": "2026-04-01T01:10:29.958824+00:00",
+    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+  },
+  {
+    "id": "cf8d4304-b8a7-44e9-bf9b-db2b12d41be6",
+    "title": "Xtreme NHRA Bracket Series",
+    "event_type": "bracket",
+    "series": null,
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-09-18T09:00:00",
+    "end_date": "2026-09-19T23:59:59",
+    "description": "Xtreme IHRA Bracket Series",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "raw_driver_fee": "$20",
+    "raw_spectator_fee": "$20",
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "classes": [
+      {
+        "name": "Xtreme Bracket Gamblers (Friday)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Gamblers (Friday)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro (w/Blue)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Modified",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Dent Eraser (Motorcycle)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Daily Drivers",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 1,
+    "unclear_fields": [],
+    "flyers": [],
+    "created_at": "2026-04-01T01:10:29.958824+00:00",
+    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+  },
+  {
+    "id": "59903be2-d3d2-46e7-a2b1-3139308d1b16",
+    "title": "Team Finals - IHRA Bracket Series",
+    "event_type": "bracket",
+    "series": null,
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-10-08T09:00:00",
+    "end_date": "2026-10-10T23:59:59",
+    "description": "Team Finals - Xtreme IHRA Bracket Series",
+    "event_driver_fee": 20,
+    "event_spectator_fee": 20,
+    "raw_driver_fee": "$20",
+    "raw_spectator_fee": "$20",
+    "url": "https://www.facebook.com/xtremeracewaypark",
+    "classes": [
+      {
+        "name": "Super Pro (w/Green)",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Modified",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr. Sportsman",
         "buyin_fee": null,
         "rules": []
       }
@@ -830,76 +1865,6 @@
     "updated_at": "2026-04-01T01:10:29.958824+00:00"
   },
   {
-    "id": "72873708-ba46-4e60-8130-38b29f78b39a",
-    "title": "IHRA Bracket Series",
-    "event_type": "bracket",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-05-15T09:00:00",
-    "end_date": "2026-05-16T23:59:59",
-    "description": "Xtreme IHRA Bracket Series",
-    "event_driver_fee": 20,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$20",
-    "raw_spectator_fee": "$20",
-    "url": "https://www.facebook.com/xtremeracewaypark",
-    "classes": [
-      {
-        "name": "Xtreme Bracket Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Super Pro (w/Green)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Pro (w/Blue)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Modified",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Dent Eraser (Motorcycle)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Daily Drivers",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
     "id": "0d63c054-fa4c-4d46-91b7-08293e890d6c",
     "title": "Flicker Promotions Spring Stampede",
     "event_type": "bracket",
@@ -969,66 +1934,6 @@
     "updated_at": "2026-04-01T01:10:29.958824+00:00"
   },
   {
-    "id": "f33001ba-59a0-4edd-af7c-a41824ccf785",
-    "title": "Pennington Bros. SuperBuck$ Showdown",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-06-04T09:00:00",
-    "end_date": "2026-06-06T23:59:59",
-    "description": "Pennington Bros. 3rd Annual Summer SuperBuck$",
-    "event_driver_fee": 40,
-    "event_spectator_fee": 15,
-    "raw_driver_fee": "$40",
-    "raw_spectator_fee": "$15",
-    "url": "https://www.facebook.com/profile.php?id=61558222352304",
-    "classes": [
-      {
-        "name": "All Run Warmup (Thursday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Test N Tune (Thursday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Super Pro",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "No-Box",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Duck Race",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Dragsters Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Dragsters",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
     "id": "ce32dea7-9a3a-4cf9-b7c1-21a70a6d100a",
     "title": "Texas Eliminator Bracket Series",
     "event_type": "bracket",
@@ -1068,151 +1973,6 @@
       },
       {
         "name": "Jr. Dragsters",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "71792ef3-fd0c-4b8f-95d3-38a666b40ec0",
-    "title": "TMCCC Series",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-06-28T08:00:00",
-    "end_date": "2026-06-28T23:59:59",
-    "description": "Texas Muscle Car Club Series",
-    "event_driver_fee": 40,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$40",
-    "raw_spectator_fee": "$20",
-    "url": "https://tmccc.org",
-    "classes": [
-      {
-        "name": "Red River Muscle Club Stock Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Robinson Restoration Services Street Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Cowtown Mopars Performance Team King Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "TG Motorsports Competition Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Men's Peak Performance Modified Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "SYK Rides Electronics",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "J&G's Welding Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Corvette Corner Super Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "CA$H Bracket",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "EV Only - TBD",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "3c65127c-91c0-4621-b449-f85065713f6a",
-    "title": "IHRA Bracket Series",
-    "event_type": "bracket",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-07-10T09:00:00",
-    "end_date": "2026-07-11T23:59:59",
-    "description": "Xtreme IHRA Bracket Series",
-    "event_driver_fee": 20,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$20",
-    "raw_spectator_fee": "$20",
-    "url": "https://www.facebook.com/xtremeracewaypark",
-    "classes": [
-      {
-        "name": "Xtreme Bracket Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Super Pro (w/Green)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Pro (w/Blue)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Modified",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Dent Eraser (Motorcycle)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Daily Drivers",
         "buyin_fee": null,
         "rules": []
       }
@@ -1287,151 +2047,6 @@
       },
       {
         "name": "Jr. Dragsters",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "3544bf67-c584-43d6-87a2-37bb189a8a32",
-    "title": "IHRA Bracket Series",
-    "event_type": "bracket",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-08-07T09:00:00",
-    "end_date": "2026-08-08T23:59:59",
-    "description": "Xtreme IHRA Bracket Series",
-    "event_driver_fee": 20,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$20",
-    "raw_spectator_fee": "$20",
-    "url": "https://www.facebook.com/xtremeracewaypark",
-    "classes": [
-      {
-        "name": "Xtreme Bracket Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Super Pro (w/Green)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Pro (w/Blue)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Modified",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Dent Eraser (Motorcycle)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Daily Drivers",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "badddae5-e3a7-473d-9dcd-af1fde6e2048",
-    "title": "TMCCC Series",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-08-30T08:00:00",
-    "end_date": "2026-08-30T23:59:59",
-    "description": "Texas Muscle Car Club Series",
-    "event_driver_fee": 40,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$40",
-    "raw_spectator_fee": "$20",
-    "url": "https://tmccc.org",
-    "classes": [
-      {
-        "name": "Red River Muscle Club Stock Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Robinson Restoration Services Street Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Cowtown Mopars Performance Team King Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "TG Motorsports Competition Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Men's Peak Performance Modified Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "SYK Rides Electronics",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "J&G's Welding Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Corvette Corner Super Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "CA$H Bracket",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "EV Only - TBD",
         "buyin_fee": null,
         "rules": []
       }
@@ -1527,201 +2142,6 @@
       },
       {
         "name": "Jr. Dragsters",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "1d94826e-0975-4142-b568-d44bfe711339",
-    "title": "TMCCC Series",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-09-13T08:00:00",
-    "end_date": "2026-09-13T23:59:59",
-    "description": "Texas Muscle Car Club Series",
-    "event_driver_fee": 40,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$40",
-    "raw_spectator_fee": "$20",
-    "url": "https://tmccc.org",
-    "classes": [
-      {
-        "name": "Red River Muscle Club Stock Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Robinson Restoration Services Street Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Cowtown Mopars Performance Team King Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "TG Motorsports Competition Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Men's Peak Performance Modified Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "SYK Rides Electronics",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "J&G's Welding Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Corvette Corner Super Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "CA$H Bracket",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "EV Only - TBD",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "cf8d4304-b8a7-44e9-bf9b-db2b12d41be6",
-    "title": "IHRA Bracket Series",
-    "event_type": "bracket",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-09-18T09:00:00",
-    "end_date": "2026-09-19T23:59:59",
-    "description": "Xtreme IHRA Bracket Series",
-    "event_driver_fee": 20,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$20",
-    "raw_spectator_fee": "$20",
-    "url": "https://www.facebook.com/xtremeracewaypark",
-    "classes": [
-      {
-        "name": "Xtreme Bracket Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Gamblers (Friday)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Super Pro (w/Green)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Pro (w/Blue)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Modified",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Dent Eraser (Motorcycle)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Daily Drivers",
-        "buyin_fee": null,
-        "rules": []
-      }
-    ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
-  },
-  {
-    "id": "59903be2-d3d2-46e7-a2b1-3139308d1b16",
-    "title": "Team Finals - IHRA Bracket Series",
-    "event_type": "bracket",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-10-08T09:00:00",
-    "end_date": "2026-10-10T23:59:59",
-    "description": "Team Finals - Xtreme IHRA Bracket Series",
-    "event_driver_fee": 20,
-    "event_spectator_fee": 20,
-    "raw_driver_fee": "$20",
-    "raw_spectator_fee": "$20",
-    "url": "https://www.facebook.com/xtremeracewaypark",
-    "classes": [
-      {
-        "name": "Super Pro (w/Green)",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Pro",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Sportsman",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Modified",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Jr. Sportsman",
         "buyin_fee": null,
         "rules": []
       }
@@ -1906,78 +2326,68 @@
     "updated_at": "2026-04-01T01:10:29.958824+00:00"
   },
   {
-    "id": "1fb1175e-6b3b-493b-bd7d-b3459d22a8f8",
-    "title": "TMCCC Series",
-    "event_type": "unknown",
-    "series": null,
-    "track_id": "xtreme-tx",
-    "track_name": "Xtreme Raceway Park",
-    "track_city": "Ferris",
-    "track_state": "TX",
-    "start_date": "2026-11-08T08:00:00",
-    "end_date": "2026-11-08T23:59:59",
-    "description": "Texas Muscle Car Club Series",
-    "event_driver_fee": 40,
+    "id": "2e01edb5-f14a-4253-bc9f-8519548bb57a",
+    "title": "The Rumble at the River Returns!",
+    "event_type": "specialty",
+    "track_id": "little-river-dragway",
+    "track_name": "Little River Dragway",
+    "track_city": null,
+    "track_state": null,
+    "start_date": "2026-04-10T00:00:00",
+    "end_date": "2026-04-11T23:59:59",
+    "description": "Friday Night classes: 6.50 Index Shootout, 5.50 Index Shootout. Saturday classes: 6.00 True, 7.00 True, 10.5 True, Random 5.50–5.80 Random Draw (posted rules). Tire rule: 28x10.5 or 275 Radial — No W Tires.",
+    "event_driver_fee": null,
     "event_spectator_fee": 20,
-    "raw_driver_fee": "$40",
+    "raw_driver_fee": null,
     "raw_spectator_fee": "$20",
-    "url": "https://tmccc.org",
+    "url": null,
     "classes": [
       {
-        "name": "Red River Muscle Club Stock Muscle",
+        "name": "6.50 Index Shootout",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Robinson Restoration Services Street Muscle",
+        "name": "5.50 Index Shootout",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Cowtown Mopars Performance Team King Muscle",
+        "name": "6.00 True",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "TG Motorsports Competition Muscle",
+        "name": "7.00 True",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "Men's Peak Performance Modified Muscle",
+        "name": "10.5 True",
         "buyin_fee": null,
         "rules": []
       },
       {
-        "name": "SYK Rides Electronics",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "J&G's Welding Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "Corvette Corner Super Pro Muscle",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "CA$H Bracket",
-        "buyin_fee": null,
-        "rules": []
-      },
-      {
-        "name": "EV Only - TBD",
+        "name": "Random 5.50-5.80 Random Draw",
         "buyin_fee": null,
         "rules": []
       }
     ],
-    "confidence": 1,
-    "unclear_fields": [],
-    "flyers": [],
-    "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+    "confidence": 0.92,
+    "unclear_fields": [
+      "track.city",
+      "track.state",
+      "times",
+      "fees.entry"
+    ],
+    "flyers": [
+      {
+        "file": "20260406-4.2.jpg",
+        "phash": "d0cd31320f5e7b70",
+        "processed_at": "2026-04-06T22:11:31.943052+00:00"
+      }
+    ],
+    "created_at": "2026-04-06T22:11:31.943328+00:00",
+    "updated_at": "2026-04-06T22:11:31.943332+00:00"
   }
 ]

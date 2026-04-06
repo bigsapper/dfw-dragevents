@@ -23,6 +23,7 @@ SYNC_EXCLUDES = [
     "vitest.config.js",
     ".gitignore",
     "README.md",
+    "data/events.schema.json",
 ]
 
 

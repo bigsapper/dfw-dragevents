@@ -115,7 +115,7 @@ make test
 make deploy
 ```
 
-`make build` now refreshes `site/data/events.json` and `site/data/events.schema.json` from the upstream dataset before validating the site files. `site/data/tracks-filter.json` remains a manually maintained filter-definition file and is not overwritten by the sync script.
+`make build` now refreshes `site/data/events.json` and `site/data/events.schema.json` from the upstream dataset before validating the site files. If the upstream fetch is temporarily unavailable, the sync step falls back to the checked-in cached copies of those files as long as they are valid JSON. `site/data/tracks-filter.json` remains a manually maintained filter-definition file and is not overwritten by the sync script.
 
 The `deploy` target runs the active AWS Python deployment script with `--skip-bucket-creation`. Use `python3 tools/aws/deploy.py` directly if you need full bucket setup or other script options.
 

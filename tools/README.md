@@ -21,7 +21,7 @@ It also includes the active [`Makefile`](Makefile) for lightweight site validati
 make build
 ```
 
-This refreshes the upstream dataset, writes `site/data/events.json` and `site/data/events.schema.json`, and then validates that the required site files are present before deployment. The manual `site/data/tracks-filter.json` file is preserved as-is.
+This refreshes the upstream dataset, writes `site/data/events.json` and `site/data/events.schema.json`, and then validates that the required site files are present before deployment. If the upstream source is temporarily unreachable, the sync step falls back to the checked-in cached copies of those files. The manual `site/data/tracks-filter.json` file is preserved as-is.
 
 ### Run Frontend Tests
 ```bash

@@ -240,6 +240,7 @@ describe('loadEventsList', () => {
     {
       id: 'event-1',
       title: 'Test Event 1',
+      series: 'Series One',
       track_id: 'test-track',
       track_name: 'Test Track',
       track_city: 'Dallas',
@@ -251,13 +252,14 @@ describe('loadEventsList', () => {
     {
       id: 'event-2',
       title: 'Test Event 2',
+      series: '',
       track_id: 'another-track',
       track_name: 'Another Track',
       track_city: 'Fort Worth',
       track_state: 'TX',
       start_date: '2026-11-20T10:00:00Z',
       end_date: null,
-      description: ''
+      description: 'Another description'
     }
   ];
   const mockTrackFilters = [
@@ -308,19 +310,30 @@ describe('loadEventsList', () => {
     expect(cards.length).toBe(2);
     
     const firstCard = cards[0];
+    expect(firstCard.querySelector('.card-body').firstElementChild.textContent).toBe('Series One');
     expect(firstCard.querySelector('.card-title').textContent).toBe('Test Event 1');
     expect(firstCard.querySelector('.card-subtitle').textContent).toBe('Test Track');
-    expect(firstCard.querySelector('.card-text').textContent).toBe('Test description');
+    const cardText = firstCard.querySelectorAll('.card-text');
+    expect(cardText[0].textContent).toBe('Series One');
     expect(firstCard.querySelector('.card-link').getAttribute('href')).toBe('event.html?id=event-1');
   });
 
-  it('should handle empty description', async () => {
+  it('should not include event descriptions in the listing cards', async () => {
     await loadEventsList('all');
     
     const cards = container.querySelectorAll('.card');
-    const secondCard = cards[1];
-    const descriptions = secondCard.querySelectorAll('.card-text');
-    expect(descriptions[0].textContent).toBe('');
+    expect(cards[0].textContent).not.toContain('Test description');
+    expect(cards[1].textContent).not.toContain('Another description');
+  });
+
+  it('should omit the series line when series is missing', async () => {
+    await loadEventsList('all');
+
+    const secondCard = container.querySelectorAll('.card')[1];
+    const cardText = secondCard.querySelectorAll('.card-text');
+
+    expect(Array.from(cardText).some((el) => el.textContent === 'Series One')).toBe(false);
+    expect(cardText).toHaveLength(1);
   });
 
   it('should use track name from map when available', async () => {
@@ -423,6 +436,7 @@ describe('loadEventDetail', () => {
   const mockEvent = {
     id: 'event-1',
     title: 'Test Event',
+    series: 'Test Series',
     track_id: 'test-track',
     track_name: 'Test Track',
     track_city: 'Dallas',
@@ -458,6 +472,7 @@ describe('loadEventDetail', () => {
     // Create DOM elements
     document.body.innerHTML = `
       <div id="ev-title"></div>
+      <div id="ev-series-row"><div id="ev-series"></div></div>
       <div id="ev-track"></div>
       <div id="ev-time"></div>
       <div id="ev-desc"></div>
@@ -486,8 +501,19 @@ describe('loadEventDetail', () => {
     await loadEventDetail();
     
     expect(document.getElementById('ev-title').textContent).toBe('Test Event');
+    expect(document.getElementById('ev-series').textContent).toBe('Test Series');
     expect(document.getElementById('ev-track').textContent).toBe('Test Track');
     expect(document.getElementById('ev-desc').textContent).toBe('Test description');
+  });
+
+  it('should hide the series row when series is missing', async () => {
+    const eventWithoutSeries = { ...mockEvent, series: '' };
+    global.fetch = createMockFetch({ events: [eventWithoutSeries], trackFilters: mockTrackFilters });
+
+    await loadEventDetail();
+
+    expect(document.getElementById('ev-series-row').style.display).toBe('none');
+    expect(document.getElementById('ev-series').textContent).toBe('');
   });
 
   it('should display event fees', async () => {
@@ -625,6 +651,7 @@ describe('loadEventDetail', () => {
     const eventNoStartDate = { ...mockEvent, start_date: null };
     document.body.innerHTML = `
       <div id="ev-title"></div>
+      <div id="ev-series-row"><div id="ev-series"></div></div>
       <div id="ev-track"></div>
       <div id="ev-time"></div>
       <div id="ev-desc"></div>
@@ -814,6 +841,7 @@ describe('initializeEventDetail', () => {
   it('should initialize event detail when ev-title element exists', async () => {
     document.body.innerHTML = `
       <div id="ev-title"></div>
+      <div id="ev-series-row"><div id="ev-series"></div></div>
       <div id="ev-track"></div>
       <div id="ev-time"></div>
       <div id="ev-desc"></div>
