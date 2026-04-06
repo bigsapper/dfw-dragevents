@@ -2331,8 +2331,8 @@
     "event_type": "specialty",
     "track_id": "little-river-dragway",
     "track_name": "Little River Dragway",
-    "track_city": null,
-    "track_state": null,
+    "track_city": "Holland",
+    "track_state": "TX",
     "start_date": "2026-04-10T00:00:00",
     "end_date": "2026-04-11T23:59:59",
     "description": "Friday Night classes: 6.50 Index Shootout, 5.50 Index Shootout. Saturday classes: 6.00 True, 7.00 True, 10.5 True, Random 5.50–5.80 Random Draw (posted rules). Tire rule: 28x10.5 or 275 Radial — No W Tires.",
@@ -2375,8 +2375,6 @@
     ],
     "confidence": 0.92,
     "unclear_fields": [
-      "track.city",
-      "track.state",
       "times",
       "fees.entry"
     ],
