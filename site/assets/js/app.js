@@ -78,6 +78,11 @@ function getTrackName(trackMap, event) {
   return trackMap.get(toTrackKey(event.track_id)) || event.track_name || 'Unknown Track';
 }
 
+function formatTrackLocation(event) {
+  const parts = [event.track_city, event.track_state].filter(Boolean);
+  return parts.length ? parts.join(', ') : 'Location TBA';
+}
+
 function resolveTrackFilters(filterDefinitions, tracks) {
   return filterDefinitions.reduce((resolved, filterDef) => {
     const candidates = [filterDef.canonical, ...(filterDef.aliases || [])]
@@ -356,6 +361,7 @@ export async function loadEventDetail() {
     }
   }
   document.getElementById('ev-track').textContent = getTrackName(mapTrack, ev);
+  document.getElementById('ev-location').textContent = formatTrackLocation(ev);
   document.getElementById('ev-time').textContent = formatDateRange(ev.start_date, ev.end_date);
   document.getElementById('ev-desc').textContent = ev.description || '';
   

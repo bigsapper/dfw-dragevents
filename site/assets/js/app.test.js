@@ -474,6 +474,7 @@ describe('loadEventDetail', () => {
       <div id="ev-title"></div>
       <div id="ev-series-row"><div id="ev-series"></div></div>
       <div id="ev-track"></div>
+      <div id="ev-location"></div>
       <div id="ev-time"></div>
       <div id="ev-desc"></div>
       <div id="ev-fees"></div>
@@ -503,6 +504,7 @@ describe('loadEventDetail', () => {
     expect(document.getElementById('ev-title').textContent).toBe('Test Event');
     expect(document.getElementById('ev-series').textContent).toBe('Test Series');
     expect(document.getElementById('ev-track').textContent).toBe('Test Track');
+    expect(document.getElementById('ev-location').textContent).toBe('Dallas, TX');
     expect(document.getElementById('ev-desc').textContent).toBe('Test description');
   });
 
@@ -522,6 +524,15 @@ describe('loadEventDetail', () => {
     const fees = document.getElementById('ev-fees').textContent;
     expect(fees).toContain('Driver: $50');
     expect(fees).toContain('Spectator: $20');
+  });
+
+  it('should display fallback track location when city and state are missing', async () => {
+    const eventWithoutLocation = { ...mockEvent, track_city: null, track_state: null };
+    global.fetch = createMockFetch({ events: [eventWithoutLocation], trackFilters: mockTrackFilters });
+
+    await loadEventDetail();
+
+    expect(document.getElementById('ev-location').textContent).toBe('Location TBA');
   });
 
   it('should display default message when no fees', async () => {
@@ -653,6 +664,7 @@ describe('loadEventDetail', () => {
       <div id="ev-title"></div>
       <div id="ev-series-row"><div id="ev-series"></div></div>
       <div id="ev-track"></div>
+      <div id="ev-location"></div>
       <div id="ev-time"></div>
       <div id="ev-desc"></div>
       <div id="ev-fees"></div>
@@ -843,6 +855,7 @@ describe('initializeEventDetail', () => {
       <div id="ev-title"></div>
       <div id="ev-series-row"><div id="ev-series"></div></div>
       <div id="ev-track"></div>
+      <div id="ev-location"></div>
       <div id="ev-time"></div>
       <div id="ev-desc"></div>
       <div id="ev-fees"></div>
