@@ -101,11 +101,13 @@
 
         <section class="mb-5">
           <h2 class="h4">Data Pipeline</h2>
-          <p>The production dataset is no longer edited manually in multiple files. The site syncs upstream event data from <code>bigsapper/drag-events-aggregator</code>, validates it against the published schema, and writes a website-specific <code>events.json</code> file with embedded track metadata.</p>
+          <p>The production dataset is no longer edited manually in multiple files. The site syncs upstream event data from <a href="https://github.com/bigsapper/drag-events-aggregator" target="_blank" rel="noopener noreferrer"><code>bigsapper/drag-events-aggregator</code></a>, validates it against the published schema, and writes a website-specific <code>events.json</code> file with embedded track metadata.</p>
           <ul>
             <li><strong>Synced Files:</strong> <code>events.json</code> and <code>events.schema.json</code></li>
             <li><strong>Manual File:</strong> <code>tracks-filter.json</code> for canonical track filter labels and aliases</li>
+            <li><strong>Raw Dataset Repo:</strong> Source records and upstream sync inputs live in the separate aggregator repository</li>
             <li><strong>Archived Snapshot:</strong> Previous local dataset preserved under <code>_archive/site-data/2026-04-01-pre-aggregator/</code></li>
+            <li><strong>Current Synced Snapshot (2026-04-13):</strong> 48 total events, 42 upcoming events, and 8 unique tracks</li>
           </ul>
         </section>
 
@@ -117,7 +119,7 @@
           <ul>
             <li><strong>S3 (Primary):</strong> Static website hosting in US East (N. Virginia)</li>
             <li><strong>S3 (Failover):</strong> Backup bucket in US West (Oregon) for redundancy</li>
-            <li><strong>CloudFront:</strong> Global CDN with 450+ edge locations worldwide</li>
+            <li><strong>CloudFront:</strong> Global CDN for cached edge delivery</li>
             <li><strong>Route 53:</strong> DNS and domain management</li>
             <li><strong>Certificate Manager:</strong> Free SSL/TLS certificates with auto-renewal</li>
           </ul>
@@ -125,9 +127,9 @@
           <h3 class="h5 mt-4">Reliability Features</h3>
           <ul>
             <li><strong>Multi-Region Redundancy:</strong> Automatic failover between US East and US West regions</li>
-            <li><strong>99.9% Uptime SLA:</strong> If one AWS region goes down, the site automatically switches to the backup region in seconds</li>
+            <li><strong>Regional Failover Design:</strong> If one configured region becomes unavailable, CloudFront can serve the backup origin</li>
             <li><strong>HTTPS Everywhere:</strong> Secure connections with auto-renewing SSL certificates</li>
-            <li><strong>Edge Caching:</strong> Content served from the nearest CloudFront edge location for sub-100ms load times</li>
+            <li><strong>Edge Caching:</strong> Static content is cached close to visitors for fast repeat delivery</li>
             <li><strong>Deployment Automation:</strong> Python scripts and Make targets keep the release workflow repeatable</li>
           </ul>
 
@@ -161,10 +163,10 @@
         <section class="mb-5">
           <h2 class="h4">Performance Metrics</h2>
           <ul class="list-unstyled">
-            <li class="mb-2">⚡ <strong>Load Time:</strong> &lt;100ms (CloudFront edge cache)</li>
-            <li class="mb-2">📊 <strong>Frontend Test Coverage:</strong> 93.69% statements, 82.51% branches, 96.07% functions, 95.07% lines</li>
-            <li class="mb-2">🧩 <strong><code>app.js</code> Coverage:</strong> 93.59% statements, 81.25% branches, 95.12% functions, 94.46% lines</li>
-            <li class="mb-2">🌍 <strong>Global CDN:</strong> 450+ edge locations</li>
+            <li class="mb-2">📦 <strong>Current Dataset Snapshot:</strong> 48 total events, 42 upcoming events, 8 tracks represented</li>
+            <li class="mb-2">📊 <strong>Frontend Test Coverage:</strong> 93.92% statements, 84.45% branches, 96.15% functions, 95.27% lines</li>
+            <li class="mb-2">🧩 <strong><code>app.js</code> Coverage:</strong> 93.85% statements, 83.52% branches, 95.23% functions, 94.71% lines</li>
+            <li class="mb-2">🧪 <strong>Test Suite:</strong> 102 frontend tests passing in the latest run</li>
             <li class="mb-2">🔒 <strong>Security:</strong> HTTPS only, CSP headers, HSTS enabled</li>
             <li class="mb-2">♿ <strong>Accessibility:</strong> Semantic HTML, ARIA labels, keyboard navigation</li>
           </ul>

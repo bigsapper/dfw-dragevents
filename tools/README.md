@@ -31,8 +31,8 @@ make coverage
 
 Current measured frontend coverage:
 
-- `app.js` - 93.59% statements, 81.25% branches, 95.12% functions, 94.46% lines
-- Overall frontend - 93.69% statements, 82.51% branches, 96.07% functions, 95.07% lines
+- `app.js` - 93.85% statements, 83.52% branches, 95.23% functions, 94.71% lines
+- Overall frontend - 93.92% statements, 84.45% branches, 96.15% functions, 95.27% lines
 
 ### Start the Site Locally
 ```bash

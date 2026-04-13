@@ -11,6 +11,7 @@ The frontend consumes:
 - `data/tracks-filter.json` - Manually maintained filter definitions with `canonical` names and `aliases`
 
 The frontend no longer depends on a separate `tracks.json` file. Track name, city, and state are embedded in each event record.
+The raw source dataset lives in the [`bigsapper/drag-events-aggregator`](https://github.com/bigsapper/drag-events-aggregator) repository.
 
 ## Setup
 
@@ -56,8 +57,8 @@ Coverage output is written to `coverage/`.
 
 Current measured coverage:
 
-- `app.js` - 93.59% statements, 81.25% branches, 95.12% functions, 94.46% lines
-- Overall frontend - 93.69% statements, 82.51% branches, 96.07% functions, 95.07% lines
+- `app.js` - 93.85% statements, 83.52% branches, 95.23% functions, 94.71% lines
+- Overall frontend - 93.92% statements, 84.45% branches, 96.15% functions, 95.27% lines
 
 ## Dataset Sync
 
@@ -68,6 +69,13 @@ npm run sync:data
 ```
 
 This updates `data/events.json` and `data/events.schema.json`. If the upstream source is temporarily unreachable, it falls back to the checked-in cached copies of those files. It does not overwrite `data/tracks-filter.json`.
+
+Current synced snapshot as of 2026-04-13:
+
+- 48 total events
+- 42 upcoming events
+- 8 unique tracks
+- 38 events with one or more listed classes
 
 ## Test Files
 

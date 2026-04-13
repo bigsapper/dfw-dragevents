@@ -15,6 +15,7 @@ The active site is a static frontend backed by committed JSON data files:
 - `site/data/tracks-filter.json` - Manually maintained filter definitions using `canonical` names and optional `aliases`
 
 The site no longer depends on `site/data/tracks.json`. Track metadata needed by the UI is embedded directly in each event record.
+The raw source dataset is maintained separately in the [`bigsapper/drag-events-aggregator`](https://github.com/bigsapper/drag-events-aggregator) repository.
 
 ## Prerequisites
 
@@ -107,6 +108,13 @@ npm test
 npm run test:coverage
 ```
 
+Current synced dataset snapshot (`npm run sync:data` on 2026-04-13):
+
+- 48 total events
+- 42 upcoming events as of 2026-04-13
+- 8 unique tracks represented in `site/data/events.json`
+- 2026 schedule data currently in the checked-in site snapshot
+
 ### Deploy to Production
 ```bash
 cd tools
@@ -128,8 +136,8 @@ The `deploy` target runs the active AWS Python deployment script with `--skip-bu
   - `site/assets/js/filters.test.js`
   - `site/assets/js/year.test.js`
 - Latest measured coverage (`npm run test:coverage`):
-  - `app.js`: 93.59% statements, 81.25% branches, 95.12% functions, 94.46% lines
-  - Overall frontend: 93.69% statements, 82.51% branches, 96.07% functions, 95.07% lines
+  - `app.js`: 93.85% statements, 83.52% branches, 95.23% functions, 94.71% lines
+  - Overall frontend: 93.92% statements, 84.45% branches, 96.15% functions, 95.27% lines
 
 Coverage reports are written to `site/coverage/` when you run `npm run test:coverage`.
 
