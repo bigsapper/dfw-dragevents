@@ -108,10 +108,10 @@ npm test
 npm run test:coverage
 ```
 
-Current synced dataset snapshot (`npm run sync:data` on 2026-04-13):
+Current synced dataset snapshot (`npm run sync:data` on 2026-04-22):
 
-- 48 total events
-- 42 upcoming events as of 2026-04-13
+- 50 total events
+- 41 upcoming events as of 2026-04-22
 - 8 unique tracks represented in `site/data/events.json`
 - 2026 schedule data currently in the checked-in site snapshot
 

@@ -70,12 +70,12 @@ npm run sync:data
 
 This updates `data/events.json` and `data/events.schema.json`. If the upstream source is temporarily unreachable, it falls back to the checked-in cached copies of those files. It does not overwrite `data/tracks-filter.json`.
 
-Current synced snapshot as of 2026-04-13:
+Current synced snapshot as of 2026-04-22:
 
-- 48 total events
-- 42 upcoming events
+- 50 total events
+- 41 upcoming events
 - 8 unique tracks
-- 38 events with one or more listed classes
+- 40 events with one or more listed classes
 
 ## Test Files
 

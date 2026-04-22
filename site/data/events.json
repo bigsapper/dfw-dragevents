@@ -653,6 +653,60 @@
     "updated_at": "2026-04-02T05:08:00.258539+00:00"
   },
   {
+    "id": "37646d26-a656-4c20-a4c8-4fd1982098ad",
+    "title": "NHRA Div4 Quarter-Max Battle for the Buckle, Race #8: XRP",
+    "event_type": "points_race",
+    "series": "Quarter-Max Battle for the Buckle: Grassroots Bracket Series",
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-10-24T00:00:00",
+    "end_date": "2026-10-24T23:59:59",
+    "description": "Traveling points series where NHRA racers can earn points by claiming their best four events in Super Pro, Pro ET, Sportsman, and Junior Categories.\n\nSuper Pro & Pro ET: $5,000 in cash and prizes will be awarded and split amongst the top eight points finishers. The Champion will receive a Championship Buckle and a Pro 1 Jacket.\n\nSportsman & Juniors: $2,500 in cash and prizes will be awarded and split amongst the top eight points finishers. The Champion will receive a Championship Buckle and a Pro 1 Jacket.",
+    "event_driver_fee": null,
+    "event_spectator_fee": null,
+    "raw_driver_fee": null,
+    "raw_spectator_fee": null,
+    "url": null,
+    "classes": [
+      {
+        "name": "Super Pro",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Pro ET",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Sportsman",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Junior Categories",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.9,
+    "unclear_fields": [
+      "times",
+      "fees"
+    ],
+    "flyers": [
+      {
+        "file": "https://www.facebook.com/events/1438701364143576/",
+        "phash": null,
+        "processed_at": "2026-04-22T15:49:44+00:00"
+      }
+    ],
+    "created_at": "2026-04-22T15:49:44+00:00",
+    "updated_at": "2026-04-22T15:49:44+00:00"
+  },
+  {
     "id": "ba7d6741-2e39-448a-8b7a-104ab8c5e5e0",
     "title": "Race #13 Xtreme Raceway Park",
     "event_type": "points_race",
@@ -2768,16 +2822,16 @@
   },
   {
     "id": "f6ba7830-f3ff-4500-886d-bba84a978bc9",
-    "title": "Street Car Takeover Dallas",
+    "title": "Street Car Takeover - Ennis, Texas",
     "event_type": "specialty",
     "series": "Street Car Takeover (SCT)",
     "track_id": "texas-motorplex-tx",
     "track_name": "Texas Motorplex",
-    "track_city": "Dallas",
+    "track_city": "Ennis",
     "track_state": "TX",
-    "start_date": "2026-05-01T00:00:00",
+    "start_date": "2026-05-01T16:00:00",
     "end_date": "2026-05-02T23:59:59",
-    "description": "Tagline: \"Where Street Cars Go To Party.\" Street Car Takeover is a traveling street car racing and car show series. No specific classes, times, or fees are listed on this flyer beyond the event name, location, and dates.",
+    "description": "Two-day event. FRIDAY MAY 1: Gates open racers 3:00 PM; Gates open spectators 5:00 PM; Open Test & Tune 6:00–11:00 PM; Q1 Street Racer / 1/4 Mile Queens / Jr's 6:00 PM; Q2 Street Racer / 1/4 Mile Queens / Jr's 9:00 PM. SATURDAY MAY 2: Gates open racers 8:00 AM; Gates open spectators 9:00 AM; Mandatory Roll Race Meeting 9:00 AM; Roll Race Qualifying 9:30 AM; Roll Race Eliminations 11:00 AM; Open Test & Tune 12:30–1:30 PM; Drag Race Drivers Meeting 1:00 PM; All Drag Race Classes Q3 2:00 PM; Round 1 – Lil Gangstas 2:15 PM; Round 1 – All Classes 4:00 PM. Tagline: \"Where Street Cars Go to Party.\"",
     "event_driver_fee": null,
     "event_spectator_fee": null,
     "raw_driver_fee": null,
@@ -2785,12 +2839,37 @@
     "url": "https://streetcartakeover.com",
     "classes": [
       {
+        "name": "1/4 Mile Queens",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Jr Dragster",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Lil Gangstas",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Roll Race",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
         "name": "Street",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Street Racer",
         "buyin_fee": null,
         "rules": []
       }
     ],
-    "confidence": 0.92,
+    "confidence": 0.95,
     "unclear_fields": [
       "classes",
       "fees",
@@ -2801,9 +2880,14 @@
         "file": "20260421-1.jpg",
         "phash": "fa83057e25f03a8b",
         "processed_at": "2026-04-22T15:12:44+00:00"
+      },
+      {
+        "file": "20260422-1.jpg",
+        "phash": "d8c58700e0393fbf",
+        "processed_at": "2026-04-22T15:32:15.289244+00:00"
       }
     ],
     "created_at": "2026-04-22T15:12:44+00:00",
-    "updated_at": "2026-04-22T15:12:44+00:00"
+    "updated_at": "2026-04-22T15:32:15.289539+00:00"
   }
 ]
