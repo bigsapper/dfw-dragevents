@@ -1,55 +1,66 @@
-# Tools - Backend CLI
+# Tools
 
-Go-based CLI for database management and event operations.
+This directory contains the active tooling entry points for the site.
 
-## Quick Commands
+It also includes the active [`Makefile`](Makefile) for lightweight site validation, frontend testing, coverage, and deployment entry points.
 
-### Track Management
-```powershell
-make track-add                        # Add single track interactively
-make track-list                       # List all tracks
+## Active Tooling
+
+### AWS Scripts
+- `aws/deploy.py` - Deploy the current site contents to S3 and invalidate CloudFront
+- `aws/configure_dns.py` - Configure Route 53 DNS records
+- `aws/monitor_cert.py` - Monitor ACM certificate validation
+- `aws/cleanup_s3.py` - Remove unwanted files from S3
+- `aws/configure_cloudfront_simple.py` - Print the manual CloudFront setup checklist
+- `aws/setup_cloudfront_failover.py` - Configure secondary-region failover support
+
+## Common Usage
+
+### Validate the Site
+```bash
+make build
 ```
 
-### Event Management
-```powershell
-make event-add                        # Add single event interactively
-make event-list                       # List all events
-make event-delete ID=5                # Delete event by ID
-make event-import FILE=events.csv     # Bulk import from CSV
-make event-import-classes FILE=classes.csv  # Import event classes from CSV
-make event-import-rules FILE=rules.csv      # Import class rules from CSV
-make event-list-classes               # List all event classes
+This refreshes the upstream dataset, writes `site/data/events.json` and `site/data/events.schema.json`, and then validates that the required site files are present before deployment. If the upstream source is temporarily unreachable, the sync step falls back to the checked-in cached copies of those files. The manual `site/data/tracks-filter.json` file is preserved as-is.
+
+### Run Frontend Tests
+```bash
+make test
+make coverage
 ```
 
-### Database & Deployment
-```powershell
-make init                             # Initialize database
-make seed                             # Add sample data
-make export                           # Export to JSON
-make deploy                           # Deploy to AWS
+Current measured frontend coverage:
+
+- `app.js` - 93.85% statements, 83.52% branches, 95.23% functions, 94.71% lines
+- Overall frontend - 93.92% statements, 84.45% branches, 96.15% functions, 95.27% lines
+
+### Start the Site Locally
+```bash
+make start
 ```
 
-### Testing & Build
-```powershell
-make test                             # Run tests (54 tests)
-make test-coverage                    # Run tests with coverage (83.5% db, 91.7% export)
-make build                            # Build CLI executable
-make help                             # Show all commands
+### Deploy
+```bash
+make deploy
 ```
 
-## CSV Template
+This runs `python3 aws/deploy.py --skip-bucket-creation`.
 
-Use `examples/events_template.csv` as a starting point for bulk imports.
+### Configure DNS
+```bash
+cd aws
+python3 configure_dns.py --include-www
+```
+
+### Monitor Certificate Validation
+```bash
+cd aws
+python3 monitor_cert.py
+```
 
 ## Documentation
 
-- **[Event Management Guide](../docs/EVENT_MANAGEMENT.md)** - Complete guide for adding/managing events
-- **[Main README](../README.md)** - Full project documentation
-- **[AWS Deployment](../docs/AWS_DEPLOYMENT.md)** - Deployment instructions
-
-## Workflow
-
-1. Add/edit events (CSV or interactive CLI)
-2. `make export` - Generate JSON
-3. Test locally in `../site/`
-4. `make deploy` - Deploy to AWS
+- [Main README](../README.md)
+- [AWS Deployment Guide](../docs/AWS_DEPLOYMENT.md)
+- [AWS Console Guide](../docs/AWS_CONSOLE_GUIDE.md)
+- [Deployment Info](../docs/DEPLOYMENT_INFO.md)

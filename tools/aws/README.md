@@ -1,177 +1,85 @@
 # AWS Deployment Scripts
 
-Automated PowerShell scripts for deploying dfw-dragevents.com to AWS.
+Python scripts for deploying dfw-dragevents.com to AWS.
 
-## Scripts Overview
+## Scripts
 
-### 1. `deploy.ps1` - S3 Deployment
-Deploys the static site to S3 with public read access. Normally invoked through `make deploy` so exports run first, but you can call it directly when needed.
+These scripts require Python 3 and the AWS CLI.
 
-**Usage:**
-```powershell
-.\deploy.ps1                    # Full deployment
-.\deploy.ps1 -DryRun           # Preview changes
-.\deploy.ps1 -SkipBucketCreation  # Update existing bucket
+### `deploy.py`
+Deploys the current site contents to S3, syncs the failover bucket, and invalidates CloudFront when a matching distribution is found.
+
+```bash
+python3 deploy.py
+python3 deploy.py --skip-bucket-creation
+python3 deploy.py --dry-run
 ```
 
-**What it does:**
-- Creates S3 bucket (if needed)
-- Enables static website hosting
-- Applies public read policy
-- Exports data from SQLite to JSON
-- Uploads all site files
+### `configure_dns.py`
+Configures Route 53 DNS records for the site.
 
-### 2. `configure-dns.ps1` - Route 53 DNS
-Configures Route 53 DNS records to point domain to S3.
-
-**Usage:**
-```powershell
-.\configure-dns.ps1              # Apex domain only
-.\configure-dns.ps1 -IncludeWWW  # Include www subdomain
-.\configure-dns.ps1 -DryRun      # Preview changes
+```bash
+python3 configure_dns.py
+python3 configure_dns.py --include-www
+python3 configure_dns.py --dry-run
 ```
 
-**What it does:**
-- Finds or creates Route 53 hosted zone
-- Creates A record (alias) for apex domain
-- Optionally creates www subdomain record
-- Verifies DNS configuration
+### `monitor_cert.py`
+Monitors ACM certificate validation.
 
-### 3. `monitor-cert.ps1` - Certificate Validation Monitor
-Monitors ACM certificate validation status.
-
-**Usage:**
-```powershell
-.\monitor-cert.ps1  # Monitor default certificate
+```bash
+python3 monitor_cert.py
 ```
 
-**What it does:**
-- Checks certificate status every 2 minutes
-- Notifies when certificate is issued
-- Times out after 30 minutes
+### `cleanup_s3.py`
+Removes unwanted files from the S3 bucket.
 
-### CloudFront + HTTPS Setup
-For CloudFront and HTTPS configuration, see the detailed guides:
-- **[AWS Deployment Guide](../../docs/AWS_DEPLOYMENT.md)** - CLI commands and automation
-- **[AWS Console Guide](../../docs/AWS_CONSOLE_GUIDE.md)** - Step-by-step UI instructions
+```bash
+python3 cleanup_s3.py --dry-run
+python3 cleanup_s3.py
+```
 
-## Complete Deployment Workflow
+### `setup_cloudfront_failover.py`
+Helps configure a secondary-region S3 origin for CloudFront failover.
 
-### Option A: HTTP Only (S3 + Route 53)
-```powershell
-# 1. Deploy to S3 (recommended)
-cd ..\
+```bash
+python3 setup_cloudfront_failover.py
+```
+
+### `configure_cloudfront_simple.py`
+Prints the manual CloudFront setup checklist.
+
+```bash
+python3 configure_cloudfront_simple.py
+```
+
+## Common Workflow
+
+### Deploy
+```bash
 cd tools
 make deploy
-
-# Or script-only from this folder
-cd aws
-.\deploy.ps1 -SkipBucketCreation
-
-# 2. Configure DNS
-.\configure-dns.ps1 -IncludeWWW
-
-# 3. Test
-Start-Process "http://dfw-dragevents.com"
 ```
 
-### Option B: HTTPS (S3 + CloudFront + Route 53)
-```powershell
-# 1. Deploy to S3 (recommended)
-cd ..\
-cd tools
-make deploy
+To run the deployment script directly:
 
-# Or script-only from this folder
-cd aws
-.\deploy.ps1 -SkipBucketCreation
-
-# 2. Set up CloudFront + SSL
-# Follow the AWS Console Guide or AWS Deployment Guide for detailed steps
-# See: ../../docs/AWS_CONSOLE_GUIDE.md or ../../docs/AWS_DEPLOYMENT.md
-
-# 3. Test
-Start-Process "https://dfw-dragevents.com"
+```bash
+cd tools/aws
+python3 deploy.py --skip-bucket-creation
 ```
 
-**For HTTPS setup**, use the comprehensive guides which include:
-- SSL certificate request and validation
-- CloudFront distribution creation
-- Route 53 DNS updates
-
-## Updating the Site
-
-### Update content and redeploy
-```powershell
-# 1. Update data (if needed)
-cd ..\
-cd tools
-make export
-
-# 2. Deploy (handles export + upload + cache invalidation)
-make deploy
-
-# Or script-only from this folder
-cd aws
-.\deploy.ps1 -SkipBucketCreation
-
-# 3. Invalidate CloudFront cache (if using CloudFront and you skipped make deploy)
+### Invalidate CloudFront Manually
+```bash
 aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
 ```
 
-### Get your CloudFront distribution ID
-```powershell
+### Find the Distribution ID
+```bash
 aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@,'dfw-dragevents.com')]].Id" --output text
 ```
 
-## Configuration Files
+## Documentation
 
-### `s3/bucket-policy.json`
-Public read policy for S3 bucket. Applied automatically by `deploy.ps1`.
-
-## Common Parameters
-
-All scripts support:
-- `-DryRun` - Preview changes without applying
-- `-DomainName` - Override domain (default: dfw-dragevents.com)
-- `-Region` - Override AWS region (default: us-east-1)
-
-## Troubleshooting
-
-### Certificate validation stuck
-- Go to ACM Console: https://console.aws.amazon.com/acm/home?region=us-east-1
-- Click certificate → "Create records in Route 53"
-- Wait 5-30 minutes for validation
-
-### CloudFront not serving content
-- Verify origin is S3 **website endpoint**, not bucket
-- Check distribution status: `aws cloudfront get-distribution --id DIST_ID`
-- Wait for "Deployed" status (5-15 minutes)
-
-### DNS not resolving
-- Wait for propagation (1-5 minutes with Route 53)
-- Check: `nslookup dfw-dragevents.com`
-- Verify A record in Route 53 console
-
-### 403 Forbidden on S3
-- Verify bucket policy is applied
-- Check "Block Public Access" is disabled
-- Ensure files are uploaded
-
-## Cost Estimates
-
-### S3 + Route 53 (HTTP)
-- ~$1-5/month for low traffic
-
-### S3 + CloudFront + Route 53 (HTTPS)
-- ~$5-20/month for moderate traffic
-- Includes SSL certificate (free with ACM)
-
-## Additional Documentation
-
-- **[Complete Deployment Guide](../../docs/AWS_DEPLOYMENT.md)** - Detailed instructions
-- **[AWS Console Guide](../../docs/AWS_CONSOLE_GUIDE.md)** - UI-based setup
-
-## Support
-
-For issues or questions, see the main documentation in `docs/`.
+- [AWS Deployment Guide](../../docs/AWS_DEPLOYMENT.md)
+- [AWS Console Guide](../../docs/AWS_CONSOLE_GUIDE.md)
+- [Deployment Info](../../docs/DEPLOYMENT_INFO.md)

@@ -1,164 +1,71 @@
-.PHONY: all build test clean init seed export deploy deploy-full help event-list-classes
+.DEFAULT_GOAL := help
 
-# Default target
-all: test build
+.PHONY: build sync-data test test-watch coverage start deploy deploy-dry-run help
 
-# Build the CLI tool
+PYTHON ?= python3
+NPM ?= npm
+
+AWS_DIR := aws
+SITE_DIR := ../site
+SITE_REQUIRED_FILES := \
+	$(SITE_DIR)/index.html \
+	$(SITE_DIR)/404.html \
+	$(SITE_DIR)/events.html \
+	$(SITE_DIR)/event.html \
+	$(SITE_DIR)/about.html \
+	$(SITE_DIR)/about-technical.html \
+	$(SITE_DIR)/assets/js/app.js \
+	$(SITE_DIR)/assets/js/filters.js \
+	$(SITE_DIR)/assets/js/year.js \
+	$(SITE_DIR)/assets/css/custom.css \
+	$(SITE_DIR)/data/events.json \
+	$(SITE_DIR)/data/tracks-filter.json
+
 build:
-	@echo "Building..."
-	go build -o bin/dfw-dragevents.exe ./cmd
-	@echo "Build complete: bin/dfw-dragevents.exe"
+	@$(MAKE) sync-data
+	@echo "Running lightweight site validation..."
+	@for file in $(SITE_REQUIRED_FILES); do \
+		if [ ! -f "$$file" ]; then \
+			echo "Missing required site file: $$file"; \
+			exit 1; \
+		fi; \
+	done
+	@echo "Site validation complete"
 
-# Run tests
+sync-data:
+	@echo "Syncing site data from drag-events-aggregator..."
+	@cd $(SITE_DIR) && $(NPM) run sync:data
+
 test:
-	@echo "Running tests..."
-	go test ./... -v
+	@echo "Running frontend tests..."
+	@cd $(SITE_DIR) && $(NPM) test
 
-# Run tests with coverage
-test-coverage:
-	@echo "Running tests with coverage..."
-	go test ./... -coverprofile=coverage.out
-	go tool cover -html=coverage.out -o coverage.html
-	@echo "Coverage report: coverage.html"
+test-watch:
+	@echo "Running frontend tests in watch mode..."
+	@cd $(SITE_DIR) && $(NPM) run test:watch
 
-# Clean build artifacts
-clean:
-	@echo "Cleaning..."
-	go clean
-	@if exist bin\dfw-dragevents.exe del /Q bin\dfw-dragevents.exe
-	@if exist coverage.out del /Q coverage.out
-	@if exist coverage.html del /Q coverage.html
-	@echo "Clean complete"
+coverage:
+	@echo "Running frontend coverage..."
+	@cd $(SITE_DIR) && $(NPM) run test:coverage
 
-# Initialize database
-init:
-	@echo "Initializing database..."
-	go run ./cmd db init
+start:
+	@echo "Starting local site server..."
+	@cd $(SITE_DIR) && $(NPM) start
 
-# Seed database with sample data
-seed:
-	@echo "Seeding database..."
-	go run ./cmd db seed
-
-# Export data to JSON
-export:
-	@echo "Exporting data..."
-	go run ./cmd export
-
-# Deploy to AWS (exports data first, then deploys)
 deploy:
-	@echo "Deploying to AWS..."
-	@$(MAKE) export
-	@cd aws && powershell -ExecutionPolicy Bypass -File deploy.ps1 -SkipBucketCreation
+	@echo "Deploying site to AWS..."
+	@cd $(AWS_DIR) && $(PYTHON) deploy.py --skip-bucket-creation
 
-# Deploy to AWS (full - includes bucket creation)
-deploy-full:
-	@echo "Deploying to AWS (full setup)..."
-	@$(MAKE) export
-	@cd aws && powershell -ExecutionPolicy Bypass -File deploy.ps1
+deploy-dry-run:
+	@echo "Running deployment dry run..."
+	@cd $(AWS_DIR) && $(PYTHON) deploy.py --dry-run
 
-# Track management
-track-add:
-	@echo "Adding new track..."
-	go run ./cmd track add
-
-track-list:
-	@echo "Listing tracks..."
-	go run ./cmd track list
-
-# Event management
-event-add:
-	@echo "Adding new event..."
-	go run ./cmd event add
-
-event-list:
-	@echo "Listing events..."
-	go run ./cmd event list
-
-event-delete:
-	@if "$(ID)" == "" (echo Error: ID parameter required. Usage: make event-delete ID=1 & exit /b 1)
-	@echo "Deleting event $(ID)..."
-	go run ./cmd event delete $(ID)
-
-event-import:
-	@if "$(FILE)" == "" (echo Error: FILE parameter required. Usage: make event-import FILE=events.csv & exit /b 1)
-	@echo "Importing events from $(FILE)..."
-	go run ./cmd event import $(FILE)
-
-event-import-classes:
-	@if "$(FILE)" == "" (echo Error: FILE parameter required. Usage: make event-import-classes FILE=classes.csv & exit /b 1)
-	@echo "Importing event classes from $(FILE)..."
-	go run ./cmd event import-classes $(FILE)
-
-event-list-classes:
-	@echo "Listing event classes..."
-	go run ./cmd event list-classes
-
-event-import-rules:
-	@if "$(FILE)" == "" (echo Error: FILE parameter required. Usage: make event-import-rules FILE=rules.csv & exit /b 1)
-	@echo "Importing event class rules from $(FILE)..."
-	go run ./cmd event import-rules $(FILE)
-
-# Run full workflow: clean db, init, seed, export
-full-workflow: clean-db init seed export
-	@echo "Full workflow complete"
-
-# Clean database (backup first)
-clean-db:
-	@echo "Backing up and cleaning database..."
-	@if exist db\db.sqlite (copy /Y db\db.sqlite db\db.sqlite.backup)
-	@if exist db\db.sqlite (del db\db.sqlite)
-	@echo "Database cleaned"
-
-# Format code
-fmt:
-	@echo "Formatting code..."
-	go fmt ./...
-
-# Run linter
-lint:
-	@echo "Running linter..."
-	go vet ./...
-
-# Check for common issues
-check: fmt lint test
-	@echo "All checks passed"
-
-# Help
 help:
 	@echo "Available targets:"
-	@echo "  make build          - Build the CLI tool"
-	@echo "  make test           - Run tests"
-	@echo "  make test-coverage  - Run tests with coverage report"
-	@echo "  make clean          - Clean build artifacts"
-	@echo ""
-	@echo "Database:"
-	@echo "  make init           - Initialize database"
-	@echo "  make seed           - Seed database with sample data"
-	@echo "  make clean-db       - Clean database (creates backup)"
-	@echo ""
-	@echo "Track Management:"
-	@echo "  make track-add      - Interactively add a new track"
-	@echo "  make track-list     - List all tracks"
-	@echo ""
-	@echo "Event Management:"
-	@echo "  make event-add      - Interactively add a new event"
-	@echo "  make event-list     - List all events"
-	@echo "  make event-delete ID=<id> - Delete event by ID"
-	@echo "  make event-import FILE=<file> - Import events from CSV"
-	@echo "  make event-import-classes FILE=<file> - Import event classes from CSV"
-	@echo "  make event-import-rules FILE=<file> - Import class rules from CSV"
-	@echo "  make event-list-classes - List all event classes"
-	@echo ""
-	@echo "  make export         - Export data to JSON"
-	@echo "  make full-workflow  - Run complete workflow (clean, init, seed, export)"
-	@echo ""
-	@echo "Deployment:"
-	@echo "  make deploy         - Deploy to AWS (exports data + uploads)"
-	@echo "  make deploy-full    - Deploy to AWS with bucket creation"
-	@echo ""
-	@echo "Code Quality:"
-	@echo "  make fmt            - Format code"
-	@echo "  make lint           - Run linter"
-	@echo "  make check          - Run fmt, lint, and test"
-	@echo "  make all            - Run test and build (default)"
+	@echo "  make build     - Validate required site files"
+	@echo "  make test      - Run frontend tests"
+	@echo "  make test-watch - Run frontend tests in watch mode"
+	@echo "  make coverage  - Run frontend coverage"
+	@echo "  make start     - Start the local site server"
+	@echo "  make deploy    - Deploy the site to AWS"
+	@echo "  make deploy-dry-run - Preview deployment actions without changing AWS"

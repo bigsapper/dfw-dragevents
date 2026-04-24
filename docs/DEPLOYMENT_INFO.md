@@ -9,7 +9,7 @@ User → Route 53 → CloudFront CDN → Origin Group (Failover)
                                     ├─ S3 us-east-1 (Primary) ✓
                                     └─ S3 us-west-2 (Secondary) ⏸
                                     
-Deployment: GitHub → deploy.ps1 → Both S3 Buckets
+Deployment: GitHub → deploy.py → Both S3 Buckets
 ```
 
 **High Availability Features:**
@@ -57,36 +57,36 @@ For detailed architecture and DR procedures, see [HIGH_AVAILABILITY.md](HIGH_AVA
 ## Quick Commands
 
 ### Check CloudFront Status
-```powershell
+```bash
 aws cloudfront get-distribution --id YOUR_DISTRIBUTION_ID --query "Distribution.Status"
 ```
 
 ### Invalidate CloudFront Cache
-```powershell
+```bash
 aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
 ```
 
 Replace `YOUR_DISTRIBUTION_ID` with your actual CloudFront distribution ID.
 
 ### List CloudFront Distributions
-```powershell
+```bash
 aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@,'dfw-dragevents.com')]]"
 ```
 
 ### Check Certificate Status
-```powershell
+```bash
 # List certificates for your domain
 aws acm list-certificates --region us-east-1 --query "CertificateSummaryList[?DomainName=='dfw-dragevents.com']"
 ```
 
 ### Sync to S3
-```powershell
+```bash
 aws s3 sync site/ s3://dfw-dragevents.com/ --delete
 ```
 
 ## Deployment Workflow
 
-See [README.md](../README.md#updating-site-content) for the complete update workflow.
+See [README.md](../README.md), [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md), and [../tools/aws/README.md](../tools/aws/README.md) for the active deployment workflow.
 
 ## Cost Monitoring
 
@@ -125,7 +125,7 @@ Monitor your AWS costs:
 
 **If Both Regions Fail:**
 1. Verify GitHub repository is current
-2. Run `.\deploy.ps1` to redeploy to S3
+2. Run `python3 tools/aws/deploy.py` to redeploy to S3
 3. If needed, deploy to new region or provider from Git
 - **Recovery Time:** ~5 minutes
 

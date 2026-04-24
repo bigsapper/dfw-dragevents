@@ -35,9 +35,14 @@ site/coverage/
 node_modules/
 coverage/
 
+# Python
+__pycache__/
+*.pyc
+
 # IDE and editor files
 .vscode/
 .idea/
+.codex
 *.swp
 *.swo
 *~

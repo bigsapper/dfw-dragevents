@@ -92,7 +92,7 @@
   <!-- Deploy arrows -->
   <line x1="780" y1="445" x2="470" y2="620" stroke="#879196" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowhead)"/>
   <line x1="780" y1="445" x2="530" y2="620" stroke="#879196" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowhead)"/>
-  <text x="640" y="520" font-family="Arial, sans-serif" font-size="11" fill="#545B64" font-style="italic">deploy.ps1</text>
+  <text x="640" y="520" font-family="Arial, sans-serif" font-size="11" fill="#545B64" font-style="italic">deploy.py</text>
   
   <!-- Legend -->
   <g id="legend">

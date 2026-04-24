@@ -20,7 +20,9 @@ const MIME_TYPES = {
 };
 
 const server = createServer(async (req, res) => {
-  let filePath = join(__dirname, req.url === '/' ? '/index.html' : req.url);
+  const requestUrl = new URL(req.url || '/', `http://localhost:${PORT}`);
+  const pathname = requestUrl.pathname === '/' ? '/index.html' : requestUrl.pathname;
+  const filePath = join(__dirname, pathname);
 
   try {
     const data = await readFile(filePath);
