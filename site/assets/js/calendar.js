@@ -1,3 +1,11 @@
+import { FEE_DEFINITIONS } from './domain/fees.js';
+
+function getCalendarFeeLabels(event) {
+  return FEE_DEFINITIONS
+    .filter(({ numericField }) => event[numericField])
+    .map(({ label, numericField }) => `${label}: $${event[numericField]}`);
+}
+
 export function generateICS(event) {
   if (!event.start_date) return null;
 
@@ -14,10 +22,8 @@ export function generateICS(event) {
   const icsEnd = formatICSDate(endDate);
 
   let description = event.description || '';
-  if (event.event_driver_fee || event.event_spectator_fee) {
-    const fees = [];
-    if (event.event_driver_fee) fees.push(`Driver: $${event.event_driver_fee}`);
-    if (event.event_spectator_fee) fees.push(`Spectator: $${event.event_spectator_fee}`);
+  const fees = getCalendarFeeLabels(event);
+  if (fees.length > 0) {
     description += (description ? '\n\n' : '') + `Fees: ${fees.join(' | ')}`;
   }
 

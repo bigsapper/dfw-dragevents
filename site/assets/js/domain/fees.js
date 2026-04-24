@@ -1,12 +1,26 @@
+export const FEE_DEFINITIONS = [
+  {
+    label: 'Driver',
+    rawField: 'raw_driver_fee',
+    numericField: 'event_driver_fee',
+    offerName: 'Driver Entry'
+  },
+  {
+    label: 'Spectator',
+    rawField: 'raw_spectator_fee',
+    numericField: 'event_spectator_fee',
+    offerName: 'Spectator Entry'
+  }
+];
+
 export function getEventFeeLabels(event) {
-  const fees = [];
-  if (event.raw_driver_fee || event.event_driver_fee) {
-    fees.push(`Driver: ${event.raw_driver_fee || `$${event.event_driver_fee}`}`);
-  }
-  if (event.raw_spectator_fee || event.event_spectator_fee) {
-    fees.push(`Spectator: ${event.raw_spectator_fee || `$${event.event_spectator_fee}`}`);
-  }
-  return fees;
+  return FEE_DEFINITIONS
+    .map(({ label, rawField, numericField }) => {
+      const rawValue = event[rawField];
+      const numericValue = event[numericField];
+      return rawValue || numericValue ? `${label}: ${rawValue || `$${numericValue}`}` : null;
+    })
+    .filter(Boolean);
 }
 
 export function formatEventFees(event) {
@@ -15,25 +29,12 @@ export function formatEventFees(event) {
 }
 
 export function getPricedOffers(event) {
-  const offers = [];
-
-  if (event.event_driver_fee) {
-    offers.push({
+  return FEE_DEFINITIONS
+    .filter(({ numericField }) => event[numericField])
+    .map(({ numericField, offerName }) => ({
       '@type': 'Offer',
-      name: 'Driver Entry',
-      price: event.event_driver_fee,
+      name: offerName,
+      price: event[numericField],
       priceCurrency: 'USD'
-    });
-  }
-
-  if (event.event_spectator_fee) {
-    offers.push({
-      '@type': 'Offer',
-      name: 'Spectator Entry',
-      price: event.event_spectator_fee,
-      priceCurrency: 'USD'
-    });
-  }
-
-  return offers;
+    }));
 }

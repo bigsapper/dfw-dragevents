@@ -80,6 +80,14 @@ function isPlainObject(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
+const TYPE_VALIDATORS = {
+  array: Array.isArray,
+  object: isPlainObject,
+  string: (value) => typeof value === 'string',
+  number: (value) => typeof value === 'number' && Number.isFinite(value),
+  null: (value) => value === null
+};
+
 function readDefinition(schema, ref) {
   const prefix = '#/definitions/';
   if (!ref.startsWith(prefix)) {
@@ -96,20 +104,11 @@ function readDefinition(schema, ref) {
 }
 
 function validateType(value, type) {
-  switch (type) {
-    case 'array':
-      return Array.isArray(value);
-    case 'object':
-      return isPlainObject(value);
-    case 'string':
-      return typeof value === 'string';
-    case 'number':
-      return typeof value === 'number' && Number.isFinite(value);
-    case 'null':
-      return value === null;
-    default:
-      fail(`Unsupported schema type: ${type}`);
+  const validator = TYPE_VALIDATORS[type];
+  if (!validator) {
+    fail(`Unsupported schema type: ${type}`);
   }
+  return validator(value);
 }
 
 function validateFormat(value, format, pathLabel) {
