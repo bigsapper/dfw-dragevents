@@ -1,7 +1,11 @@
-import { describe, it, expect } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { generateICS, downloadCalendar } from '../assets/js/app.js';
 
 describe('Calendar functionality', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it('should generate valid ICS content for an event', () => {
     const event = {
       id: 1,
@@ -85,5 +89,34 @@ describe('Calendar functionality', () => {
     const icsContent = generateICS(event);
     
     expect(icsContent).toContain('DESCRIPTION:Main event\\n\\nFees: Driver: $50 | Spectator: $20\\n\\nClasses:\\n• Pro Street - Buy-in: $100\\n• Street - Buy-in: $50');
+  });
+
+  it('should download generated ICS content and clean up the object URL', () => {
+    const createObjectURL = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:test-calendar');
+    const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
+    const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+
+    downloadCalendar({
+      id: 5,
+      title: 'Friday Night Race',
+      start_date: '2025-10-03T08:00:00Z',
+      track_name: 'Test Track'
+    });
+
+    expect(createObjectURL).toHaveBeenCalledOnce();
+    expect(click).toHaveBeenCalledOnce();
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:test-calendar');
+    expect(document.querySelector('a[download="friday_night_race.ics"]')).toBeNull();
+  });
+
+  it('should alert and skip download when calendar content cannot be generated', () => {
+    const alertSpy = vi.fn();
+    globalThis.alert = alertSpy;
+    const createObjectURL = vi.spyOn(URL, 'createObjectURL');
+
+    downloadCalendar({ title: 'No Date Event' });
+
+    expect(alertSpy).toHaveBeenCalledWith('Unable to generate calendar file: Invalid event date');
+    expect(createObjectURL).not.toHaveBeenCalled();
   });
 });

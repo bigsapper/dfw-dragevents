@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { execFile as execFileCallback } from 'node:child_process';
 import path from 'node:path';
 import { promisify } from 'node:util';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,15 +33,15 @@ const EVENTS_FILE = path.join(dataDir, 'events.json');
 const SCHEMA_FILE = path.join(dataDir, 'events.schema.json');
 const execFile = promisify(execFileCallback);
 
-function fail(message) {
+export function fail(message) {
   throw new Error(message);
 }
 
-function sleep(ms) {
+export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function formatErrorDetails(error) {
+export function formatErrorDetails(error) {
   if (!error) {
     return 'Unknown error';
   }
@@ -76,11 +76,11 @@ function formatErrorDetails(error) {
   return parts.join(' | ');
 }
 
-function isPlainObject(value) {
+export function isPlainObject(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-const TYPE_VALIDATORS = {
+export const TYPE_VALIDATORS = {
   array: Array.isArray,
   object: isPlainObject,
   string: (value) => typeof value === 'string',
@@ -88,7 +88,7 @@ const TYPE_VALIDATORS = {
   null: (value) => value === null
 };
 
-function readDefinition(schema, ref) {
+export function readDefinition(schema, ref) {
   const prefix = '#/definitions/';
   if (!ref.startsWith(prefix)) {
     fail(`Unsupported schema reference: ${ref}`);
@@ -103,7 +103,7 @@ function readDefinition(schema, ref) {
   return definition;
 }
 
-function validateType(value, type) {
+export function validateType(value, type) {
   const validator = TYPE_VALIDATORS[type];
   if (!validator) {
     fail(`Unsupported schema type: ${type}`);
@@ -111,7 +111,7 @@ function validateType(value, type) {
   return validator(value);
 }
 
-function validateFormat(value, format, pathLabel) {
+export function validateFormat(value, format, pathLabel) {
   if (typeof value !== 'string') {
     return;
   }
@@ -130,7 +130,7 @@ function validateFormat(value, format, pathLabel) {
   }
 }
 
-function validateAgainstSchema(value, schemaNode, rootSchema, pathLabel) {
+export function validateAgainstSchema(value, schemaNode, rootSchema, pathLabel) {
   if (schemaNode.$ref) {
     validateAgainstSchema(value, readDefinition(rootSchema, schemaNode.$ref), rootSchema, pathLabel);
     return;
@@ -210,7 +210,7 @@ function validateAgainstSchema(value, schemaNode, rootSchema, pathLabel) {
   }
 }
 
-function parseFee(value) {
+export function parseFee(value) {
   if (!value || typeof value !== 'string') {
     return null;
   }
@@ -219,7 +219,7 @@ function parseFee(value) {
   return match ? Number(match[1]) : null;
 }
 
-function toStartDate(event) {
+export function toStartDate(event) {
   const date = event?.dates?.start;
   if (!date) {
     return null;
@@ -229,7 +229,7 @@ function toStartDate(event) {
   return `${date}T${time}:00`;
 }
 
-function toEndDate(event) {
+export function toEndDate(event) {
   const endDate = event?.dates?.end || event?.dates?.start;
   if (!endDate) {
     return null;
@@ -238,7 +238,7 @@ function toEndDate(event) {
   return `${endDate}T23:59:59`;
 }
 
-function transformEvents(events) {
+export function transformEvents(events) {
   return events.map((event) => ({
     id: event.id,
     title: event.title,
@@ -269,12 +269,21 @@ function transformEvents(events) {
   }));
 }
 
-async function fetchJSON(url) {
+export async function fetchJSON(
+  url,
+  {
+    fetchImpl = fetch,
+    retries = FETCH_RETRIES,
+    retryDelayMs = FETCH_RETRY_DELAY_MS,
+    sleepImpl = sleep,
+    consoleImpl = console
+  } = {}
+) {
   let lastError;
 
-  for (let attempt = 1; attempt <= FETCH_RETRIES; attempt += 1) {
+  for (let attempt = 1; attempt <= retries; attempt += 1) {
     try {
-      const response = await fetch(url, { cache: 'no-store' });
+      const response = await fetchImpl(url, { cache: 'no-store' });
       if (!response.ok) {
         fail(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
       }
@@ -283,22 +292,22 @@ async function fetchJSON(url) {
     } catch (error) {
       lastError = error;
 
-      if (attempt === FETCH_RETRIES) {
+      if (attempt === retries) {
         break;
       }
 
-      const delayMs = FETCH_RETRY_DELAY_MS * attempt;
-      console.warn(
-        `Fetch attempt ${attempt}/${FETCH_RETRIES} failed for ${url}: ${formatErrorDetails(error)}. Retrying in ${delayMs}ms...`
+      const delayMs = retryDelayMs * attempt;
+      consoleImpl.warn(
+        `Fetch attempt ${attempt}/${retries} failed for ${url}: ${formatErrorDetails(error)}. Retrying in ${delayMs}ms...`
       );
-      await sleep(delayMs);
+      await sleepImpl(delayMs);
     }
   }
 
-  fail(`Failed to fetch ${url} after ${FETCH_RETRIES} attempts: ${formatErrorDetails(lastError)}`);
+  fail(`Failed to fetch ${url} after ${retries} attempts: ${formatErrorDetails(lastError)}`);
 }
 
-async function readCachedJSON(filePath) {
+export async function readCachedJSON(filePath) {
   let raw;
 
   try {
@@ -314,7 +323,7 @@ async function readCachedJSON(filePath) {
   }
 }
 
-async function fetchJSONWithCurl(url) {
+export async function fetchJSONWithCurl(url) {
   let stdout;
 
   try {
@@ -332,35 +341,56 @@ async function fetchJSONWithCurl(url) {
   }
 }
 
-async function loadRemoteJSON({ primaryCurlUrl, fallbackCurlUrl, fallbackFetchUrl, label }) {
+export async function loadRemoteJSON({
+  primaryCurlUrl,
+  fallbackCurlUrl,
+  fallbackFetchUrl,
+  label,
+  fetchJSONWithCurlImpl = fetchJSONWithCurl,
+  fetchJSONImpl = fetchJSON,
+  consoleImpl = console
+}) {
   try {
-    return await fetchJSONWithCurl(primaryCurlUrl);
+    return await fetchJSONWithCurlImpl(primaryCurlUrl);
   } catch (primaryCurlError) {
-    console.warn(`Primary curl download failed for ${label}: ${formatErrorDetails(primaryCurlError)}`);
+    consoleImpl.warn(`Primary curl download failed for ${label}: ${formatErrorDetails(primaryCurlError)}`);
   }
 
   try {
-    return await fetchJSONWithCurl(fallbackCurlUrl);
+    return await fetchJSONWithCurlImpl(fallbackCurlUrl);
   } catch (fallbackCurlError) {
-    console.warn(`Fallback curl download failed for ${label}: ${formatErrorDetails(fallbackCurlError)}`);
+    consoleImpl.warn(`Fallback curl download failed for ${label}: ${formatErrorDetails(fallbackCurlError)}`);
   }
 
-  return fetchJSON(fallbackFetchUrl);
+  return fetchJSONImpl(fallbackFetchUrl);
 }
 
-async function main() {
+export function isRecoverableSyncError(error) {
+  const message = String(error?.message || '');
+  return message.startsWith('Failed to fetch ') || message.startsWith('curl fallback failed ');
+}
+
+export async function syncData({
+  loadRemoteJSONImpl = loadRemoteJSON,
+  readCachedJSONImpl = readCachedJSON,
+  validateAgainstSchemaImpl = validateAgainstSchema,
+  transformEventsImpl = transformEvents,
+  mkdirImpl = mkdir,
+  writeFileImpl = writeFile,
+  consoleImpl = console
+} = {}) {
   let schema;
   let upstreamEvents;
 
   try {
     [schema, upstreamEvents] = await Promise.all([
-      loadRemoteJSON({
+      loadRemoteJSONImpl({
         primaryCurlUrl: SCHEMA_CURL_URL,
         fallbackCurlUrl: SCHEMA_CDN_URL,
         fallbackFetchUrl: SCHEMA_URL,
         label: 'schema'
       }),
-      loadRemoteJSON({
+      loadRemoteJSONImpl({
         primaryCurlUrl: EVENTS_CURL_URL,
         fallbackCurlUrl: EVENTS_CDN_URL,
         fallbackFetchUrl: EVENTS_URL,
@@ -368,22 +398,19 @@ async function main() {
       })
     ]);
   } catch (error) {
-    if (
-      !String(error?.message || '').startsWith('Failed to fetch ') &&
-      !String(error?.message || '').startsWith('curl fallback failed ')
-    ) {
+    if (!isRecoverableSyncError(error)) {
       throw error;
     }
 
     const [cachedEvents] = await Promise.all([
-      readCachedJSON(EVENTS_FILE),
-      readCachedJSON(SCHEMA_FILE)
+      readCachedJSONImpl(EVENTS_FILE),
+      readCachedJSONImpl(SCHEMA_FILE)
     ]);
 
-    console.warn(
+    consoleImpl.warn(
       `Warning: upstream sync unavailable after alternate source attempts, continuing with cached site data. Details: ${formatErrorDetails(error)}`
     );
-    console.log(
+    consoleImpl.log(
       `Build is using the cached dataset with ${
         Array.isArray(cachedEvents) ? cachedEvents.length : 'an unknown number of'
       } events and the cached schema snapshot.`
@@ -391,18 +418,24 @@ async function main() {
     return;
   }
 
-  validateAgainstSchema(upstreamEvents, schema, schema, 'events');
+  validateAgainstSchemaImpl(upstreamEvents, schema, schema, 'events');
 
-  const events = transformEvents(upstreamEvents);
+  const events = transformEventsImpl(upstreamEvents);
 
-  await mkdir(dataDir, { recursive: true });
-  await writeFile(EVENTS_FILE, `${JSON.stringify(events, null, 2)}\n`);
-  await writeFile(SCHEMA_FILE, `${JSON.stringify(schema, null, 2)}\n`);
+  await mkdirImpl(dataDir, { recursive: true });
+  await writeFileImpl(EVENTS_FILE, `${JSON.stringify(events, null, 2)}\n`);
+  await writeFileImpl(SCHEMA_FILE, `${JSON.stringify(schema, null, 2)}\n`);
 
-  console.log(`Synced ${events.length} events from upstream dataset.`);
+  consoleImpl.log(`Synced ${events.length} events from upstream dataset.`);
 }
 
-main().catch((error) => {
-  console.error(formatErrorDetails(error));
-  process.exitCode = 1;
-});
+export async function main() {
+  await syncData();
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error(formatErrorDetails(error));
+    process.exitCode = 1;
+  });
+}

@@ -8,7 +8,7 @@ describe('year.js', () => {
 
   it('should set the current year in the year element', async () => {
     // Import the module (this executes the code)
-    await import('../assets/js/year.js');
+    await import('../assets/js/year.js?year-set');
     
     const yearElement = document.getElementById('year');
     const currentYear = new Date().getFullYear();
@@ -20,10 +20,6 @@ describe('year.js', () => {
     // Remove the year element
     document.body.innerHTML = '';
     
-    // This should not throw an error
-    // Note: The current implementation will throw, but we're documenting expected behavior
-    expect(() => {
-      document.getElementById('year').textContent = new Date().getFullYear();
-    }).toThrow();
+    await expect(import('../assets/js/year.js?year-missing')).resolves.toBeDefined();
   });
 });

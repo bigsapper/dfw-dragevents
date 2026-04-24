@@ -32,6 +32,8 @@ tools/internal_coverage/
 # Frontend (Node.js)
 site/node_modules/
 site/coverage/
+site/playwright-report/
+site/test-results/
 node_modules/
 coverage/
 
