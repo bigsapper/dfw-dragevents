@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateICS, downloadCalendar } from './app.js';
+import { generateICS, downloadCalendar } from '../assets/js/app.js';
 
 describe('Calendar functionality', () => {
   it('should generate valid ICS content for an event', () => {

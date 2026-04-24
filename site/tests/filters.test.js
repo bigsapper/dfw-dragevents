@@ -6,7 +6,7 @@ import {
   getNext30DaysEvents,
   getPastEvents,
   sortEventsByDate
-} from './filters.js';
+} from '../assets/js/filters.js';
 
 describe('filterEventsByDate', () => {
   const mockEvents = [

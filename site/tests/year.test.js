@@ -8,7 +8,7 @@ describe('year.js', () => {
 
   it('should set the current year in the year element', async () => {
     // Import the module (this executes the code)
-    await import('./year.js');
+    await import('../assets/js/year.js');
     
     const yearElement = document.getElementById('year');
     const currentYear = new Date().getFullYear();

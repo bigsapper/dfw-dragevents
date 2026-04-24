@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { formatDateTime, formatDateRange, fetchJSON, loadEventsList, loadEventDetail, resetCache, initializeEventsList, initializeEventDetail, isSafeUrl, renderTrackFilters, generateICS, downloadCalendar } from './app.js';
+import { formatDateTime, formatDateRange, fetchJSON, loadEventsList, loadEventDetail, resetCache, initializeEventsList, initializeEventDetail, isSafeUrl, renderTrackFilters, generateICS, downloadCalendar } from '../assets/js/app.js';
 
 function createMockFetch({ events = [], trackFilters = [] } = {}) {
   const resolvedTrackFilters = trackFilters;
