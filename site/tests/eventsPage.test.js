@@ -22,7 +22,7 @@ const events = [
     track_name: 'Track One',
     track_city: 'Dallas',
     track_state: 'TX',
-    start_date: '2026-05-01T18:00:00'
+    start_date: new Date(Date.now() + 86400000).toISOString()
   },
   {
     id: 'event-2',
@@ -31,7 +31,7 @@ const events = [
     track_name: 'Track Two',
     track_city: 'Fort Worth',
     track_state: 'TX',
-    start_date: '2026-05-02T18:00:00'
+    start_date: new Date(Date.now() + 2 * 86400000).toISOString()
   }
 ];
 

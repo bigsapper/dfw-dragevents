@@ -1738,14 +1738,14 @@
   {
     "id": "50bf9b0f-1291-4dfc-9526-e4d138011def",
     "title": "Street Car Takeover",
-    "event_type": "unknown",
+    "event_type": "specialty",
     "series": null,
     "track_id": "texas-motorplex-tx",
     "track_name": "Texas Motorplex",
     "track_city": "Ennis",
     "track_state": "TX",
-    "start_date": "2026-05-29T09:00:00",
-    "end_date": "2026-05-30T23:59:59",
+    "start_date": "2026-05-01T09:00:00",
+    "end_date": "2026-05-02T23:59:59",
     "description": "Where Street Car Go To Party!",
     "event_driver_fee": 0,
     "event_spectator_fee": 0,
@@ -1757,7 +1757,7 @@
     "unclear_fields": [],
     "flyers": [],
     "created_at": "2026-04-01T01:10:29.958824+00:00",
-    "updated_at": "2026-04-01T01:10:29.958824+00:00"
+    "updated_at": "2026-05-11T01:10:29.958824+00:00"
   },
   {
     "id": "ce32dea7-9a3a-4cf9-b7c1-21a70a6d100a",
