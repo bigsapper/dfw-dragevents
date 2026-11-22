@@ -210,7 +210,10 @@ describe('sync data orchestration', () => {
 
     expect(validateAgainstSchemaImpl).toHaveBeenCalledWith([{ upstream: true }], { type: 'array' }, { type: 'array' }, 'events');
     expect(transformEventsImpl).toHaveBeenCalledWith([{ upstream: true }]);
-    expect(mkdirImpl).toHaveBeenCalledWith(expect.stringContaining('/site/data'), { recursive: true });
+    expect(mkdirImpl).toHaveBeenCalledWith(
+      expect.stringMatching(/(?:^|[\\/])site[\\/]data$/),
+      { recursive: true }
+    );
     expect(writeFileImpl).toHaveBeenCalledWith(expect.stringContaining('events.json'), expect.stringContaining('"event-1"'));
     expect(writeFileImpl).toHaveBeenCalledWith(expect.stringContaining('events.schema.json'), expect.stringContaining('"array"'));
   });
