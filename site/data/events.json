@@ -2968,5 +2968,56 @@
     ],
     "created_at": "2026-11-22T20:18:04.361288+00:00",
     "updated_at": "2026-11-22T20:18:15.700931+00:00"
+  },
+  {
+    "id": "72c1eb45-3fb0-4928-81d8-5097568f154c",
+    "title": "Fall Fest",
+    "event_type": "specialty",
+    "series": "Big Jake Promotions",
+    "track_id": "xtreme-tx",
+    "track_name": "Xtreme Raceway Park",
+    "track_city": "Ferris",
+    "track_state": "TX",
+    "start_date": "2026-11-27T00:00:00",
+    "end_date": "2026-11-28T23:59:59",
+    "description": "Multi-day event: FRIDAY — Lil Gangstas ($250 entry, $10,000 to win; 5.30 index, 28x10.5 no WS, 275/60/15 radial or smaller unless factory 17in+ rim, door cars/trucks, no wheelie bars, no throttle stops, no delay boxes, no time slips) and 7.50 Index ($150 entry, $5,000 to win; cars & trucks allowed, slicks or radials only, trans-brake OK, no throttle stops, no delay boxes). SATURDAY — 28/275 (free entry, $10,000 to win; 275 or 28W or smaller, any power adder, class cars welcome, any chassis); Outlaw Street (free entry, $5,000 to win; boosted big blocks 9.8 deck height max no billet heads/blocks 3200lbs, no 1pc CF/FG front ends, no all billet boosted small block, no CF/FG door/decklid/fenders, 88nos sin bore space or smaller, working head & tail lights, 2 front seats required, factory floors required, no wheelie bars, factory firewall required, ladder bars & 4 links OK, factory appearing dashboard required fiberglass/carbon OK, no full chassis cars, real side glass windows 1/4 glass too required, no forward facing scoops, 275s or 28in slicks); Lil Gangstas ($250 entry, $10,000 to win); 7.50 Index ($150 entry, $5,000 to win). Debit & credit cards accepted. No refunds or rain checks. Address: 1800 S Interstate 45 Service Rd, Ferris, TX 75125.",
+    "event_driver_fee": 30,
+    "event_spectator_fee": 30,
+    "raw_driver_fee": "General Admission: $30 (Military $5 off); Tech Cards: $30; Pit Side Parking: $30; RVs & Travel Trailers (not attached to a car trailer): $50/day. Class entries — Lil Gangstas: $250; 7.50 Index: $150; 28/275: Free; Outlaw Street: Free",
+    "raw_spectator_fee": "$30 General Admission (Military $5 off)",
+    "url": "https://www.xtremeracewaypark.com",
+    "classes": [
+      {
+        "name": "Lil Gangstas",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "7.50 Index",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "28/275",
+        "buyin_fee": null,
+        "rules": []
+      },
+      {
+        "name": "Outlaw Street",
+        "buyin_fee": null,
+        "rules": []
+      }
+    ],
+    "confidence": 0.97,
+    "unclear_fields": [],
+    "flyers": [
+      {
+        "file": "fall-fest.jpg",
+        "phash": "dfc487130e6a686b",
+        "processed_at": "2026-11-23T23:29:02.272914+00:00"
+      }
+    ],
+    "created_at": "2026-11-23T23:29:02.272914+00:00",
+    "updated_at": "2026-11-23T23:29:02.272914+00:00"
   }
 ]
